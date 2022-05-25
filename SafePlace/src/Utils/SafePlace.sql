@@ -19,7 +19,8 @@ CREATE TABLE Condominio(
 CREATE TABLE Usuario(
     idUsuario INT PRIMARY KEY AUTO_INCREMENT,
     nome VARCHAR(100),
-    senha VARCHAR(50)
+    senha VARCHAR(50),
+    tipo  VARCHAR(20)
 );
 #DROP TABLE Area;
 CREATE TABLE Area(

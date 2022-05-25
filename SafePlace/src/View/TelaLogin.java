@@ -1,4 +1,11 @@
 package View;
+import Controllers.UsuarioControl;
+
+
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 
 public class TelaLogin extends javax.swing.JFrame {
 
@@ -7,18 +14,10 @@ public class TelaLogin extends javax.swing.JFrame {
      */
     public TelaLogin() {
         initComponents();
-    }
-        private void btnLoginActionPerformed(java.awt.event.ActionEvent evt) {                                         
-        user.setSenha(txtSenha.getText());
-               
-        user.setLogin(txtLogin.getText());
-    }                                        
-
-    private void txtLoginActionPerformed(java.awt.event.ActionEvent evt) {                                         
-        // TODO add your handling code here:
-    }
-
-
+    }   
+    UsuarioControl user = new UsuarioControl();
+  
+    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -55,6 +54,11 @@ public class TelaLogin extends javax.swing.JFrame {
         jLabel3.setText("Seja bem vindo ao SafePlace!");
 
         btnFechar.setText("Fechar");
+        btnFechar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnFecharActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -108,14 +112,31 @@ public class TelaLogin extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoginActionPerformed
-        user.setSenha(txtSenha.getText());
-               
-        user.setLogin(txtLogin.getText());
+       
+       String login = txtLogin.getText();
+       String senha = txtSenha.getText();
+       
+       
+        try { 
+            if(user.login(login ,senha)){
+                JOptionPane.showMessageDialog(null, "Login realizado com susseso");
+            }else{
+            JOptionPane.showMessageDialog(null,"erro no login");
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(TelaLogin.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, "Login nada porra!");
+        }
+       
     }//GEN-LAST:event_btnLoginActionPerformed
 
     private void txtLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtLoginActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtLoginActionPerformed
+
+    private void btnFecharActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFecharActionPerformed
+        this.dispose();
+    }//GEN-LAST:event_btnFecharActionPerformed
 
     /**
      * @param args the command line arguments
