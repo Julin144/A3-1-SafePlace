@@ -3,11 +3,13 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/822158274/Documents/A3/SafePlace/src/Models/Usuario.java</file>
-            <file>file:/C:/Users/822158274/Documents/A3/SafePlace/src/Controllers/Usuario.java</file>
+            <file>file:/C:/Users/822158274/Documents/A3/SafePlace/src/Database/Conexao.java</file>
             <file>file:/C:/Users/822158274/Documents/A3/SafePlace/src/Utils/SafePlace.sql</file>
-            <file>file:/C:/Users/822158274/Documents/A3/SafePlace/src/Controllers/Conexao.java</file>
+            <file>file:/C:/Users/822158274/Documents/A3/SafePlace/src/Database/UsuarioDB.java</file>
+            <file>file:/C:/Users/822158274/Documents/A3/SafePlace/src/Controllers/UsuarioControl.java</file>
             <file>file:/C:/Users/822158274/Documents/A3/SafePlace/src/View/TelaLogin.java</file>
+            <file>file:/C:/Users/822158274/Documents/A3/SafePlace/src/Models/UsuarioModel.java</file>
+            <file>file:/C:/Users/822158274/Documents/A3/SafePlace/src/View/Menu.java</file>
         </group>
     </open-files>
 </project-private>
