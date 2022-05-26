@@ -1,4 +1,5 @@
 package View;
+
 import Controllers.UsuarioControl;
 
 import java.sql.SQLException;
@@ -13,10 +14,9 @@ public class TelaLogin extends javax.swing.JFrame {
      */
     public TelaLogin() {
         initComponents();
-    }   
+    }
     UsuarioControl user = new UsuarioControl();
 
-    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -111,22 +111,20 @@ public class TelaLogin extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoginActionPerformed
-       
-       String login = txtLogin.getText();
-       String senha = txtSenha.getText();
-       
-       
-        try { 
-            if(user.login(login ,senha)){
+
+        String login = txtLogin.getText();
+        String senha = txtSenha.getText();
+
+        try {
+            if (user.login(login, senha)) {
                 JOptionPane.showMessageDialog(null, "Login realizado com susseso");
-            }else{
-            JOptionPane.showMessageDialog(null,"erro no login");
+            } else {
+                JOptionPane.showMessageDialog(null, "erro no login");
             }
-        } catch (SQLException ex) {
+        } catch (Exception ex) {
             Logger.getLogger(TelaLogin.class.getName()).log(Level.SEVERE, null, ex);
             JOptionPane.showMessageDialog(null, "Login nada porra!");
         }
-       
     }//GEN-LAST:event_btnLoginActionPerformed
 
     private void txtLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtLoginActionPerformed

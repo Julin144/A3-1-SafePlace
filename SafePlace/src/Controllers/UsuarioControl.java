@@ -2,7 +2,6 @@ package Controllers;
 
 import Models.UsuarioModel;
 import Database.UsuarioDB;
-import java.sql.SQLException;
 
 public class UsuarioControl {
     
@@ -16,17 +15,11 @@ public class UsuarioControl {
     
     
     
-    public boolean login(String login ,String senha) throws SQLException{
-        
+    public boolean login(String login ,String senha) throws Exception{
         user.setLogin(login);
         user.setSenha(senha);
         
-        boolean logou = db.login(user);
-        
-        System.out.println(this.user.getTipo());
-        
-        return logou;
-    
+        return db.login(user);
     };
     
     public void cadastarInquelino(){};

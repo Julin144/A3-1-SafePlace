@@ -4,7 +4,6 @@
  * and open the template in the editor.
  */
 package Database;
-import Database.Conexao;
 import Models.UsuarioModel;
 
 /**
@@ -14,19 +13,18 @@ import Models.UsuarioModel;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 public class UsuarioDB {
     
-    public boolean login(UsuarioModel user) throws SQLException{
+    public boolean login(UsuarioModel user) throws Exception{
     
-        String sql = "select idUsuario,nome,senha,tipo from Usuario where senha = ? and login = ? ;";
+        String sql = "select idUsuario,login,senha,tipo from Usuario where senha = ? and login = ? ;";
 
-        boolean r = false;
+        boolean r;
         
-        try ( Connection conexao = Conexao.obterConexao();
-        PreparedStatement ps = conexao.prepareStatement(sql)){
-        ps.setString(1, sql);
-        ps.setString(2, sql);
+        try (Connection conn = Conexao.obterConexao();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+        ps.setString(1, user.getSenha());
+        ps.setString(2, user.getLogin());
         
         ResultSet rs = ps.executeQuery();
         
