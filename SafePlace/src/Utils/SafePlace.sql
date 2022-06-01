@@ -3,14 +3,14 @@ CREATE DATABASE SAFEPLACE;
 
 USE SAFEPLACE;
 
---#DROP TABLE Condominio;
+#DROP TABLE Condominio;
 CREATE TABLE Condominio(
     idCondominio INT PRIMARY KEY AUTO_INCREMENT,
     nome VARCHAR(100),
     endereco VARCHAR(200)
 );
 
---#DROP TABLE Usuario;
+#DROP TABLE Usuario;
 CREATE TABLE Usuario(
     idUsuario INT PRIMARY KEY AUTO_INCREMENT,
     nome VARCHAR(100),
@@ -18,21 +18,21 @@ CREATE TABLE Usuario(
     tipo  VARCHAR(20)
 );
 
---#DROP TABLE Area;
+#DROP TABLE Area;
 CREATE TABLE Area(
   idArea INT PRIMARY KEY AUTO_INCREMENT,
   descricao VARCHAR(200),
   dosesRequisitadas INT
 );
 
---#DROP TABLE Vacina;
+#DROP TABLE Vacina;
 CREATE TABLE Vacina(
     idVacina INT PRIMARY KEY AUTO_INCREMENT,
     tipo VARCHAR(19),
     qtdDose INT
 );
 
---#DROP TABLE Inquilino;
+#DROP TABLE Inquilino;
 CREATE TABLE Inquilino(
     idInquilino INT PRIMARY KEY AUTO_INCREMENT,
     nome VARCHAR(100),
@@ -40,7 +40,7 @@ CREATE TABLE Inquilino(
     aprtNumero INT
 );
 
---DROP TABLE AcessoArea;
+#DROP TABLE AcessoArea;
 CREATE TABLE AcessoArea(
     idAcesso INT PRIMARY KEY AUTO_INCREMENT,
     idInquilino INT,
