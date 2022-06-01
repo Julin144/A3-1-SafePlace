@@ -117,13 +117,13 @@ public class TelaLogin extends javax.swing.JFrame {
 
         try {
             if (user.login(login, senha)) {
-                JOptionPane.showMessageDialog(null, "Login realizado com susseso");
+                JOptionPane.showMessageDialog(null, "Login realizado com sucesso!");
             } else {
-                JOptionPane.showMessageDialog(null, "erro no login");
+                JOptionPane.showMessageDialog(null, "Erro no login.");
             }
         } catch (Exception ex) {
             Logger.getLogger(TelaLogin.class.getName()).log(Level.SEVERE, null, ex);
-            JOptionPane.showMessageDialog(null, "Login nada porra!");
+            JOptionPane.showMessageDialog(null, "Falha no login.");
         }
     }//GEN-LAST:event_btnLoginActionPerformed
 
