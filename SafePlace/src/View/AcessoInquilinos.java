@@ -15,6 +15,7 @@ public class AcessoInquilinos extends javax.swing.JFrame {
      */
     public AcessoInquilinos() {
         initComponents();
+        setLocationRelativeTo(null);
     }
 
     /**
