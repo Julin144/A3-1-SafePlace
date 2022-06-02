@@ -92,6 +92,11 @@ public class Home extends javax.swing.JFrame {
 
         btnAcessarInquilinos.setText("Acessar");
         btnAcessarInquilinos.setPreferredSize(new java.awt.Dimension(125, 40));
+        btnAcessarInquilinos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAcessarInquilinosActionPerformed(evt);
+            }
+        });
 
         comboAreas.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
@@ -191,19 +196,6 @@ public class Home extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_btnCondominioActionPerformed
 
-    private void comboAreasItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_comboAreasItemStateChanged
-        AreaModel a = (AreaModel) comboAreas.getSelectedItem();
-
-        if (a.getIdArea() != this.home.areaSelecionada.getIdArea()) {
-            home.definirAreaSelecionada(a);
-            System.out.println(String.format("%d, %s, %d",
-                    home.areaSelecionada.getIdArea(),
-                    home.areaSelecionada.getDescricao(),
-                    home.areaSelecionada.getDosesRequisitadas())
-            );
-        }
-    }//GEN-LAST:event_comboAreasItemStateChanged
-
     private void comboCondominiosItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_comboCondominiosItemStateChanged
         CondominioModel con = (CondominioModel) comboCondominios.getSelectedItem();
 
@@ -217,13 +209,34 @@ public class Home extends javax.swing.JFrame {
                 Logger.getLogger(Home.class.getName()).log(Level.SEVERE, null, ex);
             }
 
-            System.out.println(String.format("%d, %s, %d",
+            System.out.println(String.format("%d, %s, %s",
                     home.condominioSelecionado.getIdCondominio(),
                     home.condominioSelecionado.getNome(),
                     home.condominioSelecionado.getEndereco())
             );
         }
     }//GEN-LAST:event_comboCondominiosItemStateChanged
+
+    private void comboAreasItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_comboAreasItemStateChanged
+        AreaModel a = (AreaModel) comboAreas.getSelectedItem();
+
+        if (a.getIdArea() != this.home.areaSelecionada.getIdArea()) {
+            home.definirAreaSelecionada(a);
+            System.out.println(String.format("%d, %s, %d",
+                    home.areaSelecionada.getIdArea(),
+                    home.areaSelecionada.getDescricao(),
+                    home.areaSelecionada.getDosesRequisitadas())
+            );
+        }
+    }//GEN-LAST:event_comboAreasItemStateChanged
+
+    private void btnAcessarInquilinosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAcessarInquilinosActionPerformed
+        TelaCadastroAcessoInquilinos tcai = new TelaCadastroAcessoInquilinos();
+        tcai.setArea(home.areaSelecionada);
+        
+        tcai.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_btnAcessarInquilinosActionPerformed
 
     /**
      * @param args the command line arguments

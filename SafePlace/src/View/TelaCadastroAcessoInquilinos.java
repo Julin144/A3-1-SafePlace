@@ -4,12 +4,15 @@
  */
 package View;
 
+import Models.AreaModel;
+
 /**
  *
  * @author Thais Dias
  */
 public class TelaCadastroAcessoInquilinos extends javax.swing.JFrame {
-
+    
+    public AreaModel area;
     /**
      * Creates new form AcessoInquilinos
      */
@@ -17,7 +20,10 @@ public class TelaCadastroAcessoInquilinos extends javax.swing.JFrame {
         initComponents();
         setLocationRelativeTo(null);
     }
-
+    
+    public void setArea(AreaModel area) {
+        this.area = area;
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
