@@ -15,8 +15,11 @@ public class AreaModel
     private String descricao;
     private int dosesRequisitadas;
 
-    public AreaModel() 
+    public AreaModel(int id, String descricao,int doses) 
     {
+        this.idArea = id;
+        this.descricao = descricao;
+        this.dosesRequisitadas = doses;
     }
 
     public int getIdArea() 
@@ -48,5 +51,9 @@ public class AreaModel
     {
         this.dosesRequisitadas = dosesRequisitadas;
     }
-    
+ 
+    @Override
+    public String toString() {
+        return this.descricao;
+    }
 }

@@ -8,7 +8,8 @@ public final class Conexao {
     //private static String host = "127.0.0.1";//DB SAOJUDAS
     private static String porta = "3306";
     private static String db = "SAFEPLACE";
-    private static String usuario = "Alunos", senha = "alunos";//DB SAOJUDAS
+    //private static String usuario = "Alunos", senha = "alunos";//DB SAOJUDAS
+    private static String usuario = "REI", senha = "1234";//MEU DB
     
     public static Connection obterConexao() throws Exception{
         Class.forName("com.mysql.cj.jdbc.Driver");// ACESSO A LIB MYSQL

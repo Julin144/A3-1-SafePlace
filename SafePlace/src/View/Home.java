@@ -4,6 +4,10 @@
  */
 package View;
 
+import Controllers.HomeControl;
+import Models.AreaModel;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
 
@@ -13,22 +17,20 @@ import javax.swing.JOptionPane;
  */
 public class Home extends javax.swing.JFrame {
 
+    HomeControl home = new HomeControl();
+    
     /**
      * Creates new form Home
      */
     public Home() {
         initComponents();
         setLocationRelativeTo(null);
-    }
-    
-    private void buscarCursos (){
-        try{
-            //Curso [] cursos = dao.obterCursos();
-            //cursosComboBox.setModel(new DefaultComboBoxModel<>(cursos));
-        }
-        catch (Exception e){
-            JOptionPane.showMessageDialog(null, "Cursos indisponíveis, tente novamente mais tarde.");
-            e.printStackTrace();
+     
+        try {
+            home.montarListaAreas();
+            comboAreas.setModel(new DefaultComboBoxModel<>(home.areas));
+        } catch (Exception ex) {
+            Logger.getLogger(Home.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -46,7 +48,7 @@ public class Home extends javax.swing.JFrame {
         btnFuncionario = new javax.swing.JButton();
         btnCondominio = new javax.swing.JButton();
         btnAcessarInquilinos = new javax.swing.JButton();
-        jComboBox1 = new javax.swing.JComboBox<>();
+        comboAreas = new javax.swing.JComboBox<>();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
@@ -89,8 +91,6 @@ public class Home extends javax.swing.JFrame {
         btnAcessarInquilinos.setText("Acessar");
         btnAcessarInquilinos.setPreferredSize(new java.awt.Dimension(125, 40));
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-
         jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel1.setText("Áreas:");
 
@@ -119,7 +119,7 @@ public class Home extends javax.swing.JFrame {
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jComboBox1, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(comboAreas, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jComboBox2, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(0, 0, Short.MAX_VALUE)
@@ -155,7 +155,7 @@ public class Home extends javax.swing.JFrame {
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(comboAreas, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnAcessarInquilinos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(109, 109, 109))
         );
@@ -220,7 +220,7 @@ public class Home extends javax.swing.JFrame {
     private javax.swing.JButton btnCondominio;
     private javax.swing.JButton btnFuncionario;
     private javax.swing.JButton btnInquilino;
-    private javax.swing.JComboBox<String> jComboBox1;
+    private javax.swing.JComboBox<AreaModel> comboAreas;
     private javax.swing.JComboBox<String> jComboBox2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;

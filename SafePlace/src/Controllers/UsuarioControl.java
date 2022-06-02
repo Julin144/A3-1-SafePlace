@@ -6,14 +6,12 @@ import Database.UsuarioDB;
 public class UsuarioControl {
     
     UsuarioModel user;
-    UsuarioDB db ;
+    UsuarioDB db;
 
     public UsuarioControl() {
         user = new UsuarioModel();
         db = new UsuarioDB();
     }
-    
-    
     
     public boolean login(String login ,String senha) throws Exception{
         user.setLogin(login);
