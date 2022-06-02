@@ -4,6 +4,9 @@
  */
 package View;
 
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author Thais Dias
@@ -16,6 +19,17 @@ public class Home extends javax.swing.JFrame {
     public Home() {
         initComponents();
         setLocationRelativeTo(null);
+    }
+    
+    private void buscarCursos (){
+        try{
+            //Curso [] cursos = dao.obterCursos();
+            //cursosComboBox.setModel(new DefaultComboBoxModel<>(cursos));
+        }
+        catch (Exception e){
+            JOptionPane.showMessageDialog(null, "Cursos indisponíveis, tente novamente mais tarde.");
+            e.printStackTrace();
+        }
     }
 
     /**
