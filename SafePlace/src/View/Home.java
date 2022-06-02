@@ -181,19 +181,27 @@ public class Home extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnInquilinoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInquilinoActionPerformed
-        // TODO add your handling code here:
+        TelaCadastroInquilino tci = new TelaCadastroInquilino();
+        tci.setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_btnInquilinoActionPerformed
 
     private void btnAreaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAreaActionPerformed
-        // TODO add your handling code here:
+        TelaCadastroInquilino tca = new TelaCadastroInquilino();
+        tca.setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_btnAreaActionPerformed
 
     private void btnFuncionarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFuncionarioActionPerformed
-        // TODO add your handling code here:
+        TelaFuncionario tf = new TelaFuncionario();
+        tf.setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_btnFuncionarioActionPerformed
 
     private void btnCondominioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCondominioActionPerformed
-        // TODO add your handling code here:
+        TelaCadastroCondominio tcc = new TelaCadastroCondominio();
+        tcc.setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_btnCondominioActionPerformed
 
     private void comboCondominiosItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_comboCondominiosItemStateChanged
