@@ -8,54 +8,47 @@ package Models;
  *
  * @author Jack
  */
-public class CondominioModel 
-{
+public class CondominioModel {
 
     private int idCondominio;
     private String nome;
     private String endereco;
 
-    public CondominioModel(){ 
+    public CondominioModel() {
     }
-        public CondominioModel(int idCondominio, String nome, String endereco)
-        {
-            this.idCondominio = idCondominio;
-            this.nome = nome;
-            this.endereco = endereco;
-        }
-        
-        public int getIdCondominio() 
-        {
-            return idCondominio;
-        }
-        
-        public void setIdCondominio(int idCondominio)
-        {
-            this.idCondominio = idCondominio;
-        }
-        
-        public String getNome()
-        {
-            return nome;
-        }
-    
-        public void setNome(String nome)
-        {
-            this.nome = nome;
-        }
 
-        public String getEndereco()
-        {
-            return endereco;
-        }
-        
-        public void setEndereco(String endereco)
-        {
-            this.endereco = endereco;
-        }
-        
+    public CondominioModel(int idCondominio, String nome, String endereco) {
+        this.idCondominio = idCondominio;
+        this.nome = nome;
+        this.endereco = endereco;
+    }
 
+    public int getIdCondominio() {
+        return idCondominio;
+    }
+
+    public void setIdCondominio(int idCondominio) {
+        this.idCondominio = idCondominio;
+    }
+
+    public String getNome() {
+        return nome;
+    }
+
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
+
+    public String getEndereco() {
+        return endereco;
+    }
+
+    public void setEndereco(String endereco) {
+        this.endereco = endereco;
+    }
+
+    @Override
+    public String toString() {
+        return this.nome;
+    }
 }
-
-
-

@@ -5,6 +5,7 @@
  */
 package Database;
 import Models.AreaModel;
+import Models.CondominioModel;
 import Models.UsuarioModel;
 
 /**
@@ -16,20 +17,23 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 public class AreaDB {
     
-    public AreaModel[] buscarAreas() throws Exception {
-        String sql = "SELECT * FROM AREA";
+    public AreaModel[] buscarAreas(CondominioModel condominio) throws Exception {
+        String sql = "SELECT * FROM AREA WHERE idCondominio = ?";
         try (Connection conn = Conexao.obterConexao();
                 PreparedStatement ps
                 = conn.prepareStatement(sql,
                         ResultSet.TYPE_SCROLL_INSENSITIVE,
                         ResultSet.CONCUR_READ_ONLY);
-                ResultSet rs = ps.executeQuery()) {
+                ) {
 
+            ps.setInt(1, condominio.getIdCondominio());
+            ResultSet rs = ps.executeQuery();
+                        
             int totalDeAreas = rs.last() ? rs.getRow() : 0;
             AreaModel[] areas = new AreaModel[totalDeAreas];
             rs.beforeFirst();
-            int contador = 0;
             
+            int contador = 0;
             while (rs.next()) {
                 int id = rs.getInt("idArea");
                 String descricao = rs.getString("descricao");

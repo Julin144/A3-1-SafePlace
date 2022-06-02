@@ -21,8 +21,11 @@ CREATE TABLE Usuario(
 #DROP TABLE Area;
 CREATE TABLE Area(
   idArea INT PRIMARY KEY AUTO_INCREMENT,
+  idCondominio INT NOT NULL,
   descricao VARCHAR(200),
-  dosesRequisitadas INT
+  dosesRequisitadas INT,
+  
+  FOREIGN KEY (idCondominio) REFERENCES Condominio (idCondominio)
 );
 
 #DROP TABLE Vacina;

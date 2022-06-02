@@ -6,6 +6,7 @@ package View;
 
 import Controllers.HomeControl;
 import Models.AreaModel;
+import Models.CondominioModel;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.DefaultComboBoxModel;
@@ -18,23 +19,22 @@ import javax.swing.JOptionPane;
 public class Home extends javax.swing.JFrame {
 
     HomeControl home = new HomeControl();
-    
+
     /**
      * Creates new form Home
      */
     public Home() {
         initComponents();
         setLocationRelativeTo(null);
-     
+
         try {
-            home.montarListaAreas();
+            home.montarListaCondominioArea();
+            comboCondominios.setModel(new DefaultComboBoxModel<>(home.condominios));
             comboAreas.setModel(new DefaultComboBoxModel<>(home.areas));
-            
-            home.definirAreaSelecionada((AreaModel)comboAreas.getSelectedItem());
         } catch (Exception ex) {
             Logger.getLogger(Home.class.getName()).log(Level.SEVERE, null, ex);
         }
-    }  
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -54,7 +54,8 @@ public class Home extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        jComboBox2 = new javax.swing.JComboBox<>();
+        comboCondominios = new javax.swing.JComboBox<>();
+        jLabel4 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -92,6 +93,11 @@ public class Home extends javax.swing.JFrame {
 
         btnAcessarInquilinos.setText("Acessar");
         btnAcessarInquilinos.setPreferredSize(new java.awt.Dimension(125, 40));
+        btnAcessarInquilinos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAcessarInquilinosActionPerformed(evt);
+            }
+        });
 
         comboAreas.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
@@ -108,7 +114,18 @@ public class Home extends javax.swing.JFrame {
         jLabel3.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel3.setText("Condomínio:");
 
-        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        comboCondominios.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                comboCondominiosItemStateChanged(evt);
+            }
+        });
+
+        jLabel4.setFont(new java.awt.Font("Tahoma", 1, 36)); // NOI18N
+        jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel4.setText("Home");
+        jLabel4.setFocusable(false);
+        jLabel4.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jLabel4.setPreferredSize(new java.awt.Dimension(150, 50));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -128,7 +145,7 @@ public class Home extends javax.swing.JFrame {
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(comboAreas, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jComboBox2, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(comboCondominios, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(0, 0, Short.MAX_VALUE)
                                 .addComponent(btnInquilino, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -141,11 +158,17 @@ public class Home extends javax.swing.JFrame {
                             .addComponent(btnCondominio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(btnAcessarInquilinos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(40, 40, 40))))
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap(307, Short.MAX_VALUE)
+                .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 300, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(57, 57, 57)
+                .addGap(32, 32, 32)
+                .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -158,47 +181,84 @@ public class Home extends javax.swing.JFrame {
                 .addGap(56, 56, 56)
                 .addComponent(jLabel3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(comboCondominios, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(46, 46, 46)
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(comboAreas, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnAcessarInquilinos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(109, 109, 109))
+                .addGap(47, 47, 47))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnInquilinoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInquilinoActionPerformed
-        // TODO add your handling code here:
+        TelaCadastroInquilino tci = new TelaCadastroInquilino();
+        tci.setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_btnInquilinoActionPerformed
 
     private void btnAreaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAreaActionPerformed
-        // TODO add your handling code here:
+        TelaCadastroInquilino tca = new TelaCadastroInquilino();
+        tca.setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_btnAreaActionPerformed
 
     private void btnFuncionarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFuncionarioActionPerformed
-        // TODO add your handling code here:
+        TelaFuncionario tf = new TelaFuncionario();
+        tf.setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_btnFuncionarioActionPerformed
 
     private void btnCondominioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCondominioActionPerformed
-        // TODO add your handling code here:
+        TelaCadastroCondominio tcc = new TelaCadastroCondominio();
+        tcc.setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_btnCondominioActionPerformed
 
+    private void comboCondominiosItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_comboCondominiosItemStateChanged
+        CondominioModel con = (CondominioModel) comboCondominios.getSelectedItem();
+
+        if (con.getIdCondominio() != this.home.condominioSelecionado.getIdCondominio()) {
+            home.definirCondominioSelecionado(con);
+
+            try {
+                home.montarListaAreas();
+                comboAreas.setModel(new DefaultComboBoxModel<>(home.areas));
+            } catch (Exception ex) {
+                Logger.getLogger(Home.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
+            System.out.println(String.format("%d, %s, %s",
+                    home.condominioSelecionado.getIdCondominio(),
+                    home.condominioSelecionado.getNome(),
+                    home.condominioSelecionado.getEndereco())
+            );
+        }
+    }//GEN-LAST:event_comboCondominiosItemStateChanged
+
     private void comboAreasItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_comboAreasItemStateChanged
-       AreaModel a = (AreaModel)comboAreas.getSelectedItem();
-       
-       if(a.getIdArea() != this.home.areaSelecionada.getIdArea()) {
-          home.definirAreaSelecionada(a);
-          System.out.println(String.format("%d, %s, %d", 
-                  home.areaSelecionada.getIdArea(), 
-                  home.areaSelecionada.getDescricao(), 
-                  home.areaSelecionada.getDosesRequisitadas())
-          );
-       }
+        AreaModel a = (AreaModel) comboAreas.getSelectedItem();
+
+        if (a.getIdArea() != this.home.areaSelecionada.getIdArea()) {
+            home.definirAreaSelecionada(a);
+            System.out.println(String.format("%d, %s, %d",
+                    home.areaSelecionada.getIdArea(),
+                    home.areaSelecionada.getDescricao(),
+                    home.areaSelecionada.getDosesRequisitadas())
+            );
+        }
     }//GEN-LAST:event_comboAreasItemStateChanged
+
+    private void btnAcessarInquilinosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAcessarInquilinosActionPerformed
+        TelaCadastroAcessoInquilinos tcai = new TelaCadastroAcessoInquilinos();
+        tcai.setArea(home.areaSelecionada);
+        
+        tcai.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_btnAcessarInquilinosActionPerformed
 
     /**
      * @param args the command line arguments
@@ -242,9 +302,10 @@ public class Home extends javax.swing.JFrame {
     private javax.swing.JButton btnFuncionario;
     private javax.swing.JButton btnInquilino;
     private javax.swing.JComboBox<AreaModel> comboAreas;
-    private javax.swing.JComboBox<String> jComboBox2;
+    private javax.swing.JComboBox<CondominioModel> comboCondominios;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     // End of variables declaration//GEN-END:variables
 }
