@@ -14,6 +14,7 @@ import Models.AreaModel;
 public class HomeControl {
     AreaDB dbArea;
     public AreaModel[] areas;
+    public AreaModel areaSelecionada;
     
     public HomeControl(){
         dbArea = new AreaDB();
@@ -22,4 +23,8 @@ public class HomeControl {
     public void montarListaAreas() throws Exception {
         this.areas = dbArea.buscarAreas();
     }
+    
+    public void definirAreaSelecionada(AreaModel area) {
+        this.areaSelecionada = area;
+    }    
 }

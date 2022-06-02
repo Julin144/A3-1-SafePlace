@@ -29,10 +29,12 @@ public class Home extends javax.swing.JFrame {
         try {
             home.montarListaAreas();
             comboAreas.setModel(new DefaultComboBoxModel<>(home.areas));
+            
+            home.definirAreaSelecionada((AreaModel)comboAreas.getSelectedItem());
         } catch (Exception ex) {
             Logger.getLogger(Home.class.getName()).log(Level.SEVERE, null, ex);
         }
-    }
+    }  
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -90,6 +92,12 @@ public class Home extends javax.swing.JFrame {
 
         btnAcessarInquilinos.setText("Acessar");
         btnAcessarInquilinos.setPreferredSize(new java.awt.Dimension(125, 40));
+
+        comboAreas.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                comboAreasItemStateChanged(evt);
+            }
+        });
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel1.setText("Áreas:");
@@ -178,6 +186,19 @@ public class Home extends javax.swing.JFrame {
     private void btnCondominioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCondominioActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_btnCondominioActionPerformed
+
+    private void comboAreasItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_comboAreasItemStateChanged
+       AreaModel a = (AreaModel)comboAreas.getSelectedItem();
+       
+       if(a.getIdArea() != this.home.areaSelecionada.getIdArea()) {
+          home.definirAreaSelecionada(a);
+          System.out.println(String.format("%d, %s, %d", 
+                  home.areaSelecionada.getIdArea(), 
+                  home.areaSelecionada.getDescricao(), 
+                  home.areaSelecionada.getDosesRequisitadas())
+          );
+       }
+    }//GEN-LAST:event_comboAreasItemStateChanged
 
     /**
      * @param args the command line arguments
