@@ -17,7 +17,13 @@ public class CondominioModel
 
     public CondominioModel(){ 
     }
-
+        public CondominioModel(int idCondominio, String nome, String endereco)
+        {
+            this.idCondominio = idCondominio;
+            this.nome = nome;
+            this.endereco = endereco;
+        }
+        
         public int getIdCondominio() 
         {
             return idCondominio;
