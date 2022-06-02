@@ -35,8 +35,6 @@ public class CondominioDB {
                 condominios[contador++] = new CondominioModel(id, nome, endereco);
             }
             return condominios;
-            
-            
         }
     }
     

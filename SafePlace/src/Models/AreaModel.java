@@ -12,6 +12,7 @@ public class AreaModel
 {
 
     private int idArea;
+    private int idCondominio;
     private String descricao;
     private int dosesRequisitadas;
 
@@ -55,5 +56,19 @@ public class AreaModel
     @Override
     public String toString() {
         return this.descricao;
+    }
+
+    /**
+     * @return the idCondominio
+     */
+    public int getIdCondominio() {
+        return idCondominio;
+    }
+
+    /**
+     * @param idCondominio the idCondominio to set
+     */
+    public void setIdCondominio(int idCondominio) {
+        this.idCondominio = idCondominio;
     }
 }

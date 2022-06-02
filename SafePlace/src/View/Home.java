@@ -6,6 +6,7 @@ package View;
 
 import Controllers.HomeControl;
 import Models.AreaModel;
+import Models.CondominioModel;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.DefaultComboBoxModel;
@@ -18,23 +19,22 @@ import javax.swing.JOptionPane;
 public class Home extends javax.swing.JFrame {
 
     HomeControl home = new HomeControl();
-    
+
     /**
      * Creates new form Home
      */
     public Home() {
         initComponents();
         setLocationRelativeTo(null);
-     
+
         try {
-            home.montarListaAreas();
+            home.montarListaCondominioArea();
+            comboCondominios.setModel(new DefaultComboBoxModel<>(home.condominios));
             comboAreas.setModel(new DefaultComboBoxModel<>(home.areas));
-            
-            home.definirAreaSelecionada((AreaModel)comboAreas.getSelectedItem());
         } catch (Exception ex) {
             Logger.getLogger(Home.class.getName()).log(Level.SEVERE, null, ex);
         }
-    }  
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -54,7 +54,7 @@ public class Home extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        jComboBox2 = new javax.swing.JComboBox<>();
+        comboCondominios = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -108,7 +108,11 @@ public class Home extends javax.swing.JFrame {
         jLabel3.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel3.setText("Condomínio:");
 
-        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        comboCondominios.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                comboCondominiosItemStateChanged(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -128,7 +132,7 @@ public class Home extends javax.swing.JFrame {
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(comboAreas, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jComboBox2, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(comboCondominios, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(0, 0, Short.MAX_VALUE)
                                 .addComponent(btnInquilino, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -158,7 +162,7 @@ public class Home extends javax.swing.JFrame {
                 .addGap(56, 56, 56)
                 .addComponent(jLabel3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(comboCondominios, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(46, 46, 46)
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -188,17 +192,38 @@ public class Home extends javax.swing.JFrame {
     }//GEN-LAST:event_btnCondominioActionPerformed
 
     private void comboAreasItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_comboAreasItemStateChanged
-       AreaModel a = (AreaModel)comboAreas.getSelectedItem();
-       
-       if(a.getIdArea() != this.home.areaSelecionada.getIdArea()) {
-          home.definirAreaSelecionada(a);
-          System.out.println(String.format("%d, %s, %d", 
-                  home.areaSelecionada.getIdArea(), 
-                  home.areaSelecionada.getDescricao(), 
-                  home.areaSelecionada.getDosesRequisitadas())
-          );
-       }
+        AreaModel a = (AreaModel) comboAreas.getSelectedItem();
+
+        if (a.getIdArea() != this.home.areaSelecionada.getIdArea()) {
+            home.definirAreaSelecionada(a);
+            System.out.println(String.format("%d, %s, %d",
+                    home.areaSelecionada.getIdArea(),
+                    home.areaSelecionada.getDescricao(),
+                    home.areaSelecionada.getDosesRequisitadas())
+            );
+        }
     }//GEN-LAST:event_comboAreasItemStateChanged
+
+    private void comboCondominiosItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_comboCondominiosItemStateChanged
+        CondominioModel con = (CondominioModel) comboCondominios.getSelectedItem();
+
+        if (con.getIdCondominio() != this.home.condominioSelecionado.getIdCondominio()) {
+            home.definirCondominioSelecionado(con);
+
+            try {
+                home.montarListaAreas();
+                comboAreas.setModel(new DefaultComboBoxModel<>(home.areas));
+            } catch (Exception ex) {
+                Logger.getLogger(Home.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
+            System.out.println(String.format("%d, %s, %d",
+                    home.condominioSelecionado.getIdCondominio(),
+                    home.condominioSelecionado.getNome(),
+                    home.condominioSelecionado.getEndereco())
+            );
+        }
+    }//GEN-LAST:event_comboCondominiosItemStateChanged
 
     /**
      * @param args the command line arguments
@@ -242,7 +267,7 @@ public class Home extends javax.swing.JFrame {
     private javax.swing.JButton btnFuncionario;
     private javax.swing.JButton btnInquilino;
     private javax.swing.JComboBox<AreaModel> comboAreas;
-    private javax.swing.JComboBox<String> jComboBox2;
+    private javax.swing.JComboBox<CondominioModel> comboCondominios;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
