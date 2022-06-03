@@ -6,5 +6,7 @@ INSERT INTO Area(descricao,dosesRequisitadas,idCondominio) VALUES ('Hall princip
 
 INSERT INTO Area(descricao,dosesRequisitadas,idCondominio) VALUES ('Escorregador', 1, 1), ('Cozinha', 2, 1);
 
+INSERT INTO USUARIO (LOGIN, SENHA, TIPO) VALUES ('REI', '123', 'USER');
+INSERT INTO USUARIO (LOGIN, SENHA, TIPO) VALUES ('ADMIN', 'ADMIN', 'ADMIN');
 
-INSERT INTO USUARIO (LOGIN, SENHA, TIPO) VALUES ('REI', '123', 'usuario');
+select * from usuario;

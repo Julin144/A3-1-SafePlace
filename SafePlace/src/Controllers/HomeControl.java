@@ -38,9 +38,10 @@ public class HomeControl {
         this.areaSelecionada = this.areas.length != 0 ? this.areas[0] : null;
     }
     
-    public void montarListaAreas() throws Exception {;
+    public void montarListaAreas() throws Exception {
         if(this.condominioSelecionado != null) {
             this.areas = dbArea.buscarAreas(this.condominioSelecionado);
+            this.areaSelecionada = this.areas.length != 0 ? this.areas[0] : null;
         }
     }
     
