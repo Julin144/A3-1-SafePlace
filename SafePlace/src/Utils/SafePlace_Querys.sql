@@ -43,7 +43,7 @@ UPDATE Inquilino
 SET   nome = ?,
       cpf= ?,
       aprtNumero= ?
-WHERE   idInquilino = x;
+WHERE   idInquilino = ;
 
 DELETE 
 FROM   Inquilino

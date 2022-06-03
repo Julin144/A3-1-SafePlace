@@ -62,4 +62,24 @@ public class InquilinoDB {
             return inquilinos;
         }
     }
+   
+    public void updateInquilino() throws Exception {
+
+
+        String sql = "UPDATE Inquilino SET nome = ?,cpf= ?,aprtNumero= ? WHERE  idInquilino = ?";
+        try (Connection conn = Conexao.obterConexao();
+                PreparedStatement ps
+                = conn.prepareStatement(
+                        sql,
+                        ResultSet.TYPE_SCROLL_INSENSITIVE,
+                        ResultSet.CONCUR_READ_ONLY);) {
+            
+            ps.setString(1, inquilino.getNome());
+            ps.setInt(2, inquilino.getCpf());
+            ps.setInt(3, inquilino.getAprtNumero());
+            ps.setInt(4, inquilino.getIdInquilino());
+            
+            ResultSet rs = ps.executeQuery();
+        }
+    }
 }
