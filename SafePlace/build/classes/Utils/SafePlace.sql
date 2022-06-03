@@ -28,6 +28,14 @@ CREATE TABLE Area(
   FOREIGN KEY (idCondominio) REFERENCES Condominio (idCondominio)
 );
 
+#DROP TABLE Inquilino;
+CREATE TABLE Inquilino(
+    idInquilino INT PRIMARY KEY AUTO_INCREMENT,
+    nome VARCHAR(100),
+    cpf VARCHAR(14),
+    aprtNumero INT
+);
+
 #DROP TABLE Vacina;
 CREATE TABLE Vacina(
     idVacina INT PRIMARY KEY AUTO_INCREMENT,
@@ -36,14 +44,6 @@ CREATE TABLE Vacina(
     qtdDose INT,
     
     FOREIGN KEY (idInquilino) REFERENCES Inquilino (idInquilino)
-);
-
-#DROP TABLE Inquilino;
-CREATE TABLE Inquilino(
-    idInquilino INT PRIMARY KEY AUTO_INCREMENT,
-    nome VARCHAR(100),
-    cpf VARCHAR(14),
-    aprtNumero INT
 );
 
 #DROP TABLE AcessoArea;
