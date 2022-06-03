@@ -278,7 +278,7 @@ public class Home extends javax.swing.JFrame {
     }//GEN-LAST:event_comboAreasItemStateChanged
 
     private void btnAcessarInquilinosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAcessarInquilinosActionPerformed
-        TelaCadastroAcessoInquilinos tcai = new TelaCadastroAcessoInquilinos();
+        TelaAcessoInquilinos tcai = new TelaAcessoInquilinos();
         tcai.setArea(home.areaSelecionada);
         
         tcai.setVisible(true);
