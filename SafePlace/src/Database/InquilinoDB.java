@@ -36,6 +36,7 @@ public class InquilinoDB {
             ResultSet rs = ps.executeQuery();
         }
     }
+
     public InquilinoModel[] buscarInquilino() throws Exception {
         String sql = "SELECT * FROM INQUILINO";
         try (Connection conn = Conexao.obterConexao();
@@ -78,6 +79,23 @@ public class InquilinoDB {
             ps.setInt(2, inquilino.getCpf());
             ps.setInt(3, inquilino.getAprtNumero());
             ps.setInt(4, inquilino.getIdInquilino());
+            
+            ResultSet rs = ps.executeQuery();
+        }
+    }
+    
+    public void deleteInquilino() throws Exception {
+
+
+        String sql = "DELETE FROM Inquilino WHERE idInquilino = ?;";
+        try (Connection conn = Conexao.obterConexao();
+                PreparedStatement ps
+                = conn.prepareStatement(
+                        sql,
+                        ResultSet.TYPE_SCROLL_INSENSITIVE,
+                        ResultSet.CONCUR_READ_ONLY);) {
+           
+            ps.setInt(1, inquilino.getIdInquilino());       
             
             ResultSet rs = ps.executeQuery();
         }

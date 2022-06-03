@@ -47,6 +47,8 @@ WHERE   idInquilino = ;
 
 DELETE 
 FROM   Inquilino
-WHERE  idInquilino = x;
+WHERE  idInquilino = ?;
+
+
 
 ###########################################

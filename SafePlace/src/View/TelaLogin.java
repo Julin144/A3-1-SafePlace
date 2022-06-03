@@ -116,9 +116,12 @@ public class TelaLogin extends javax.swing.JFrame {
 
         try {
             if (user.login(login, senha)) {
-                JOptionPane.showMessageDialog(null, "Login realizado com sucesso!");
+                //JOptionPane.showMessageDialog(null, "Login realizado com sucesso!");
+                Home h = new Home();
+                h.setVisible(true);
+                this.dispose();
             } else {
-                JOptionPane.showMessageDialog(null, "Erro no login.");
+                JOptionPane.showMessageDialog(null, "Usuário/Senha não encontrados no banco.");
             }
         } catch (Exception ex) {
             Logger.getLogger(TelaLogin.class.getName()).log(Level.SEVERE, null, ex);
