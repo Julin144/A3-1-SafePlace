@@ -15,7 +15,9 @@ CREATE TABLE Usuario(
     idUsuario INT PRIMARY KEY AUTO_INCREMENT,
     login VARCHAR(100),
     senha VARCHAR(50),
-    tipo  VARCHAR(20)
+    tipo  VARCHAR(20),
+    
+    CONSTRAINT CHK_Person CHECK (tipo='ADMIN' OR tipo='USER')
 );
 
 #DROP TABLE Area;

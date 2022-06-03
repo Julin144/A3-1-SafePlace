@@ -35,6 +35,16 @@ public class Home extends javax.swing.JFrame {
             Logger.getLogger(Home.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+    
+    public void setAcessoBotoes(String acesso) {
+        if(acesso.equals("ADMIN")) {
+            btnCondominio.setEnabled(true);
+            btnFuncionario.setEnabled(true);
+        } else {
+            btnCondominio.setEnabled(false);
+            btnFuncionario.setEnabled(false);
+        }
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.

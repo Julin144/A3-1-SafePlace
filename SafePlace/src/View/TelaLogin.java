@@ -118,6 +118,7 @@ public class TelaLogin extends javax.swing.JFrame {
             if (user.login(login, senha)) {
                 //JOptionPane.showMessageDialog(null, "Login realizado com sucesso!");
                 Home h = new Home();
+                h.setAcessoBotoes(user.getAcesso());
                 h.setVisible(true);
                 this.dispose();
             } else {

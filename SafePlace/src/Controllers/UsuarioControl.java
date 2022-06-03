@@ -20,6 +20,10 @@ public class UsuarioControl {
         return db.login(user);
     };
     
+    public String getAcesso() {
+        return this.user.getTipo();
+    }
+    
     public void cadastarInquelino(){};
     
     public void cadastrarArea(){};
