@@ -29,7 +29,7 @@ public class InquilinoController
         InquilinoModel inquilino = new InquilinoModel();
         
         inquilino.setNome(request.getNomeInquilino());
-        inquilino.setCpf(Integer.parseInt(request.getCpfInquilino()));
+        inquilino.setCpf(request.getCpfInquilino());
         inquilino.setAprtNumero(Integer.parseInt(request.getNumeroApInquilino()));
         
         try
