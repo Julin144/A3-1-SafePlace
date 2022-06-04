@@ -136,6 +136,7 @@ public class TelaCadastroFuncionario extends javax.swing.JFrame {
 
     private void btnVoltarCadastroFuncionarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVoltarCadastroFuncionarioActionPerformed
         // TODO add your handling code here:
+        this.dispose();
     }//GEN-LAST:event_btnVoltarCadastroFuncionarioActionPerformed
 
     private void btnApagarFuncionarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnApagarFuncionarioActionPerformed

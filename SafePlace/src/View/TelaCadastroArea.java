@@ -61,6 +61,11 @@ public class TelaCadastroArea extends javax.swing.JFrame {
         cboxAreasCadastradasCondominio.setBorder(javax.swing.BorderFactory.createTitledBorder("Áreas cadastradas:"));
 
         btnVoltarCadastroArea.setText("Voltar");
+        btnVoltarCadastroArea.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnVoltarCadastroAreaActionPerformed(evt);
+            }
+        });
 
         btnEditarAreaCondominio.setText("Editar");
 
@@ -107,6 +112,11 @@ public class TelaCadastroArea extends javax.swing.JFrame {
     private void txtNomeAreaCondominioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNomeAreaCondominioActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtNomeAreaCondominioActionPerformed
+
+    private void btnVoltarCadastroAreaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVoltarCadastroAreaActionPerformed
+        // TODO add your handling code here:
+        this.dispose();
+    }//GEN-LAST:event_btnVoltarCadastroAreaActionPerformed
 
     /**
      * @param args the command line arguments

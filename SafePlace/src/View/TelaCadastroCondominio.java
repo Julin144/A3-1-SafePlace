@@ -4,6 +4,10 @@
  */
 package View;
 
+import Controllers.CondominioController;
+import Dto.Request.CadastroCondominioRequestDto;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author Ingrid
@@ -13,10 +17,15 @@ public class TelaCadastroCondominio extends javax.swing.JFrame {
     /**
      * Creates new form TelaCadastroCondominio
      */
+    private static CondominioController _condominioController;
+    
     public TelaCadastroCondominio() 
     {
         super("SafePlace");
         initComponents();
+        setLocationRelativeTo(null);
+        
+        _condominioController = new CondominioController();
     }
 
     /**
@@ -67,6 +76,11 @@ public class TelaCadastroCondominio extends javax.swing.JFrame {
         btnApagarCondominio.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
 
         btnVoltarCadastroCondominio.setText("Voltar");
+        btnVoltarCadastroCondominio.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnVoltarCadastroCondominioActionPerformed(evt);
+            }
+        });
 
         btnEditarCondominio.setText("Editar");
         btnEditarCondominio.addActionListener(new java.awt.event.ActionListener() {
@@ -135,11 +149,23 @@ public class TelaCadastroCondominio extends javax.swing.JFrame {
 
     private void btnCadastrarCondominioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarCondominioActionPerformed
         // TODO add your handling code here:
+        CadastroCondominioRequestDto request = new CadastroCondominioRequestDto();
+        
+        request.setNome(txtNomeCondominio.getText());
+        request.setEndereco(txtEnderecoCondominio.getText());
+        
+        
+        JOptionPane.showMessageDialog(null, _condominioController.CadastrarCondominio(request));
     }//GEN-LAST:event_btnCadastrarCondominioActionPerformed
 
     private void btnEditarCondominioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarCondominioActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_btnEditarCondominioActionPerformed
+
+    private void btnVoltarCadastroCondominioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVoltarCadastroCondominioActionPerformed
+        // TODO add your handling code here:
+        this.dispose();
+    }//GEN-LAST:event_btnVoltarCadastroCondominioActionPerformed
 
     /**
      * @param args the command line arguments

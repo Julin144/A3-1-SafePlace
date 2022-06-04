@@ -4,6 +4,8 @@
  */
 package View;
 
+import Dto.Request.CadastroVacinaRequestDto;
+
 /**
  *
  * @author Ingrid
@@ -13,10 +15,15 @@ public class TelaCadastroVacina extends javax.swing.JFrame {
     /**
      * Creates new form TelaCadastroVacina
      */
+    
+    
     public TelaCadastroVacina() 
     {
         super("SafePlace");
         initComponents();
+        setLocationRelativeTo(null);
+        
+        
     }
 
     /**
@@ -56,6 +63,11 @@ public class TelaCadastroVacina extends javax.swing.JFrame {
         });
 
         btnCadastrarVacina.setText("Cadastrar");
+        btnCadastrarVacina.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCadastrarVacinaActionPerformed(evt);
+            }
+        });
 
         btnApagarCadastroVacina.setText("Apagar");
         btnApagarCadastroVacina.addActionListener(new java.awt.event.ActionListener() {
@@ -65,6 +77,11 @@ public class TelaCadastroVacina extends javax.swing.JFrame {
         });
 
         btnVoltarCadastroVacina.setText("Voltar");
+        btnVoltarCadastroVacina.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnVoltarCadastroVacinaActionPerformed(evt);
+            }
+        });
 
         spnNumeroDosesVacina.setBorder(javax.swing.BorderFactory.createTitledBorder("Número de doses:"));
 
@@ -137,6 +154,21 @@ public class TelaCadastroVacina extends javax.swing.JFrame {
     private void btnApagarCadastroVacinaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnApagarCadastroVacinaActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_btnApagarCadastroVacinaActionPerformed
+
+    private void btnVoltarCadastroVacinaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVoltarCadastroVacinaActionPerformed
+        // TODO add your handling code here:
+        TelaCadastroInquilino tCadInquilino = new TelaCadastroInquilino();
+        tCadInquilino.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_btnVoltarCadastroVacinaActionPerformed
+
+    private void btnCadastrarVacinaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarVacinaActionPerformed
+        // TODO add your handling code here:
+        CadastroVacinaRequestDto request = new CadastroVacinaRequestDto();
+        
+        request.setTipoVacina((String) cboxTipoVacina.getSelectedItem());
+        
+    }//GEN-LAST:event_btnCadastrarVacinaActionPerformed
 
     /**
      * @param args the command line arguments

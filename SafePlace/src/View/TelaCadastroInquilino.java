@@ -6,6 +6,7 @@ package View;
 
 import Controllers.InquilinoController;
 import Dto.Request.*;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -22,6 +23,7 @@ public class TelaCadastroInquilino extends javax.swing.JFrame {
     {
         super("SafePlace");
         initComponents();
+        setLocationRelativeTo(null);
         
         _inquilinoController = new InquilinoController();
     }
@@ -53,6 +55,11 @@ public class TelaCadastroInquilino extends javax.swing.JFrame {
         setMinimumSize(new java.awt.Dimension(500, 500));
 
         btnVoltarCadastroInquilino.setText("Voltar");
+        btnVoltarCadastroInquilino.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnVoltarCadastroInquilinoActionPerformed(evt);
+            }
+        });
 
         btnCadastrarInquilino.setText("Cadastrar");
         btnCadastrarInquilino.addActionListener(new java.awt.event.ActionListener() {
@@ -80,6 +87,11 @@ public class TelaCadastroInquilino extends javax.swing.JFrame {
         jScrollPane3.setViewportView(txtCadastrarAPInquilino);
 
         btnCadastrarVacinaInquilino.setText("Cadastrar Vacina");
+        btnCadastrarVacinaInquilino.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCadastrarVacinaInquilinoActionPerformed(evt);
+            }
+        });
 
         cboxListaInquilinos.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Cadastrar um novo inquilino", "Item 2", "Item 3", "Item 4" }));
         cboxListaInquilinos.setBorder(javax.swing.BorderFactory.createTitledBorder("Inquilinos cadastrados:"));
@@ -164,8 +176,10 @@ public class TelaCadastroInquilino extends javax.swing.JFrame {
         request.setCpfInquilino(txtCadastrarCPFInquilino.getText());
         request.setNumeroApInquilino(txtCadastrarAPInquilino.getText());
         
-        lbResponse.setText(_inquilinoController.CadatrarInquilino(request));
-        lbResponse.setEnabled(true);
+        //lbResponse.setText(_inquilinoController.CadatrarInquilino(request));
+        //lbResponse.setEnabled(true);
+        
+        JOptionPane.showMessageDialog(null, _inquilinoController.CadatrarInquilino(request));
         
     }//GEN-LAST:event_btnCadastrarInquilinoActionPerformed
 
@@ -178,6 +192,19 @@ public class TelaCadastroInquilino extends javax.swing.JFrame {
         // TODO add your handling code here:
         
     }//GEN-LAST:event_cboxListaInquilinosActionPerformed
+
+    private void btnCadastrarVacinaInquilinoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarVacinaInquilinoActionPerformed
+        // TODO add your handling code here:
+        TelaCadastroVacina tCadVacina = new TelaCadastroVacina();
+        tCadVacina.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_btnCadastrarVacinaInquilinoActionPerformed
+
+    private void btnVoltarCadastroInquilinoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVoltarCadastroInquilinoActionPerformed
+        // TODO add your handling code here:
+        this.dispose();
+        
+    }//GEN-LAST:event_btnVoltarCadastroInquilinoActionPerformed
 
     /**
      * @param args the command line arguments
