@@ -10,7 +10,6 @@ import Models.CondominioModel;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.DefaultComboBoxModel;
-import javax.swing.JOptionPane;
 
 /**
  *
@@ -42,10 +41,10 @@ public class Home extends javax.swing.JFrame {
                 comboAreas.setModel(new DefaultComboBoxModel<>(home.areas));
             }
             this.setEnableBtnAcesso();
-            
+
         } catch (Exception ex) {
             Logger.getLogger(Home.class.getName()).log(Level.SEVERE, null, ex);
-            
+
         }
     }
 
@@ -69,12 +68,13 @@ public class Home extends javax.swing.JFrame {
         }
         this.setLabelAlerta();
     }
-    
+
     public void setLabelAlerta() {
-        if(this.abriuTelaDeCRUD)
+        if (this.abriuTelaDeCRUD) {
             lblAlerta.setText("Favor, atualizar dados!");
-        else
+        } else {
             lblAlerta.setText("");
+        }
     }
 
     /**
@@ -285,7 +285,7 @@ public class Home extends javax.swing.JFrame {
     private void btnInquilinoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInquilinoActionPerformed
         TelaCadastroInquilino tci = new TelaCadastroInquilino();
         tci.setVisible(true);
-        
+
         abriuTelaDeCRUD = true;
         this.setEnableBtnAcesso();
     }//GEN-LAST:event_btnInquilinoActionPerformed
@@ -293,7 +293,7 @@ public class Home extends javax.swing.JFrame {
     private void btnAreaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAreaActionPerformed
         TelaCadastroArea tca = new TelaCadastroArea();
         tca.setVisible(true);
-        
+
         abriuTelaDeCRUD = true;
         this.setEnableBtnAcesso();
     }//GEN-LAST:event_btnAreaActionPerformed
@@ -301,7 +301,7 @@ public class Home extends javax.swing.JFrame {
     private void btnFuncionarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFuncionarioActionPerformed
         TelaCadastroUsuario tf = new TelaCadastroUsuario();
         tf.setVisible(true);
-        
+
         abriuTelaDeCRUD = true;
         this.setEnableBtnAcesso();
     }//GEN-LAST:event_btnFuncionarioActionPerformed
@@ -309,7 +309,7 @@ public class Home extends javax.swing.JFrame {
     private void btnCondominioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCondominioActionPerformed
         TelaCadastroCondominio tcc = new TelaCadastroCondominio();
         tcc.setVisible(true);
-        
+
         abriuTelaDeCRUD = true;
         this.setEnableBtnAcesso();
     }//GEN-LAST:event_btnCondominioActionPerformed

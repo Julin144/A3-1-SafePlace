@@ -9,7 +9,6 @@ import Database.CondominioDB;
 import Database.AcessoAreaDB;
 import Database.InquilinoDB;
 import Models.AreaModel;
-import Models.CondominioModel;
 import Models.AcessoAreaModel;
 import Models.InquilinoModel;
 import javax.swing.table.DefaultTableModel;

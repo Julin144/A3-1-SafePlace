@@ -2,22 +2,20 @@ package View;
 
 import Controllers.UsuarioController;
 
-import java.sql.SQLException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 public class TelaLogin extends javax.swing.JFrame {
 
+    UsuarioController user = new UsuarioController();
+    
     /**
      * Creates new form TelaLogin
      */
     public TelaLogin() {
+        super("Login");
         initComponents();
         setLocationRelativeTo(null);
     }
-    
-    UsuarioController user = new UsuarioController();
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents

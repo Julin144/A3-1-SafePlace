@@ -3,12 +3,9 @@ package Controllers;
 import Models.UsuarioModel;
 import Database.UsuarioDB;
 import Dto.Request.CadastroUsuarioRequestDto;
-import Dto.Request.CadastroVacinaRequestDto;
-import View.Home;
 import View.TelaLogin;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.JOptionPane;
 
 public class UsuarioController {
 
