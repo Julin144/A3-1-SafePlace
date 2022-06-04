@@ -33,10 +33,10 @@ public class CondominioController
         {
             //Usar o metodo inserir do objeto DB aqui
             
-            result = "Condominio cadastrado com sucesso!";
+            result = "Condomínio cadastrado com sucesso!";
         }catch(Exception ex)
         {
-            result = "Erro durante o cadastro do inquilino.";
+            result = "Erro durante o cadastro do condomínio.";
         }
         
         return result;

@@ -238,7 +238,7 @@ public class Home extends javax.swing.JFrame {
     }//GEN-LAST:event_btnAreaActionPerformed
 
     private void btnFuncionarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFuncionarioActionPerformed
-        TelaCadastroFuncionario tf = new TelaCadastroFuncionario();
+        TelaCadastroUsuario tf = new TelaCadastroUsuario();
         tf.setVisible(true);
     }//GEN-LAST:event_btnFuncionarioActionPerformed
 

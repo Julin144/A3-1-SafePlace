@@ -4,6 +4,10 @@
  */
 package View;
 
+import Controllers.AreaController;
+import Dto.Request.CadastroAreaRequestDto;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author Ingrid
@@ -13,8 +17,16 @@ public class TelaCadastroArea extends javax.swing.JFrame {
     /**
      * Creates new form TelaCadastroArea
      */
-    public TelaCadastroArea() {
+    
+   private static AreaController _areaController;
+    
+    public TelaCadastroArea() 
+    {
+        super("SafePlace");
         initComponents();
+        setLocationRelativeTo(null);
+        
+        _areaController = new AreaController();
     }
 
     /**
@@ -54,6 +66,11 @@ public class TelaCadastroArea extends javax.swing.JFrame {
         spnDosesRequisitadasArea.setBorder(javax.swing.BorderFactory.createTitledBorder("Número de doses requisitadas para acessar:"));
 
         btnCadastrarAreaCondominio.setText("Cadastrar");
+        btnCadastrarAreaCondominio.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCadastrarAreaCondominioActionPerformed(evt);
+            }
+        });
 
         btnApagarAreaCondominio.setText("Apagar");
 
@@ -117,6 +134,17 @@ public class TelaCadastroArea extends javax.swing.JFrame {
         // TODO add your handling code here:
         this.dispose();
     }//GEN-LAST:event_btnVoltarCadastroAreaActionPerformed
+
+    private void btnCadastrarAreaCondominioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarAreaCondominioActionPerformed
+        // TODO add your handling code here:
+        CadastroAreaRequestDto request = new CadastroAreaRequestDto();
+        
+        request.setDescricao(txtNomeAreaCondominio.getText());
+        request.setDosesRequisitadas((int) spnDosesRequisitadasArea.getValue());
+        
+        
+        JOptionPane.showMessageDialog(null, _areaController.AreaController(request));
+    }//GEN-LAST:event_btnCadastrarAreaCondominioActionPerformed
 
     /**
      * @param args the command line arguments

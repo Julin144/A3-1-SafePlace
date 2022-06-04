@@ -4,7 +4,9 @@
  */
 package View;
 
+import Controllers.VacinaController;
 import Dto.Request.CadastroVacinaRequestDto;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -15,7 +17,7 @@ public class TelaCadastroVacina extends javax.swing.JFrame {
     /**
      * Creates new form TelaCadastroVacina
      */
-    
+    private static VacinaController _inquilinoController;
     
     public TelaCadastroVacina() 
     {
@@ -23,7 +25,7 @@ public class TelaCadastroVacina extends javax.swing.JFrame {
         initComponents();
         setLocationRelativeTo(null);
         
-        
+        _inquilinoController = new VacinaController();
     }
 
     /**
@@ -167,6 +169,9 @@ public class TelaCadastroVacina extends javax.swing.JFrame {
         CadastroVacinaRequestDto request = new CadastroVacinaRequestDto();
         
         request.setTipoVacina((String) cboxTipoVacina.getSelectedItem());
+        request.setQtdDoseVacina((int) spnNumeroDosesVacina.getValue());
+        
+        JOptionPane.showMessageDialog(null, _inquilinoController.VacinaController(request));
         
     }//GEN-LAST:event_btnCadastrarVacinaActionPerformed
 

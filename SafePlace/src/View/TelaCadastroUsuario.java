@@ -4,17 +4,29 @@
  */
 package View;
 
+import Controllers.UsuarioController;
+import Dto.Request.CadastroUsuarioRequestDto;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author Ingrid
  */
-public class TelaCadastroFuncionario extends javax.swing.JFrame {
+public class TelaCadastroUsuario extends javax.swing.JFrame {
 
     /**
      * Creates new form TelaFuncionario
      */
-    public TelaCadastroFuncionario() {
+    
+    private static UsuarioController _usuarioController;
+    
+    public TelaCadastroUsuario() 
+    {
+        super("SafePlace");
         initComponents();
+        setLocationRelativeTo(null);
+        
+        _usuarioController = new UsuarioController();
     }
 
     /**
@@ -26,8 +38,8 @@ public class TelaCadastroFuncionario extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        txtCadastroNomeFuncionario = new javax.swing.JTextField();
-        passwordFieldCadastroSenhaFuncionario = new javax.swing.JPasswordField();
+        txtCadastroNomeUsuario = new javax.swing.JTextField();
+        passwordFieldCadastroSenhaUsuario = new javax.swing.JPasswordField();
         cboxTipoUsuario = new javax.swing.JComboBox<>();
         cboxUsuariosCadastrados = new javax.swing.JComboBox<>();
         btnCadastroFuncionario = new javax.swing.JButton();
@@ -37,10 +49,10 @@ public class TelaCadastroFuncionario extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        txtCadastroNomeFuncionario.setBorder(javax.swing.BorderFactory.createTitledBorder("Nome do funcionário: "));
+        txtCadastroNomeUsuario.setBorder(javax.swing.BorderFactory.createTitledBorder("Nome do funcionário: "));
 
-        passwordFieldCadastroSenhaFuncionario.setText("jPasswordField1");
-        passwordFieldCadastroSenhaFuncionario.setBorder(javax.swing.BorderFactory.createTitledBorder("Senha:"));
+        passwordFieldCadastroSenhaUsuario.setText("jPasswordField1");
+        passwordFieldCadastroSenhaUsuario.setBorder(javax.swing.BorderFactory.createTitledBorder("Senha:"));
 
         cboxTipoUsuario.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Funcionário", "Administrador" }));
         cboxTipoUsuario.setBorder(javax.swing.BorderFactory.createTitledBorder("Tipo de usuário:"));
@@ -88,7 +100,7 @@ public class TelaCadastroFuncionario extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(140, 140, 140)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                    .addComponent(passwordFieldCadastroSenhaFuncionario)
+                    .addComponent(passwordFieldCadastroSenhaUsuario)
                     .addComponent(cboxTipoUsuario, 0, 221, Short.MAX_VALUE)
                     .addComponent(cboxUsuariosCadastrados, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
@@ -99,19 +111,19 @@ public class TelaCadastroFuncionario extends javax.swing.JFrame {
                         .addGap(3, 3, 3))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                            .addComponent(txtCadastroNomeFuncionario, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnVoltarCadastroFuncionario, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(btnApagarFuncionario, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(txtCadastroNomeUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnVoltarCadastroFuncionario, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnApagarFuncionario, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap(139, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(41, 41, 41)
-                .addComponent(txtCadastroNomeFuncionario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(txtCadastroNomeUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(35, 35, 35)
-                .addComponent(passwordFieldCadastroSenhaFuncionario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(passwordFieldCadastroSenhaUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(35, 35, 35)
                 .addComponent(cboxTipoUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(30, 30, 30)
@@ -132,6 +144,14 @@ public class TelaCadastroFuncionario extends javax.swing.JFrame {
 
     private void btnCadastroFuncionarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastroFuncionarioActionPerformed
         // TODO add your handling code here:
+        CadastroUsuarioRequestDto request = new CadastroUsuarioRequestDto();
+        
+        request.setLogin(txtCadastroNomeUsuario.getText());
+        request.setSenha(passwordFieldCadastroSenhaUsuario.getPassword().toString());
+        request.setTipo(cboxTipoUsuario.getSelectedItem().toString());
+        
+        
+        JOptionPane.showMessageDialog(null, _usuarioController.cadastrarUsuario(request));
     }//GEN-LAST:event_btnCadastroFuncionarioActionPerformed
 
     private void btnVoltarCadastroFuncionarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVoltarCadastroFuncionarioActionPerformed
@@ -168,14 +188,18 @@ public class TelaCadastroFuncionario extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(TelaCadastroFuncionario.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TelaCadastroUsuario.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(TelaCadastroFuncionario.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TelaCadastroUsuario.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(TelaCadastroFuncionario.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TelaCadastroUsuario.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(TelaCadastroFuncionario.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TelaCadastroUsuario.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
         //</editor-fold>
@@ -184,7 +208,7 @@ public class TelaCadastroFuncionario extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new TelaCadastroFuncionario().setVisible(true);
+                new TelaCadastroUsuario().setVisible(true);
             }
         });
     }
@@ -196,7 +220,7 @@ public class TelaCadastroFuncionario extends javax.swing.JFrame {
     private javax.swing.JButton btnVoltarCadastroFuncionario;
     private javax.swing.JComboBox<String> cboxTipoUsuario;
     private javax.swing.JComboBox<String> cboxUsuariosCadastrados;
-    private javax.swing.JPasswordField passwordFieldCadastroSenhaFuncionario;
-    private javax.swing.JTextField txtCadastroNomeFuncionario;
+    private javax.swing.JPasswordField passwordFieldCadastroSenhaUsuario;
+    private javax.swing.JTextField txtCadastroNomeUsuario;
     // End of variables declaration//GEN-END:variables
 }
