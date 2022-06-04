@@ -7,15 +7,15 @@ USE SAFEPLACE;
 CREATE TABLE Condominio(
     idCondominio INT PRIMARY KEY AUTO_INCREMENT,
     nome VARCHAR(100),
-    endereco VARCHAR(200)
+    endereco VARCHAR(200) UNIQUE NOT NULL
 );
 
 #DROP TABLE Usuario;
 CREATE TABLE Usuario(
-    idUsuario INT PRIMARY KEY AUTO_INCREMENT,
-    login VARCHAR(100),
-    senha VARCHAR(50),
-    tipo  VARCHAR(20),
+    idUsuario INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    login VARCHAR(100) UNIQUE NOT NULL,
+    senha VARCHAR(50) NOT NULL,
+    tipo  VARCHAR(20) NULL,
     
     CONSTRAINT CHK_Person CHECK (tipo='ADMIN' OR tipo='USER')
 );
@@ -34,7 +34,7 @@ CREATE TABLE Area(
 CREATE TABLE Inquilino(
     idInquilino INT PRIMARY KEY AUTO_INCREMENT,
     nome VARCHAR(100),
-    cpf VARCHAR(14),
+    cpf VARCHAR(14) UNIQUE NOT NULL,
     aprtNumero INT
 );
 
