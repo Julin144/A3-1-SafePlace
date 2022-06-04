@@ -4,6 +4,7 @@
  */
 package Models;
 import java.sql.Date;
+import java.sql.Timestamp;
 
 /**
  *
@@ -12,8 +13,10 @@ import java.sql.Date;
 public class AcessoAreaModel 
 {
 
-    private Date hrIni;
-    private Date hrFim;
+    //private Date hrIni;
+    //private Date hrFim;
+    private Timestamp hrIni;
+    private Timestamp hrFim;
     
     private int idAcesso;
     private int idInquilino;
@@ -21,22 +24,22 @@ public class AcessoAreaModel
     private int numDoses;
     
 
-    public Date getHrIni() 
+    public Timestamp getHrIni() 
     {
         return hrIni;
     }
 
-    public void setHrIni(Date hrIni) 
+    public void setHrIni(Timestamp hrIni) 
     {
         this.hrIni = hrIni;
     }
 
-    public Date getHrFim() 
+    public Timestamp getHrFim() 
     {
         return hrFim;
     }
 
-    public void setHrFim(Date hrFim) 
+    public void setHrFim(Timestamp hrFim) 
     {
         this.hrFim = hrFim;
     }
@@ -69,15 +72,5 @@ public class AcessoAreaModel
     public void setIdArea(int idArea) 
     {
         this.idArea = idArea;
-    }
-
-    public int getNumDoses() 
-    {
-        return numDoses;
-    }
-
-    public void setNumDoses(int numDoses) 
-    {
-        this.numDoses = numDoses;
     }
 }
