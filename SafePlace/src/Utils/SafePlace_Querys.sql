@@ -1,13 +1,8 @@
 INSERT INTO Condominio(nome,endereco) VALUES (?,?);
 
-UPDATE  Condominio 
-SET     nome= ?,
-      endereco= ?
-WHERE   idCondominio = x;
+UPDATE  Condominio  SET     nome= ?, endereco= ? WHERE   idCondominio = ?;
 
-DELETE
-FROM   Condominio
-WHERE  idCondominio = x;
+DELETE FROM   Condominio WHERE  idCondominio = ?;
 
 ###########################################
 
@@ -26,14 +21,9 @@ WHERE  idArea = x;
 
 INSERT INTO Vacina(tipo,qtdDose) VALUES (?,?);
 
-UPDATE Vacina 
-SET     tipo = ?,
-      qtdDose= ?
-WHERE   idVacina = x;
+UPDATE Vacina SET     tipo = ?, qtdDose= ? WHERE   idVacina = ?;
 
-DELETE
-FROM   Vacina
-WHERE  idVacina = x;
+DELETE FROM   Vacina WHERE  idVacina = ?;
 
 ###########################################
 
