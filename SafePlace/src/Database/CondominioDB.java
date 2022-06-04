@@ -13,6 +13,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 public class CondominioDB {
     
+    CondominioModel condominio = new CondominioModel();
+    
     public CondominioModel[] buscarCondominios() throws Exception {
         String sql = "SELECT * FROM CONDOMINIO";
         try (Connection conn = Conexao.obterConexao();
@@ -38,4 +40,59 @@ public class CondominioDB {
         }
     }
     
+    public void inserirInquilino() throws Exception {
+
+
+        String sql = "INSERT INTO Condominio(nome,endereco) VALUES (?,?);";
+        try (Connection conn = Conexao.obterConexao();
+                PreparedStatement ps
+                = conn.prepareStatement(
+                        sql,
+                        ResultSet.TYPE_SCROLL_INSENSITIVE,
+                        ResultSet.CONCUR_READ_ONLY);) {
+            
+            ps.setString(1, condominio.getNome());
+            ps.setString(2, condominio.getEndereco());
+            
+            ResultSet rs = ps.executeQuery();
+        }
+    }
+
+       
+    public void updateInquilino() throws Exception {
+
+        String sql = "UPDATE Vacina SET tipo = ?, qtdDose= ? WHERE   idVacina = ?;";
+        
+        try (Connection conn = Conexao.obterConexao();
+                PreparedStatement ps
+                = conn.prepareStatement(
+                        sql,
+                        ResultSet.TYPE_SCROLL_INSENSITIVE,
+                        ResultSet.CONCUR_READ_ONLY);) {
+            
+            ps.setString(1,condominio.getNome());
+            ps.setString(2, condominio.getEndereco());
+            ps.setInt(3, condominio.getIdCondominio());
+     
+            
+            ResultSet rs = ps.executeQuery();
+        }
+    }
+    
+    public void deleteInquilino() throws Exception {
+
+        String sql = "DELETE FROM   Condominio WHERE  idCondominio = ?;";
+
+        try (Connection conn = Conexao.obterConexao();
+                PreparedStatement ps
+                = conn.prepareStatement(
+                        sql,
+                        ResultSet.TYPE_SCROLL_INSENSITIVE,
+                        ResultSet.CONCUR_READ_ONLY);) {
+           
+            ps.setInt(1, condominio.getIdCondominio());       
+            
+            ResultSet rs = ps.executeQuery();
+        }
+    }
 }
