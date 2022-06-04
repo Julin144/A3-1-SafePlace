@@ -55,9 +55,8 @@ public class TelaCadastroAcesso extends javax.swing.JFrame {
         btnCadastrar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setPreferredSize(new java.awt.Dimension(500, 500));
 
-        cboxInquilino.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Inquilino"));
+        cboxInquilino.setBorder(javax.swing.BorderFactory.createTitledBorder("Inquilino"));
 
         spnApartamento.setBorder(javax.swing.BorderFactory.createTitledBorder("Número Apartamento"));
 
@@ -65,8 +64,6 @@ public class TelaCadastroAcesso extends javax.swing.JFrame {
         spnDiaFim.setEditor(df);
         spnDiaFim.setBorder(javax.swing.BorderFactory.createTitledBorder("Data Final"));
 
-        JSpinner.DateEditor di = new JSpinner.DateEditor(spnDiaIni, "dd/MM/YYYY HH:MM:ss");
-        spnDiaIni.setEditor(di);
         spnDiaIni.setBorder(javax.swing.BorderFactory.createTitledBorder("Data Inicial"));
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
@@ -156,7 +153,7 @@ public class TelaCadastroAcesso extends javax.swing.JFrame {
     }//GEN-LAST:event_btnVoltarActionPerformed
 
     private void btnCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarActionPerformed
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:MM:ss");
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
         
         String ini = sdf.format(spnDiaIni.getValue());
         String fim = sdf.format(spnDiaIni.getValue());
