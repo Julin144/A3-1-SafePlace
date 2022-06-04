@@ -4,6 +4,10 @@
  */
 package View;
 
+import Controllers.AreaController;
+import Dto.Request.CadastroAreaRequestDto;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author Ingrid
@@ -13,8 +17,16 @@ public class TelaCadastroArea extends javax.swing.JFrame {
     /**
      * Creates new form TelaCadastroArea
      */
-    public TelaCadastroArea() {
+    
+   private static AreaController _areaController;
+    
+    public TelaCadastroArea() 
+    {
+        super("SafePlace");
         initComponents();
+        setLocationRelativeTo(null);
+        
+        _areaController = new AreaController();
     }
 
     /**
@@ -34,12 +46,15 @@ public class TelaCadastroArea extends javax.swing.JFrame {
         btnApagarAreaCondominio = new javax.swing.JButton();
         cboxAreasCadastradasCondominio = new javax.swing.JComboBox<>();
         btnVoltarCadastroArea = new javax.swing.JButton();
+        btnEditarAreaCondominio = new javax.swing.JButton();
 
         jTextArea1.setColumns(20);
         jTextArea1.setRows(5);
         jScrollPane1.setViewportView(jTextArea1);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setMinimumSize(new java.awt.Dimension(500, 500));
+        setPreferredSize(new java.awt.Dimension(600, 600));
 
         txtNomeAreaCondominio.setBorder(javax.swing.BorderFactory.createTitledBorder("Nome da Área:"));
         txtNomeAreaCondominio.addActionListener(new java.awt.event.ActionListener() {
@@ -51,47 +66,61 @@ public class TelaCadastroArea extends javax.swing.JFrame {
         spnDosesRequisitadasArea.setBorder(javax.swing.BorderFactory.createTitledBorder("Número de doses requisitadas para acessar:"));
 
         btnCadastrarAreaCondominio.setText("Cadastrar");
+        btnCadastrarAreaCondominio.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCadastrarAreaCondominioActionPerformed(evt);
+            }
+        });
 
         btnApagarAreaCondominio.setText("Apagar");
 
-        cboxAreasCadastradasCondominio.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cboxAreasCadastradasCondominio.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Cadastrar uma nova área", "Item 2", "Item 3", "Item 4" }));
         cboxAreasCadastradasCondominio.setBorder(javax.swing.BorderFactory.createTitledBorder("Áreas cadastradas:"));
 
         btnVoltarCadastroArea.setText("Voltar");
+        btnVoltarCadastroArea.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnVoltarCadastroAreaActionPerformed(evt);
+            }
+        });
+
+        btnEditarAreaCondominio.setText("Editar");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(74, 74, 74)
+                .addGap(99, 99, 99)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                     .addComponent(txtNomeAreaCondominio)
                     .addComponent(spnDosesRequisitadasArea)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(btnCadastrarAreaCondominio, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 100, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 112, Short.MAX_VALUE)
                         .addComponent(btnApagarAreaCondominio, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(cboxAreasCadastradasCondominio, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnVoltarCadastroArea, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(76, Short.MAX_VALUE))
+                    .addComponent(btnVoltarCadastroArea, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnEditarAreaCondominio, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(99, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addGap(60, 60, 60)
+                .addComponent(cboxAreasCadastradasCondominio, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(50, 50, 50)
                 .addComponent(txtNomeAreaCondominio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(50, 50, 50)
-                .addComponent(spnDosesRequisitadasArea, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 50, Short.MAX_VALUE)
-                .addComponent(cboxAreasCadastradasCondominio, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(53, 53, 53)
+                .addComponent(spnDosesRequisitadasArea, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(50, 50, 50)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnCadastrarAreaCondominio)
-                    .addComponent(btnApagarAreaCondominio))
-                .addGap(18, 18, 18)
+                    .addComponent(btnApagarAreaCondominio)
+                    .addComponent(btnEditarAreaCondominio))
+                .addGap(50, 50, 50)
                 .addComponent(btnVoltarCadastroArea)
-                .addGap(56, 56, 56))
+                .addGap(60, 60, 60))
         );
 
         pack();
@@ -100,6 +129,22 @@ public class TelaCadastroArea extends javax.swing.JFrame {
     private void txtNomeAreaCondominioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNomeAreaCondominioActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtNomeAreaCondominioActionPerformed
+
+    private void btnVoltarCadastroAreaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVoltarCadastroAreaActionPerformed
+        // TODO add your handling code here:
+        this.dispose();
+    }//GEN-LAST:event_btnVoltarCadastroAreaActionPerformed
+
+    private void btnCadastrarAreaCondominioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarAreaCondominioActionPerformed
+        // TODO add your handling code here:
+        CadastroAreaRequestDto request = new CadastroAreaRequestDto();
+        
+        request.setDescricao(txtNomeAreaCondominio.getText());
+        request.setDosesRequisitadas((int) spnDosesRequisitadasArea.getValue());
+        
+        
+        JOptionPane.showMessageDialog(null, _areaController.AreaController(request));
+    }//GEN-LAST:event_btnCadastrarAreaCondominioActionPerformed
 
     /**
      * @param args the command line arguments
@@ -139,6 +184,7 @@ public class TelaCadastroArea extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnApagarAreaCondominio;
     private javax.swing.JButton btnCadastrarAreaCondominio;
+    private javax.swing.JButton btnEditarAreaCondominio;
     private javax.swing.JButton btnVoltarCadastroArea;
     private javax.swing.JComboBox<String> cboxAreasCadastradasCondominio;
     private javax.swing.JScrollPane jScrollPane1;

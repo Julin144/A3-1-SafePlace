@@ -4,6 +4,10 @@
  */
 package View;
 
+import Controllers.CondominioController;
+import Dto.Request.CadastroCondominioRequestDto;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author Ingrid
@@ -13,8 +17,15 @@ public class TelaCadastroCondominio extends javax.swing.JFrame {
     /**
      * Creates new form TelaCadastroCondominio
      */
-    public TelaCadastroCondominio() {
+    private static CondominioController _condominioController;
+    
+    public TelaCadastroCondominio() 
+    {
+        super("SafePlace");
         initComponents();
+        setLocationRelativeTo(null);
+        
+        _condominioController = new CondominioController();
     }
 
     /**
@@ -32,8 +43,10 @@ public class TelaCadastroCondominio extends javax.swing.JFrame {
         cboxCondominiosCadastrados = new javax.swing.JComboBox<>();
         btnApagarCondominio = new javax.swing.JButton();
         btnVoltarCadastroCondominio = new javax.swing.JButton();
+        btnEditarCondominio = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setMinimumSize(new java.awt.Dimension(500, 500));
 
         txtNomeCondominio.setBorder(javax.swing.BorderFactory.createTitledBorder("Nome do Condomínio:"));
         txtNomeCondominio.addActionListener(new java.awt.event.ActionListener() {
@@ -60,41 +73,68 @@ public class TelaCadastroCondominio extends javax.swing.JFrame {
         cboxCondominiosCadastrados.setBorder(javax.swing.BorderFactory.createTitledBorder("Condomínios cadastrados:"));
 
         btnApagarCondominio.setText("Apagar");
+        btnApagarCondominio.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
 
         btnVoltarCadastroCondominio.setText("Voltar");
+        btnVoltarCadastroCondominio.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnVoltarCadastroCondominioActionPerformed(evt);
+            }
+        });
+
+        btnEditarCondominio.setText("Editar");
+        btnEditarCondominio.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEditarCondominioActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap(120, Short.MAX_VALUE)
+                .addGap(113, 113, 113)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                     .addComponent(txtNomeCondominio, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtEnderecoCondominio, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnCadastrarCondominio, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(cboxCondominiosCadastrados, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnApagarCondominio, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnVoltarCadastroCondominio, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(120, 120, 120))
+                    .addComponent(cboxCondominiosCadastrados, javax.swing.GroupLayout.PREFERRED_SIZE, 274, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnVoltarCadastroCondominio, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(btnCadastrarCondominio)
+                        .addGap(15, 15, 15)
+                        .addComponent(btnEditarCondominio)
+                        .addGap(15, 15, 15)
+                        .addComponent(btnApagarCondominio)))
+                .addContainerGap(113, Short.MAX_VALUE))
         );
+
+        layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {cboxCondominiosCadastrados, txtEnderecoCondominio, txtNomeCondominio});
+
+        layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {btnApagarCondominio, btnCadastrarCondominio, btnEditarCondominio});
+
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(50, 50, 50)
+                .addGap(79, 79, 79)
+                .addComponent(cboxCondominiosCadastrados, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(40, 40, 40)
                 .addComponent(txtNomeCondominio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(40, 40, 40)
                 .addComponent(txtEnderecoCondominio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(30, 30, 30)
-                .addComponent(btnCadastrarCondominio)
-                .addGap(30, 30, 30)
-                .addComponent(cboxCondominiosCadastrados, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(30, 30, 30)
-                .addComponent(btnApagarCondominio)
-                .addGap(34, 34, 34)
+                .addGap(50, 50, 50)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnApagarCondominio)
+                    .addComponent(btnEditarCondominio)
+                    .addComponent(btnCadastrarCondominio))
+                .addGap(40, 40, 40)
                 .addComponent(btnVoltarCadastroCondominio)
-                .addContainerGap(39, Short.MAX_VALUE))
+                .addContainerGap(78, Short.MAX_VALUE))
         );
+
+        layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {cboxCondominiosCadastrados, txtEnderecoCondominio, txtNomeCondominio});
+
+        layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {btnApagarCondominio, btnCadastrarCondominio, btnEditarCondominio});
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -109,7 +149,23 @@ public class TelaCadastroCondominio extends javax.swing.JFrame {
 
     private void btnCadastrarCondominioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarCondominioActionPerformed
         // TODO add your handling code here:
+        CadastroCondominioRequestDto request = new CadastroCondominioRequestDto();
+        
+        request.setNome(txtNomeCondominio.getText());
+        request.setEndereco(txtEnderecoCondominio.getText());
+        
+        
+        JOptionPane.showMessageDialog(null, _condominioController.CadastrarCondominio(request));
     }//GEN-LAST:event_btnCadastrarCondominioActionPerformed
+
+    private void btnEditarCondominioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarCondominioActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnEditarCondominioActionPerformed
+
+    private void btnVoltarCadastroCondominioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVoltarCadastroCondominioActionPerformed
+        // TODO add your handling code here:
+        this.dispose();
+    }//GEN-LAST:event_btnVoltarCadastroCondominioActionPerformed
 
     /**
      * @param args the command line arguments
@@ -149,6 +205,7 @@ public class TelaCadastroCondominio extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnApagarCondominio;
     private javax.swing.JButton btnCadastrarCondominio;
+    private javax.swing.JButton btnEditarCondominio;
     private javax.swing.JButton btnVoltarCadastroCondominio;
     private javax.swing.JComboBox<String> cboxCondominiosCadastrados;
     private javax.swing.JTextField txtEnderecoCondominio;

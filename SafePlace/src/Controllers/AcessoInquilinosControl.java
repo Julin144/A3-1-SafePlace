@@ -12,6 +12,7 @@ import Models.AreaModel;
 import Models.CondominioModel;
 import Models.AcessoAreaModel;
 import Models.InquilinoModel;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -22,27 +23,26 @@ public class AcessoInquilinosControl {
     CondominioDB dbCondominio;
     AcessoAreaDB dbAcesso;
     InquilinoDB dbInquilino;
-
-    //Condominio
-    public CondominioModel[] condominios;
-    public CondominioModel condominioSelecionado;
-    //Area
-    public AreaModel[] areas;
-    public AreaModel areaSelecionada;
-    //Acesso
-    public AcessoAreaModel[] acessos;
-    //Inquilino
-    public InquilinoModel[] inquilinos;
+    AcessoAreaModel[] listaAcessos;
     
-    public void montarListaInquilino() throws Exception {
-//        this.condominios = dbCondominio.buscarCondominios();;
-//        //teste
-//        this.condominioSelecionado = this.condominios.length != 0 ? this.condominios[0] : null;
-//        
-//        this.areas = dbArea.buscarAreas(this.condominioSelecionado);
-//        //teste
-//        this.areaSelecionada = this.areas.length != 0 ? this.areas[0] : null;
+    public AcessoInquilinosControl() {
+        this.dbArea = new AreaDB();
+        this.dbCondominio = new CondominioDB();
+        this.dbAcesso = new AcessoAreaDB();
+        this.dbInquilino = new InquilinoDB();
+    }
+
+    public void montarListaAcessos(AreaModel area) throws Exception {
+        this.listaAcessos = dbAcesso.buscarAcessoInquilino(area);
+    }
+    
+    public void montarListaTabela(DefaultTableModel model) throws Exception{
+        InquilinoModel[] inqList = dbInquilino.buscarInquilino();
         
-        this.acessos = dbAcesso.buscarAcessoInquilino();
+        for(AcessoAreaModel acesso : this.listaAcessos)
+            for(InquilinoModel inq : inqList) {
+                if(inq.getIdInquilino() == acesso.getIdInquilino())
+                    model.addRow(new Object[]{inq.getNome(), inq.getCpf(), inq.getAprtNumero()});
+            }
     }
 }

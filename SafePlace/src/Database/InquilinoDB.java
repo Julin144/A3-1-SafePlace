@@ -16,24 +16,17 @@ import java.sql.ResultSet;
 
 public class InquilinoDB {
     
-    InquilinoModel inquilino = new InquilinoModel();
-    
-    public void inserirInquilino() throws Exception {
-
-
+    public void inserirInquilino(InquilinoModel inquilino) throws Exception {
         String sql = "INSERT INTO Inquilino(nome,cpf ,aprtNumero) VALUES (?,?,?);";
         try (Connection conn = Conexao.obterConexao();
                 PreparedStatement ps
-                = conn.prepareStatement(
-                        sql,
-                        ResultSet.TYPE_SCROLL_INSENSITIVE,
-                        ResultSet.CONCUR_READ_ONLY);) {
+                = conn.prepareStatement(sql);) {
             
             ps.setString(1, inquilino.getNome());
-            ps.setInt(2, inquilino.getCpf());
+            ps.setString(2, inquilino.getCpf());
             ps.setInt(3, inquilino.getAprtNumero());
             
-            ResultSet rs = ps.executeQuery();
+            ps.execute();
         }
     }
 
@@ -52,19 +45,25 @@ public class InquilinoDB {
             int contador = 0;
             
             while (rs.next()) {
+                InquilinoModel inq = new InquilinoModel();
+                
                 int id = rs.getInt("idInquilino");
-                //
                 String nome = rs.getString("nome");
-                int CPF = rs.getInt("cpf");
+                String CPF = rs.getString("cpf");
                 int apartNumero = rs.getInt("aprtNumero");
                 
-                inquilinos[contador++] = new InquilinoModel();
+                inq.setIdInquilino(id);
+                inq.setNome(nome);
+                inq.setCpf(CPF);
+                inq.setAprtNumero(apartNumero);
+                
+                inquilinos[contador++] = inq;
             }
             return inquilinos;
         }
     }
    
-    public void updateInquilino() throws Exception {
+    public void updateInquilino(InquilinoModel inquilino) throws Exception {
 
 
         String sql = "UPDATE Inquilino SET nome = ?,cpf= ?,aprtNumero= ? WHERE  idInquilino = ?";
@@ -76,7 +75,7 @@ public class InquilinoDB {
                         ResultSet.CONCUR_READ_ONLY);) {
             
             ps.setString(1, inquilino.getNome());
-            ps.setInt(2, inquilino.getCpf());
+            ps.setString(2, inquilino.getCpf());
             ps.setInt(3, inquilino.getAprtNumero());
             ps.setInt(4, inquilino.getIdInquilino());
             
@@ -84,7 +83,7 @@ public class InquilinoDB {
         }
     }
     
-    public void deleteInquilino() throws Exception {
+    public void deleteInquilino(InquilinoModel inquilino) throws Exception {
 
 
         String sql = "DELETE FROM Inquilino WHERE idInquilino = ?;";

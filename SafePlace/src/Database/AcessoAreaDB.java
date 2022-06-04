@@ -95,8 +95,9 @@ public class AcessoAreaDB {
         }
     }
     //AreaModel area, InquilinoModel inquilino
-    public AcessoAreaModel[] buscarAcessoInquilino() throws Exception {;
-        String sql = "SELECT inq.nome, inq.aprtNumero, ace.hrIni, ace.hrFim FROM AcessoArea ace, Inquilino inq WHERE idArea = 1, idInquilino = 1";
+    public AcessoAreaModel[] buscarAcessoInquilino(AreaModel area) throws Exception {;
+        //String sql = "SELECT inq.nome, inq.aprtNumero, ace.hrIni, ace.hrFim FROM AcessoArea ace, Inquilino inq WHERE idArea = 1, idInquilino = 1"; THAIS
+        String sql = "SELECT * FROM AcessoArea ace WHERE idArea = ?";
         try (Connection conn = Conexao.obterConexao();
                 PreparedStatement ps
                 = conn.prepareStatement(sql,
@@ -104,8 +105,7 @@ public class AcessoAreaDB {
                         ResultSet.CONCUR_READ_ONLY);
                 ) {
             
-            //ps.setInt(1, area.getIdArea());
-            //ps.setInt(1, inquilino.getIdInquilino());
+            ps.setInt(1, area.getIdArea());
             ResultSet rs = ps.executeQuery();
 
             int totalAcessos = rs.last() ? rs.getRow() : 0;
@@ -114,12 +114,19 @@ public class AcessoAreaDB {
             int contador = 0;
             
             while (rs.next()) {
-                String nome = rs.getString("nome");
-                int aprtNumero = rs.getInt("aprtNumero");
-                Timestamp hrIni = rs.getTimestamp("hrIni");
-                Timestamp hrFim = rs.getTimestamp("hrFim");
+                AcessoAreaModel acessoArea = new AcessoAreaModel();
                 
-                acessos[contador++] = new AcessoAreaModel();
+                int idAcesso = rs.getInt("idAcesso");
+                int idInquilino = rs.getInt("idInquilino");
+                int idArea = rs.getInt("idArea");
+                //Timestamp hrIni = rs.getTimestamp("hr");
+                //Timestamp hrFim = rs.getTimestamp("hrFim");
+                
+                acessoArea.setIdAcesso(idAcesso);
+                acessoArea.setIdInquilino(idInquilino);
+                acessoArea.setIdArea(idArea);
+                
+                acessos[contador++] = acessoArea;
             }
             return acessos;
         }

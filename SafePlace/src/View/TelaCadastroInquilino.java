@@ -4,6 +4,10 @@
  */
 package View;
 
+import Controllers.InquilinoController;
+import Dto.Request.*;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author Ingrid
@@ -13,8 +17,15 @@ public class TelaCadastroInquilino extends javax.swing.JFrame {
     /**
      * Creates new form TelaCadastroInquilino
      */
-    public TelaCadastroInquilino() {
+    private static InquilinoController _inquilinoController;
+    
+    public TelaCadastroInquilino() 
+    {
+        super("SafePlace");
         initComponents();
+        setLocationRelativeTo(null);
+        
+        _inquilinoController = new InquilinoController();
     }
 
     /**
@@ -37,59 +48,88 @@ public class TelaCadastroInquilino extends javax.swing.JFrame {
         jScrollPane3 = new javax.swing.JScrollPane();
         txtCadastrarAPInquilino = new javax.swing.JTextPane();
         btnCadastrarVacinaInquilino = new javax.swing.JButton();
+        cboxListaInquilinos = new javax.swing.JComboBox<>();
+        lbResponse = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setMinimumSize(new java.awt.Dimension(500, 500));
 
         btnVoltarCadastroInquilino.setText("Voltar");
+        btnVoltarCadastroInquilino.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnVoltarCadastroInquilinoActionPerformed(evt);
+            }
+        });
 
-        btnCadastrarInquilino.setText("Cadastrar Inquilino");
+        btnCadastrarInquilino.setText("Cadastrar");
         btnCadastrarInquilino.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnCadastrarInquilinoActionPerformed(evt);
             }
         });
 
-        btnEditarInquilino.setText("Editar Inquilino");
+        btnEditarInquilino.setText("Editar");
         btnEditarInquilino.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnEditarInquilinoActionPerformed(evt);
             }
         });
 
-        btnDeletarInquilino.setText("Deletar Inquilino");
+        btnDeletarInquilino.setText("Deletar");
 
-        txtCadastrarNomeInquilino.setBorder(javax.swing.BorderFactory.createTitledBorder("Digite o nome do inquilino: "));
+        txtCadastrarNomeInquilino.setBorder(javax.swing.BorderFactory.createTitledBorder("Nome do inquilino: "));
         jScrollPane1.setViewportView(txtCadastrarNomeInquilino);
 
-        txtCadastrarCPFInquilino.setBorder(javax.swing.BorderFactory.createTitledBorder("Digite o CPF do inquilino: "));
+        txtCadastrarCPFInquilino.setBorder(javax.swing.BorderFactory.createTitledBorder("CPF do inquilino: "));
         jScrollPane2.setViewportView(txtCadastrarCPFInquilino);
 
-        txtCadastrarAPInquilino.setBorder(javax.swing.BorderFactory.createTitledBorder("Digite o número do apartamento do inquilino: "));
+        txtCadastrarAPInquilino.setBorder(javax.swing.BorderFactory.createTitledBorder("Número do apartamento do inquilino: "));
         jScrollPane3.setViewportView(txtCadastrarAPInquilino);
 
         btnCadastrarVacinaInquilino.setText("Cadastrar Vacina");
+        btnCadastrarVacinaInquilino.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCadastrarVacinaInquilinoActionPerformed(evt);
+            }
+        });
+
+        cboxListaInquilinos.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Cadastrar um novo inquilino", "Item 2", "Item 3", "Item 4" }));
+        cboxListaInquilinos.setBorder(javax.swing.BorderFactory.createTitledBorder("Inquilinos cadastrados:"));
+        cboxListaInquilinos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cboxListaInquilinosActionPerformed(evt);
+            }
+        });
+
+        lbResponse.setText("Resposta Cadastro");
+        lbResponse.setEnabled(false);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(45, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 410, Short.MAX_VALUE)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 410, Short.MAX_VALUE)
+                    .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 410, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(233, 233, 233)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(btnCadastrarVacinaInquilino)
-                            .addComponent(btnVoltarCadastroInquilino, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnCadastrarInquilino)
-                            .addComponent(btnEditarInquilino)
-                            .addComponent(btnDeletarInquilino)))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(btnCadastrarInquilino)
+                                .addGap(28, 28, 28)
+                                .addComponent(btnEditarInquilino)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnDeletarInquilino))
+                    .addComponent(cboxListaInquilinos, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(106, 106, 106)
+                        .addGap(158, 158, 158)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 410, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 410, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 410, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(106, Short.MAX_VALUE))
+                            .addComponent(lbResponse)
+                            .addComponent(btnVoltarCadastroInquilino, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(45, Short.MAX_VALUE))
         );
 
         layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {btnCadastrarInquilino, btnCadastrarVacinaInquilino, btnDeletarInquilino, btnEditarInquilino});
@@ -99,39 +139,72 @@ public class TelaCadastroInquilino extends javax.swing.JFrame {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap(41, Short.MAX_VALUE)
+                .addGap(50, 50, 50)
+                .addComponent(cboxListaInquilinos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(25, 25, 25)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(37, 37, 37)
+                .addGap(25, 25, 25)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(37, 37, 37)
+                .addGap(25, 25, 25)
                 .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(38, 38, 38)
-                .addComponent(btnCadastrarInquilino)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(btnEditarInquilino)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(btnDeletarInquilino)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(25, 25, 25)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnCadastrarInquilino)
+                    .addComponent(btnEditarInquilino)
+                    .addComponent(btnDeletarInquilino))
+                .addGap(30, 30, 30)
                 .addComponent(btnCadastrarVacinaInquilino)
-                .addGap(18, 18, 18)
+                .addGap(30, 30, 30)
                 .addComponent(btnVoltarCadastroInquilino)
-                .addGap(48, 48, 48))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(lbResponse)
+                .addContainerGap())
         );
 
         layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {btnCadastrarInquilino, btnCadastrarVacinaInquilino, btnDeletarInquilino, btnEditarInquilino, btnVoltarCadastroInquilino});
 
-        layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jScrollPane1, jScrollPane2, jScrollPane3});
+        layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {cboxListaInquilinos, jScrollPane1, jScrollPane2, jScrollPane3});
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnCadastrarInquilinoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarInquilinoActionPerformed
         // TODO add your handling code here:
+        CadastroInquilinoRequestDto request = new CadastroInquilinoRequestDto();
+        
+        request.setNomeInquilino(txtCadastrarNomeInquilino.getText());
+        request.setCpfInquilino(txtCadastrarCPFInquilino.getText());
+        request.setNumeroApInquilino(txtCadastrarAPInquilino.getText());
+        
+        //lbResponse.setText(_inquilinoController.CadatrarInquilino(request));
+        //lbResponse.setEnabled(true);
+        
+        JOptionPane.showMessageDialog(null, _inquilinoController.CadatrarInquilino(request));
+        
     }//GEN-LAST:event_btnCadastrarInquilinoActionPerformed
 
     private void btnEditarInquilinoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarInquilinoActionPerformed
         // TODO add your handling code here:
+        
     }//GEN-LAST:event_btnEditarInquilinoActionPerformed
+
+    private void cboxListaInquilinosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cboxListaInquilinosActionPerformed
+        // TODO add your handling code here:
+        
+    }//GEN-LAST:event_cboxListaInquilinosActionPerformed
+
+    private void btnCadastrarVacinaInquilinoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarVacinaInquilinoActionPerformed
+        // TODO add your handling code here:
+        TelaCadastroVacina tCadVacina = new TelaCadastroVacina();
+        tCadVacina.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_btnCadastrarVacinaInquilinoActionPerformed
+
+    private void btnVoltarCadastroInquilinoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVoltarCadastroInquilinoActionPerformed
+        // TODO add your handling code here:
+        this.dispose();
+        
+    }//GEN-LAST:event_btnVoltarCadastroInquilinoActionPerformed
 
     /**
      * @param args the command line arguments
@@ -174,9 +247,11 @@ public class TelaCadastroInquilino extends javax.swing.JFrame {
     private javax.swing.JButton btnDeletarInquilino;
     private javax.swing.JButton btnEditarInquilino;
     private javax.swing.JButton btnVoltarCadastroInquilino;
+    private javax.swing.JComboBox<String> cboxListaInquilinos;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JLabel lbResponse;
     private javax.swing.JTextPane txtCadastrarAPInquilino;
     private javax.swing.JTextPane txtCadastrarCPFInquilino;
     private javax.swing.JTextPane txtCadastrarNomeInquilino;

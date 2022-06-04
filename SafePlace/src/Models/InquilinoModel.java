@@ -12,7 +12,7 @@ public class InquilinoModel
 {
     private int idInquilino;
     private String nome;
-    private int cpf;
+    private String cpf;
     private int aprtNumero;
     
     public InquilinoModel()
@@ -39,12 +39,12 @@ public class InquilinoModel
         this.nome = nome;
     }
     
-    public int getCpf()
+    public String getCpf()
     {
         return cpf;
     }
     
-    public void setCpf(int cpf)
+    public void setCpf(String cpf)
     {
         this.cpf = cpf;
     }
