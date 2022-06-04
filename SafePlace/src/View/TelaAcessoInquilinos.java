@@ -4,14 +4,20 @@
  */
 package View;
 
+import Controllers.AcessoInquilinosControl;
 import Models.AreaModel;
+import Models.InquilinoModel;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
  * @author Thais Dias
  */
 public class TelaAcessoInquilinos extends javax.swing.JFrame {
-    
+    public AcessoInquilinosControl aic = new AcessoInquilinosControl();
     public AreaModel area;
     /**
      * Creates new form AcessoInquilinos
@@ -24,6 +30,21 @@ public class TelaAcessoInquilinos extends javax.swing.JFrame {
     public void setArea(AreaModel area) {
         this.area = area;
         labelArea.setText(this.area.getDescricao());
+        
+        try {
+            aic.montarListaAcessos(area);
+            aic.montarListaTabela();
+        } catch (Exception ex) {
+            Logger.getLogger(TelaAcessoInquilinos.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        DefaultTableModel model = (DefaultTableModel) tableInquilinos.getModel();
+        model.setRowCount(0);
+        
+        for(InquilinoModel inq : aic.listaInqAcessos) {
+            model.addRow(new Object[]{inq.getNome(), inq.getAprtNumero()});
+        }
+        tableInquilinos.setModel(model);
     }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -35,27 +56,40 @@ public class TelaAcessoInquilinos extends javax.swing.JFrame {
     private void initComponents() {
 
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tableInquilinos = new javax.swing.JTable();
         jButton1 = new javax.swing.JButton();
-        btnVoltar = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         labelArea = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tableInquilinos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {null, null},
+                {null, null}
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+                "Nome", "Apartamento"
             }
-        ));
-        jScrollPane1.setViewportView(jTable1);
+        ) {
+            Class[] types = new Class [] {
+                java.lang.String.class, java.lang.String.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, false
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jScrollPane1.setViewportView(tableInquilinos);
 
         jButton1.setText("Gerar Acesso");
         jButton1.setMaximumSize(new java.awt.Dimension(77, 22));
@@ -63,14 +97,14 @@ public class TelaAcessoInquilinos extends javax.swing.JFrame {
         jButton1.setPreferredSize(new java.awt.Dimension(125, 40));
         jButton1.setRequestFocusEnabled(false);
 
-        btnVoltar.setText("Voltar");
-        btnVoltar.setMaximumSize(new java.awt.Dimension(77, 22));
-        btnVoltar.setMinimumSize(new java.awt.Dimension(77, 22));
-        btnVoltar.setPreferredSize(new java.awt.Dimension(125, 40));
-        btnVoltar.setRequestFocusEnabled(false);
-        btnVoltar.addActionListener(new java.awt.event.ActionListener() {
+        jButton2.setText("Voltar");
+        jButton2.setMaximumSize(new java.awt.Dimension(77, 22));
+        jButton2.setMinimumSize(new java.awt.Dimension(77, 22));
+        jButton2.setPreferredSize(new java.awt.Dimension(125, 40));
+        jButton2.setRequestFocusEnabled(false);
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnVoltarActionPerformed(evt);
+                jButton2ActionPerformed(evt);
             }
         });
 
@@ -87,7 +121,7 @@ public class TelaAcessoInquilinos extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(100, 100, 100)
-                .addComponent(btnVoltar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(100, 100, 100))
@@ -114,16 +148,16 @@ public class TelaAcessoInquilinos extends javax.swing.JFrame {
                 .addGap(31, 31, 31)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnVoltar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(24, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnVoltarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVoltarActionPerformed
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         this.dispose();
-    }//GEN-LAST:event_btnVoltarActionPerformed
+    }//GEN-LAST:event_jButton2ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -164,11 +198,11 @@ public class TelaAcessoInquilinos extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnVoltar;
     private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
     private javax.swing.JLabel labelArea;
+    private javax.swing.JTable tableInquilinos;
     // End of variables declaration//GEN-END:variables
 }

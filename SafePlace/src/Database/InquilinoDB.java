@@ -52,13 +52,19 @@ public class InquilinoDB {
             int contador = 0;
             
             while (rs.next()) {
+                InquilinoModel inq = new InquilinoModel();
+                
                 int id = rs.getInt("idInquilino");
-                //
                 String nome = rs.getString("nome");
                 int CPF = rs.getInt("cpf");
                 int apartNumero = rs.getInt("aprtNumero");
                 
-                inquilinos[contador++] = new InquilinoModel();
+                inq.setIdInquilino(id);
+                inq.setNome(nome);
+                inq.setCpf(CPF);
+                inq.setAprtNumero(apartNumero);
+                
+                inquilinos[contador++] = inq;
             }
             return inquilinos;
         }
