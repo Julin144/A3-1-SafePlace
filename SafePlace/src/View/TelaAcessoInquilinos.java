@@ -4,7 +4,7 @@
  */
 package View;
 
-import Controllers.AcessoInquilinosControl;
+import Controllers.AcessoInquilinosController;
 import Models.AreaModel;
 import Models.InquilinoModel;
 import java.util.logging.Level;
@@ -17,7 +17,7 @@ import javax.swing.table.DefaultTableModel;
  * @author Thais Dias
  */
 public class TelaAcessoInquilinos extends javax.swing.JFrame {
-    public AcessoInquilinosControl aic = new AcessoInquilinosControl();
+    public AcessoInquilinosController aic = new AcessoInquilinosController();
     public AreaModel area;
     /**
      * Creates new form AcessoInquilinos
@@ -133,7 +133,7 @@ public class TelaAcessoInquilinos extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGap(48, 48, 48)
                         .addComponent(btnVoltar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 299, Short.MAX_VALUE)
                         .addComponent(btnCadastrarAcesso, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(100, 100, 100))
                     .addGroup(layout.createSequentialGroup()
@@ -144,7 +144,7 @@ public class TelaAcessoInquilinos extends javax.swing.JFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(labelArea))
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 644, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addContainerGap(50, Short.MAX_VALUE))))
+                        .addContainerGap(53, Short.MAX_VALUE))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)

@@ -17,14 +17,14 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author er679
  */
-public class AcessoInquilinosControl {
+public class AcessoInquilinosController {
     AreaDB dbArea;
     CondominioDB dbCondominio;
     AcessoAreaDB dbAcesso;
     InquilinoDB dbInquilino;
     AcessoAreaModel[] listaAcessos;
     
-    public AcessoInquilinosControl() {
+    public AcessoInquilinosController() {
         this.dbArea = new AreaDB();
         this.dbCondominio = new CondominioDB();
         this.dbAcesso = new AcessoAreaDB();
@@ -43,5 +43,31 @@ public class AcessoInquilinosControl {
                 if(inq.getIdInquilino() == acesso.getIdInquilino())
                     model.addRow(new Object[]{inq.getNome(), inq.getCpf(), inq.getAprtNumero(), acesso.getHrIni(), acesso.getHrFim()});
             }
+    }
+    
+    public String CadatrarInquilino(CadastroInquilinoRequestDto request)
+    {
+        String result;
+        
+        InquilinoModel inquilino = new InquilinoModel();
+        
+        inquilino.setNome(request.getNomeInquilino());
+        inquilino.setCpf(request.getCpfInquilino());
+        inquilino.setAprtNumero(Integer.parseInt(request.getNumeroApInquilino()));
+        
+        
+        
+        try
+        {
+            _inquilinoDb.inserirInquilino(inquilino);
+            
+            result = "Inquilino cadastrado com sucesso!";
+            
+        }catch(Exception ex)
+        {
+            result = "Erro durante o cadastro do inquilino.";
+        }
+        
+        return result;
     }
 }

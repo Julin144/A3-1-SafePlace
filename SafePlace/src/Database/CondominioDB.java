@@ -40,7 +40,7 @@ public class CondominioDB {
         }
     }
     
-    public void inserirInquilino() throws Exception {
+    public void inserirCondominio() throws Exception {
 
 
         String sql = "INSERT INTO Condominio(nome,endereco) VALUES (?,?);";
@@ -59,9 +59,9 @@ public class CondominioDB {
     }
 
        
-    public void updateInquilino() throws Exception {
+    public void updateCondominio() throws Exception {
 
-        String sql = "UPDATE Vacina SET tipo = ?, qtdDose= ? WHERE   idVacina = ?;";
+        String sql = "UPDATE Condominio SET nome = ?, endereco= ? WHERE   idCondominio = ?;";
         
         try (Connection conn = Conexao.obterConexao();
                 PreparedStatement ps
@@ -79,9 +79,9 @@ public class CondominioDB {
         }
     }
     
-    public void deleteInquilino() throws Exception {
+    public void deleteCondominio() throws Exception {
 
-        String sql = "DELETE FROM   Condominio WHERE  idCondominio = ?;";
+        String sql = "DELETE FROM Condominio WHERE  idCondominio = ?;";
 
         try (Connection conn = Conexao.obterConexao();
                 PreparedStatement ps
