@@ -13,7 +13,9 @@ public class TelaCadastroVacina extends javax.swing.JFrame {
     /**
      * Creates new form TelaCadastroVacina
      */
-    public TelaCadastroVacina() {
+    public TelaCadastroVacina() 
+    {
+        super("SafePlace");
         initComponents();
     }
 
@@ -33,6 +35,7 @@ public class TelaCadastroVacina extends javax.swing.JFrame {
         btnApagarCadastroVacina = new javax.swing.JButton();
         btnVoltarCadastroVacina = new javax.swing.JButton();
         spnNumeroDosesVacina = new javax.swing.JSpinner();
+        btnEditarCadastroVacina = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -55,35 +58,48 @@ public class TelaCadastroVacina extends javax.swing.JFrame {
         btnCadastrarVacina.setText("Cadastrar");
 
         btnApagarCadastroVacina.setText("Apagar");
+        btnApagarCadastroVacina.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnApagarCadastroVacinaActionPerformed(evt);
+            }
+        });
 
         btnVoltarCadastroVacina.setText("Voltar");
 
         spnNumeroDosesVacina.setBorder(javax.swing.BorderFactory.createTitledBorder("Número de doses:"));
+
+        btnEditarCadastroVacina.setText("Editar");
+        btnEditarCadastroVacina.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEditarCadastroVacinaActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(105, 105, 105)
+                .addGap(111, 111, 111)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                    .addComponent(cboxNomeInquilino, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(cboxNomeInquilino, javax.swing.GroupLayout.PREFERRED_SIZE, 277, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(cboxTipoVacina, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(spnNumeroDosesVacina)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(btnCadastrarVacina, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 47, Short.MAX_VALUE)
-                        .addComponent(btnApagarCadastroVacina, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(btnVoltarCadastroVacina, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(104, Short.MAX_VALUE))
+                        .addComponent(btnCadastrarVacina)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnApagarCadastroVacina))
+                    .addComponent(btnVoltarCadastroVacina)
+                    .addComponent(btnEditarCadastroVacina))
+                .addContainerGap(112, Short.MAX_VALUE))
         );
 
-        layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {btnApagarCadastroVacina, btnCadastrarVacina});
+        layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {btnApagarCadastroVacina, btnCadastrarVacina, btnEditarCadastroVacina});
 
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(50, 50, 50)
+                .addGap(76, 76, 76)
                 .addComponent(cboxNomeInquilino, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(40, 40, 40)
                 .addComponent(cboxTipoVacina, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -92,13 +108,14 @@ public class TelaCadastroVacina extends javax.swing.JFrame {
                 .addGap(40, 40, 40)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnApagarCadastroVacina)
-                    .addComponent(btnCadastrarVacina, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(41, 41, 41)
+                    .addComponent(btnCadastrarVacina, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnEditarCadastroVacina))
+                .addGap(50, 50, 50)
                 .addComponent(btnVoltarCadastroVacina)
-                .addContainerGap(46, Short.MAX_VALUE))
+                .addContainerGap(65, Short.MAX_VALUE))
         );
 
-        layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {btnApagarCadastroVacina, btnCadastrarVacina});
+        layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {btnApagarCadastroVacina, btnCadastrarVacina, btnEditarCadastroVacina, btnVoltarCadastroVacina});
 
         layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {cboxTipoVacina, spnNumeroDosesVacina});
 
@@ -112,6 +129,14 @@ public class TelaCadastroVacina extends javax.swing.JFrame {
     private void cboxTipoVacinaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cboxTipoVacinaActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_cboxTipoVacinaActionPerformed
+
+    private void btnEditarCadastroVacinaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarCadastroVacinaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnEditarCadastroVacinaActionPerformed
+
+    private void btnApagarCadastroVacinaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnApagarCadastroVacinaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnApagarCadastroVacinaActionPerformed
 
     /**
      * @param args the command line arguments
@@ -151,6 +176,7 @@ public class TelaCadastroVacina extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnApagarCadastroVacina;
     private javax.swing.JButton btnCadastrarVacina;
+    private javax.swing.JButton btnEditarCadastroVacina;
     private javax.swing.JButton btnVoltarCadastroVacina;
     private javax.swing.JComboBox<String> cboxNomeInquilino;
     private javax.swing.JComboBox<String> cboxTipoVacina;

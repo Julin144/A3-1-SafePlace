@@ -33,6 +33,7 @@ public class TelaCadastroFuncionario extends javax.swing.JFrame {
         btnCadastroFuncionario = new javax.swing.JButton();
         btnApagarFuncionario = new javax.swing.JButton();
         btnVoltarCadastroFuncionario = new javax.swing.JButton();
+        btnEditarFuncionario = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -46,6 +47,11 @@ public class TelaCadastroFuncionario extends javax.swing.JFrame {
 
         cboxUsuariosCadastrados.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         cboxUsuariosCadastrados.setBorder(javax.swing.BorderFactory.createTitledBorder("Usuários Cadastrados:"));
+        cboxUsuariosCadastrados.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cboxUsuariosCadastradosActionPerformed(evt);
+            }
+        });
 
         btnCadastroFuncionario.setText("Cadastrar");
         btnCadastroFuncionario.addActionListener(new java.awt.event.ActionListener() {
@@ -55,43 +61,70 @@ public class TelaCadastroFuncionario extends javax.swing.JFrame {
         });
 
         btnApagarFuncionario.setText("Apagar");
+        btnApagarFuncionario.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnApagarFuncionarioActionPerformed(evt);
+            }
+        });
 
         btnVoltarCadastroFuncionario.setText("Voltar");
+        btnVoltarCadastroFuncionario.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnVoltarCadastroFuncionarioActionPerformed(evt);
+            }
+        });
+
+        btnEditarFuncionario.setText("Editar");
+        btnEditarFuncionario.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEditarFuncionarioActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(120, 120, 120)
+                .addGap(140, 140, 140)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                     .addComponent(passwordFieldCadastroSenhaFuncionario)
-                    .addComponent(cboxTipoUsuario, 0, 200, Short.MAX_VALUE)
+                    .addComponent(cboxTipoUsuario, 0, 221, Short.MAX_VALUE)
                     .addComponent(cboxUsuariosCadastrados, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(txtCadastroNomeFuncionario)
-                    .addComponent(btnCadastroFuncionario, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnApagarFuncionario, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnVoltarCadastroFuncionario, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(120, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                        .addGap(1, 1, 1)
+                        .addComponent(btnCadastroFuncionario, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnEditarFuncionario, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(3, 3, 3))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
+                            .addComponent(txtCadastroNomeFuncionario, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnVoltarCadastroFuncionario, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(btnApagarFuncionario, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(139, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(50, 50, 50)
+                .addGap(41, 41, 41)
                 .addComponent(txtCadastroNomeFuncionario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(35, 35, 35)
                 .addComponent(passwordFieldCadastroSenhaFuncionario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(35, 35, 35)
                 .addComponent(cboxTipoUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(30, 30, 30)
-                .addComponent(btnCadastroFuncionario)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnCadastroFuncionario)
+                    .addComponent(btnEditarFuncionario))
                 .addGap(30, 30, 30)
                 .addComponent(cboxUsuariosCadastrados, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(30, 30, 30)
                 .addComponent(btnApagarFuncionario)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 30, Short.MAX_VALUE)
+                .addGap(30, 30, 30)
                 .addComponent(btnVoltarCadastroFuncionario)
-                .addGap(22, 22, 22))
+                .addContainerGap(41, Short.MAX_VALUE))
         );
 
         pack();
@@ -100,6 +133,22 @@ public class TelaCadastroFuncionario extends javax.swing.JFrame {
     private void btnCadastroFuncionarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastroFuncionarioActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_btnCadastroFuncionarioActionPerformed
+
+    private void btnVoltarCadastroFuncionarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVoltarCadastroFuncionarioActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnVoltarCadastroFuncionarioActionPerformed
+
+    private void btnApagarFuncionarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnApagarFuncionarioActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnApagarFuncionarioActionPerformed
+
+    private void btnEditarFuncionarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarFuncionarioActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnEditarFuncionarioActionPerformed
+
+    private void cboxUsuariosCadastradosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cboxUsuariosCadastradosActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cboxUsuariosCadastradosActionPerformed
 
     /**
      * @param args the command line arguments
@@ -142,6 +191,7 @@ public class TelaCadastroFuncionario extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnApagarFuncionario;
     private javax.swing.JButton btnCadastroFuncionario;
+    private javax.swing.JButton btnEditarFuncionario;
     private javax.swing.JButton btnVoltarCadastroFuncionario;
     private javax.swing.JComboBox<String> cboxTipoUsuario;
     private javax.swing.JComboBox<String> cboxUsuariosCadastrados;

@@ -16,24 +16,19 @@ import java.sql.ResultSet;
 
 public class InquilinoDB {
     
-    InquilinoModel inquilino = new InquilinoModel();
-    
-    public void inserirInquilino() throws Exception {
+    public void inserirInquilino(InquilinoModel inquilino) throws Exception {
 
 
         String sql = "INSERT INTO Inquilino(nome,cpf ,aprtNumero) VALUES (?,?,?);";
         try (Connection conn = Conexao.obterConexao();
                 PreparedStatement ps
-                = conn.prepareStatement(
-                        sql,
-                        ResultSet.TYPE_SCROLL_INSENSITIVE,
-                        ResultSet.CONCUR_READ_ONLY);) {
+                = conn.prepareStatement(sql);) {
             
             ps.setString(1, inquilino.getNome());
             ps.setInt(2, inquilino.getCpf());
             ps.setInt(3, inquilino.getAprtNumero());
             
-            ResultSet rs = ps.executeQuery();
+            ps.execute();
         }
     }
 
