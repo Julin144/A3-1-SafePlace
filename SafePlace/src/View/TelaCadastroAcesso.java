@@ -22,6 +22,7 @@ public class TelaCadastroAcesso extends javax.swing.JFrame {
      * Creates new form TelaCadastroAcesso
      */
     public TelaCadastroAcesso() {
+        super("Cadastro de Acesso");
         initComponents();
         setLocationRelativeTo(null);
     }

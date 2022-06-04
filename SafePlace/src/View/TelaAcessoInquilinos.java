@@ -23,6 +23,7 @@ public class TelaAcessoInquilinos extends javax.swing.JFrame {
      * Creates new form AcessoInquilinos
      */
     public TelaAcessoInquilinos() {
+        super("Acesso Inquilinos");
         initComponents();
         setLocationRelativeTo(null);
     }
