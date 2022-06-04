@@ -65,7 +65,7 @@ public class InquilinoDB {
         }
     }
    
-    public void updateInquilino() throws Exception {
+    public void updateInquilino(InquilinoModel inquilino) throws Exception {
 
 
         String sql = "UPDATE Inquilino SET nome = ?,cpf= ?,aprtNumero= ? WHERE  idInquilino = ?";
@@ -85,7 +85,7 @@ public class InquilinoDB {
         }
     }
     
-    public void deleteInquilino() throws Exception {
+    public void deleteInquilino(InquilinoModel inquilino) throws Exception {
 
 
         String sql = "DELETE FROM Inquilino WHERE idInquilino = ?;";
