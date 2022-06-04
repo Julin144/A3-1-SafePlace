@@ -31,19 +31,16 @@ public class TelaAcessoInquilinos extends javax.swing.JFrame {
         this.area = area;
         labelArea.setText(this.area.getDescricao());
         
+        DefaultTableModel model = (DefaultTableModel) tableInquilinos.getModel();
+        model.setRowCount(0);
+        
         try {
             aic.montarListaAcessos(area);
-            aic.montarListaTabela();
+            aic.montarListaTabela(model);
         } catch (Exception ex) {
             Logger.getLogger(TelaAcessoInquilinos.class.getName()).log(Level.SEVERE, null, ex);
         }
         
-        DefaultTableModel model = (DefaultTableModel) tableInquilinos.getModel();
-        model.setRowCount(0);
-        
-        for(InquilinoModel inq : aic.listaInqAcessos) {
-            model.addRow(new Object[]{inq.getNome(), inq.getAprtNumero()});
-        }
         tableInquilinos.setModel(model);
     }
     /**

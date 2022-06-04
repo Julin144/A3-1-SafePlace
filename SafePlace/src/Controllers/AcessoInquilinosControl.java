@@ -12,6 +12,7 @@ import Models.AreaModel;
 import Models.CondominioModel;
 import Models.AcessoAreaModel;
 import Models.InquilinoModel;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -23,7 +24,6 @@ public class AcessoInquilinosControl {
     AcessoAreaDB dbAcesso;
     InquilinoDB dbInquilino;
     AcessoAreaModel[] listaAcessos;
-    public InquilinoModel[] listaInqAcessos;
     
     public AcessoInquilinosControl() {
         this.dbArea = new AreaDB();
@@ -36,15 +36,13 @@ public class AcessoInquilinosControl {
         this.listaAcessos = dbAcesso.buscarAcessoInquilino(area);
     }
     
-    public void montarListaTabela() throws Exception{
+    public void montarListaTabela(DefaultTableModel model) throws Exception{
         InquilinoModel[] inqList = dbInquilino.buscarInquilino();
-        this.listaInqAcessos = new InquilinoModel[this.listaAcessos.length];
         
-        int contador = 0;
         for(AcessoAreaModel acesso : this.listaAcessos)
             for(InquilinoModel inq : inqList) {
                 if(inq.getIdInquilino() == acesso.getIdInquilino())
-                    this.listaInqAcessos[contador++] = inq;
+                    model.addRow(new Object[]{inq.getNome(), inq.getAprtNumero()});
             }
     }
 }
