@@ -3,8 +3,6 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package Models;
-import java.sql.Date;
-import java.sql.Timestamp;
 
 /**
  *
@@ -13,8 +11,6 @@ import java.sql.Timestamp;
 public class AcessoAreaModel 
 {
 
-    //private Date hrIni;
-    //private Date hrFim;
     private String hrIni;
     private String hrFim;
     

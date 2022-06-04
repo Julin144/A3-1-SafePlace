@@ -5,10 +5,9 @@
 package View;
 
 import Models.AreaModel;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JSpinner;
 import javax.swing.SpinnerDateModel;
 import javax.swing.table.DefaultTableModel;
@@ -157,7 +156,12 @@ public class TelaCadastroAcesso extends javax.swing.JFrame {
     }//GEN-LAST:event_btnVoltarActionPerformed
 
     private void btnCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarActionPerformed
-        // TODO add your handling code here:
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:MM:ss");
+        
+        String ini = sdf.format(spnDiaIni.getValue());
+        String fim = sdf.format(spnDiaIni.getValue());
+        int numApt = (int) spnApartamento.getValue();
+        System.out.println("AQUI ------------ "+ ini + " --- " + fim + " -- " +numApt);
     }//GEN-LAST:event_btnCadastrarActionPerformed
 
     /**

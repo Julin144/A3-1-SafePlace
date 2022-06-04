@@ -8,7 +8,6 @@ package Database;
 
 import Models.AcessoAreaModel;
 import Models.AreaModel;
-import Models.InquilinoModel;
 
 
 /**
@@ -19,9 +18,7 @@ import Models.InquilinoModel;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
-import java.util.Date;
 
 public class AcessoAreaDB {
     
