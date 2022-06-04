@@ -15,31 +15,30 @@ public class AcessoAreaModel
 
     //private Date hrIni;
     //private Date hrFim;
-    private Timestamp hrIni;
-    private Timestamp hrFim;
+    private String hrIni;
+    private String hrFim;
     
     private int idAcesso;
     private int idInquilino;
     private int idArea;
-    private int numDoses;
     
 
-    public Timestamp getHrIni() 
+    public String getHrIni() 
     {
         return hrIni;
     }
 
-    public void setHrIni(Timestamp hrIni) 
+    public void setHrIni(String hrIni) 
     {
         this.hrIni = hrIni;
     }
 
-    public Timestamp getHrFim() 
+    public String getHrFim() 
     {
         return hrFim;
     }
 
-    public void setHrFim(Timestamp hrFim) 
+    public void setHrFim(String hrFim) 
     {
         this.hrFim = hrFim;
     }

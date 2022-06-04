@@ -20,6 +20,7 @@ public class TelaCadastroAcesso extends javax.swing.JFrame {
      */
     public TelaCadastroAcesso() {
         initComponents();
+        setLocationRelativeTo(null);
     }
 
     /**
@@ -47,7 +48,7 @@ public class TelaCadastroAcesso extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setPreferredSize(new java.awt.Dimension(500, 500));
 
-        cboxInquilino.setBorder(javax.swing.BorderFactory.createTitledBorder("Inquilino"));
+        cboxInquilino.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Inquilino"));
 
         spnApartamento.setBorder(javax.swing.BorderFactory.createTitledBorder("Número Apartamento"));
 

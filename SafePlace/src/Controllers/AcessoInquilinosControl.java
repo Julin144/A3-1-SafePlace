@@ -42,7 +42,7 @@ public class AcessoInquilinosControl {
         for(AcessoAreaModel acesso : this.listaAcessos)
             for(InquilinoModel inq : inqList) {
                 if(inq.getIdInquilino() == acesso.getIdInquilino())
-                    model.addRow(new Object[]{inq.getNome(), inq.getCpf(), inq.getAprtNumero()});
+                    model.addRow(new Object[]{inq.getNome(), inq.getCpf(), inq.getAprtNumero(), acesso.getHrIni(), acesso.getHrFim()});
             }
     }
 }
