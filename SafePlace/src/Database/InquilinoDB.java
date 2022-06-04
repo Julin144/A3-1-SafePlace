@@ -17,15 +17,13 @@ import java.sql.ResultSet;
 public class InquilinoDB {
     
     public void inserirInquilino(InquilinoModel inquilino) throws Exception {
-
-
         String sql = "INSERT INTO Inquilino(nome,cpf ,aprtNumero) VALUES (?,?,?);";
         try (Connection conn = Conexao.obterConexao();
                 PreparedStatement ps
                 = conn.prepareStatement(sql);) {
             
             ps.setString(1, inquilino.getNome());
-            ps.setInt(2, inquilino.getCpf());
+            ps.setString(2, inquilino.getCpf());
             ps.setInt(3, inquilino.getAprtNumero());
             
             ps.execute();
@@ -51,7 +49,7 @@ public class InquilinoDB {
                 
                 int id = rs.getInt("idInquilino");
                 String nome = rs.getString("nome");
-                int CPF = rs.getInt("cpf");
+                String CPF = rs.getString("cpf");
                 int apartNumero = rs.getInt("aprtNumero");
                 
                 inq.setIdInquilino(id);
@@ -77,7 +75,7 @@ public class InquilinoDB {
                         ResultSet.CONCUR_READ_ONLY);) {
             
             ps.setString(1, inquilino.getNome());
-            ps.setInt(2, inquilino.getCpf());
+            ps.setString(2, inquilino.getCpf());
             ps.setInt(3, inquilino.getAprtNumero());
             ps.setInt(4, inquilino.getIdInquilino());
             
