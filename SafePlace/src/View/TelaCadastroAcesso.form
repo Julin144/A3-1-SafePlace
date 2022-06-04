@@ -26,30 +26,42 @@
   <Layout>
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Group type="102" alignment="0" attributes="0">
-              <EmptySpace min="-2" pref="124" max="-2" attributes="0"/>
+          <Group type="102" alignment="1" attributes="0">
+              <EmptySpace pref="121" max="32767" attributes="0"/>
               <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                  <Component id="cboxInquilino" alignment="0" pref="258" max="32767" attributes="0"/>
                   <Component id="spnApartamento" max="32767" attributes="0"/>
                   <Component id="spnDiaFim" max="32767" attributes="0"/>
-                  <Component id="spnDiaIni" max="32767" attributes="0"/>
+                  <Component id="spnDiaIni" pref="258" max="32767" attributes="0"/>
+                  <Component id="cboxInquilino" alignment="0" max="32767" attributes="0"/>
               </Group>
-              <EmptySpace pref="124" max="32767" attributes="0"/>
+              <EmptySpace min="-2" pref="121" max="-2" attributes="0"/>
+          </Group>
+          <Group type="102" alignment="0" attributes="0">
+              <EmptySpace min="-2" pref="52" max="-2" attributes="0"/>
+              <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
+              <Component id="labelArea" min="-2" max="-2" attributes="0"/>
+              <EmptySpace max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
     <DimensionLayout dim="1">
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="0" attributes="0">
-              <EmptySpace min="-2" pref="85" max="-2" attributes="0"/>
-              <Component id="spnDiaFim" min="-2" pref="71" max="-2" attributes="0"/>
-              <EmptySpace min="-2" pref="28" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="19" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="jLabel1" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="labelArea" alignment="3" min="-2" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace min="-2" pref="67" max="-2" attributes="0"/>
               <Component id="spnDiaIni" min="-2" pref="71" max="-2" attributes="0"/>
-              <EmptySpace min="-2" pref="36" max="-2" attributes="0"/>
-              <Component id="cboxInquilino" min="-2" pref="52" max="-2" attributes="0"/>
               <EmptySpace type="separate" max="-2" attributes="0"/>
-              <Component id="spnApartamento" min="-2" pref="52" max="-2" attributes="0"/>
-              <EmptySpace pref="85" max="32767" attributes="0"/>
+              <Component id="spnDiaFim" min="-2" pref="71" max="-2" attributes="0"/>
+              <EmptySpace type="separate" max="-2" attributes="0"/>
+              <Component id="cboxInquilino" min="-2" pref="71" max="-2" attributes="0"/>
+              <EmptySpace type="separate" max="-2" attributes="0"/>
+              <Component id="spnApartamento" min="-2" pref="71" max="-2" attributes="0"/>
+              <EmptySpace pref="51" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -88,9 +100,9 @@
         </Property>
       </Properties>
       <AuxValues>
-        <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new javax.swing.JSpinner(sm3)"/>
-        <AuxValue name="JavaCodeGenerator_CreateCodePre" type="java.lang.String" value="Date date2 = new Date();&#xa;  SpinnerDateModel sm3 = &#xa;  new SpinnerDateModel(date2, null, null, Calendar.MONTH);"/>
-        <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="JSpinner.DateEditor df = new JSpinner.DateEditor(spnDiaFim, &quot;dd/MM/yy&quot;);&#xa;spnDiaIni.setEditor(df);"/>
+        <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new javax.swing.JSpinner(sm02)"/>
+        <AuxValue name="JavaCodeGenerator_CreateCodePre" type="java.lang.String" value="Date date2 = new Date();&#xa;  SpinnerDateModel sm02 = &#xa;  new SpinnerDateModel(date2, null, null, Calendar.DATE);"/>
+        <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="JSpinner.DateEditor df = new JSpinner.DateEditor(spnDiaFim, &quot;dd/MM/YYYY HH:MM:ss&quot;);&#xa;spnDiaFim.setEditor(df);"/>
       </AuxValues>
     </Component>
     <Component class="javax.swing.JSpinner" name="spnDiaIni">
@@ -104,8 +116,27 @@
       <AuxValues>
         <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new javax.swing.JSpinner(sm01)"/>
         <AuxValue name="JavaCodeGenerator_CreateCodePre" type="java.lang.String" value="Date date1 = new Date();&#xa;  SpinnerDateModel sm01 = &#xa;  new SpinnerDateModel(date1, null, null, Calendar.DATE);"/>
-        <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="JSpinner.DateEditor di = new JSpinner.DateEditor(spnDiaIni, &quot;YYYY-MM-DD HH:MM:SS&quot;);&#xa;spnDiaIni.setEditor(di);"/>
+        <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="JSpinner.DateEditor di = new JSpinner.DateEditor(spnDiaIni, &quot;dd/MM/YYYY HH:MM:ss&quot;);&#xa;spnDiaIni.setEditor(di);"/>
       </AuxValues>
+    </Component>
+    <Component class="javax.swing.JLabel" name="jLabel1">
+      <Properties>
+        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+          <Font name="Segoe UI" size="18" style="1"/>
+        </Property>
+        <Property name="text" type="java.lang.String" value="Acesso &#xe0; &#xc1;rea:"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="labelArea">
+      <Properties>
+        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+          <Font name="Segoe UI" size="18" style="0"/>
+        </Property>
+        <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+          <Color blue="ff" green="0" red="0" type="rgb"/>
+        </Property>
+        <Property name="text" type="java.lang.String" value="Baile"/>
+      </Properties>
     </Component>
   </SubComponents>
 </Form>
