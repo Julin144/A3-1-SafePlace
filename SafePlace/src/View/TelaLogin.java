@@ -2,22 +2,20 @@ package View;
 
 import Controllers.UsuarioController;
 
-import java.sql.SQLException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 public class TelaLogin extends javax.swing.JFrame {
 
+    UsuarioController user = new UsuarioController();
+    
     /**
      * Creates new form TelaLogin
      */
     public TelaLogin() {
+        super("Login");
         initComponents();
         setLocationRelativeTo(null);
     }
-    
-    UsuarioController user = new UsuarioController();
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -118,19 +116,15 @@ public class TelaLogin extends javax.swing.JFrame {
         String login = txtLogin.getText();
         String senha = txtSenha.getText();
 
-        try {
-            if (user.login(login, senha)) {
-                //JOptionPane.showMessageDialog(null, "Login realizado com sucesso!");
-                Home h = new Home();
-                h.setAcessoBotoes(user.getAcesso());
-                h.setVisible(true);
-                this.dispose();
-            } else {
-                JOptionPane.showMessageDialog(null, "Usuário/Senha não encontrados no banco.");
-            }
-        } catch (Exception ex) {
-            Logger.getLogger(TelaLogin.class.getName()).log(Level.SEVERE, null, ex);
-            JOptionPane.showMessageDialog(null, "Falha no login.");
+        String result = user.login(login, senha);
+        
+        if(result.equals("SUCESSO")) {
+            Home h = new Home();
+            h.setAcessoBotoes(user.getAcesso());
+            h.setVisible(true);
+            this.dispose();
+        } else {
+            JOptionPane.showMessageDialog(null, result);
         }
     }//GEN-LAST:event_btnLoginActionPerformed
 

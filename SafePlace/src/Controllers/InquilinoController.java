@@ -32,6 +32,8 @@ public class InquilinoController
         inquilino.setCpf(request.getCpfInquilino());
         inquilino.setAprtNumero(Integer.parseInt(request.getNumeroApInquilino()));
         
+        
+        
         try
         {
             _inquilinoDb.inserirInquilino(inquilino);

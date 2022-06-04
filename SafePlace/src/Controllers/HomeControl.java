@@ -14,42 +14,45 @@ import Models.CondominioModel;
  * @author er679
  */
 public class HomeControl {
+
     CondominioDB dbCondominio;
     AreaDB dbArea;
-    
+
     //Condominio
     public CondominioModel[] condominios;
     public CondominioModel condominioSelecionado;
     //Area
     public AreaModel[] areas;
     public AreaModel areaSelecionada;
-    
-    public HomeControl(){
+
+    public HomeControl() {
         dbCondominio = new CondominioDB();
         dbArea = new AreaDB();
     }
-    
+
     //Condominio
     public void montarListaCondominioArea() throws Exception {
         this.condominios = dbCondominio.buscarCondominios();
         this.condominioSelecionado = this.condominios.length != 0 ? this.condominios[0] : null;
-        
-        this.areas = dbArea.buscarAreas(this.condominioSelecionado);
-        this.areaSelecionada = this.areas.length != 0 ? this.areas[0] : null;
-    }
-    
-    public void montarListaAreas() throws Exception {
-        if(this.condominioSelecionado != null) {
+
+        if (this.condominioSelecionado != null) {
             this.areas = dbArea.buscarAreas(this.condominioSelecionado);
             this.areaSelecionada = this.areas.length != 0 ? this.areas[0] : null;
         }
     }
-    
+
+    public void montarListaAreas() throws Exception {
+        if (this.condominioSelecionado != null) {
+            this.areas = dbArea.buscarAreas(this.condominioSelecionado);
+            this.areaSelecionada = this.areas.length != 0 ? this.areas[0] : null;
+        }
+    }
+
     public void definirCondominioSelecionado(CondominioModel condominio) {
         this.condominioSelecionado = condominio;
     }
-    
+
     public void definirAreaSelecionada(AreaModel area) {
         this.areaSelecionada = area;
-    }   
+    }
 }
