@@ -97,7 +97,9 @@ public class TelaCadastroVacina extends javax.swing.JFrame {
             }
         });
 
-        lblInquilino.setText("jLabel1");
+        lblInquilino.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        lblInquilino.setForeground(new java.awt.Color(0, 51, 255));
+        lblInquilino.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
 
         txtTipoVacina.setBorder(javax.swing.BorderFactory.createTitledBorder("Tipo da Vacina: "));
         txtTipoVacina.setMinimumSize(new java.awt.Dimension(72, 39));
@@ -130,8 +132,9 @@ public class TelaCadastroVacina extends javax.swing.JFrame {
                 .addGap(45, 45, 45)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(spnNumeroDosesVacina, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnVoltarCadastroVacina, javax.swing.GroupLayout.Alignment.CENTER)
-                    .addComponent(btnEditarCadastroVacina, javax.swing.GroupLayout.Alignment.CENTER)
+                    .addGroup(javax.swing.GroupLayout.Alignment.CENTER, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
+                        .addComponent(btnEditarCadastroVacina)
+                        .addComponent(btnVoltarCadastroVacina, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                         .addComponent(btnCadastrarVacina, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 218, Short.MAX_VALUE)
@@ -166,9 +169,9 @@ public class TelaCadastroVacina extends javax.swing.JFrame {
                     .addComponent(btnApagarCadastroVacina)
                     .addComponent(btnCadastrarVacina, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnEditarCadastroVacina))
-                .addGap(50, 50, 50)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 31, Short.MAX_VALUE)
                 .addComponent(btnVoltarCadastroVacina)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(25, 25, 25))
         );
 
         layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {btnApagarCadastroVacina, btnCadastrarVacina, btnEditarCadastroVacina, btnVoltarCadastroVacina});

@@ -37,12 +37,12 @@
                           <Group type="102" attributes="0">
                               <Component id="btnCadastrarInquilino" linkSize="1" min="-2" max="-2" attributes="0"/>
                               <EmptySpace min="-2" pref="28" max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                  <Component id="btnVoltarCadastroInquilino" alignment="1" max="32767" attributes="0"/>
-                                  <Component id="btnEditarInquilino" linkSize="1" alignment="1" max="32767" attributes="0"/>
-                              </Group>
+                              <Component id="btnEditarInquilino" linkSize="1" max="32767" attributes="0"/>
                           </Group>
-                          <Component id="btnCadastrarVacinaInquilino" linkSize="1" max="32767" attributes="0"/>
+                          <Group type="103" alignment="1" groupAlignment="0" max="-2" attributes="0">
+                              <Component id="btnVoltarCadastroInquilino" alignment="1" max="32767" attributes="0"/>
+                              <Component id="btnCadastrarVacinaInquilino" linkSize="1" alignment="1" max="32767" attributes="0"/>
+                          </Group>
                       </Group>
                       <EmptySpace max="32767" attributes="0"/>
                       <Component id="btnDeletarInquilino" linkSize="1" min="-2" max="-2" attributes="0"/>
@@ -66,15 +66,15 @@
               <Component id="jScrollPane3" linkSize="4" min="-2" max="-2" attributes="0"/>
               <EmptySpace min="-2" pref="25" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="btnCadastrarInquilino" linkSize="2" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="btnCadastrarInquilino" linkSize="2" alignment="3" min="-2" pref="40" max="-2" attributes="0"/>
                   <Component id="btnEditarInquilino" linkSize="2" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="btnDeletarInquilino" linkSize="2" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace min="-2" pref="31" max="-2" attributes="0"/>
-              <Component id="btnCadastrarVacinaInquilino" min="-2" max="-2" attributes="0"/>
-              <EmptySpace min="-2" pref="29" max="-2" attributes="0"/>
+              <EmptySpace type="separate" max="-2" attributes="0"/>
+              <Component id="btnCadastrarVacinaInquilino" min="-2" pref="40" max="-2" attributes="0"/>
+              <EmptySpace type="separate" max="-2" attributes="0"/>
               <Component id="btnVoltarCadastroInquilino" linkSize="2" min="-2" max="-2" attributes="0"/>
-              <EmptySpace min="-2" pref="34" max="-2" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
