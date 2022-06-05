@@ -54,9 +54,32 @@ public class TelaCadastroVacina extends javax.swing.JFrame {
             txtTipoVacina.setText("");
             spnNumeroDosesVacina.setValue(0);
             
+            habilitarDesabilitarBotoes(false);
+            
         } catch (Exception ex) {
             Logger.getLogger(Home.class.getName()).log(Level.SEVERE, null, ex);
             
+        }
+    }
+    
+    public boolean camposPreenchidos() {
+        if(txtTipoVacina.getText().equals("") &&
+           spnNumeroDosesVacina.getValue().equals(""))
+        {
+            return false;
+        }
+        return true;
+    }
+    
+    public void habilitarDesabilitarBotoes(boolean enabled) {
+        if(enabled) {
+            btnEditarCadastroVacina.setEnabled(true);
+            btnApagarCadastroVacina.setEnabled(true);
+            //lblAcessoBotoes.setText("");
+        } else {
+            btnEditarCadastroVacina.setEnabled(false);
+            btnApagarCadastroVacina.setEnabled(false);
+            //lblAcessoBotoes.setText("Selecione um registro!");
         }
     }
 
@@ -195,16 +218,20 @@ public class TelaCadastroVacina extends javax.swing.JFrame {
     private void btnEditarCadastroVacinaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarCadastroVacinaActionPerformed
         VacinaModel vacina = (VacinaModel)cboxVacinas.getSelectedItem();
         
-        vacina.setTipo(txtTipoVacina.getText());
-        vacina.setQtdDose((int) spnNumeroDosesVacina.getValue());
-        vacina.setIdInquilino(_vacinaController.inquilinoSelecionado.getIdInquilino());
-        
-        _vacinaController.setVacina(vacina);
-        
-        JOptionPane.showMessageDialog(null, _vacinaController.atualizarVacina());
-        
-        if(!_vacinaController.erroReq)
-            atualizarLista();
+        if(this.camposPreenchidos()) {
+            vacina.setTipo(txtTipoVacina.getText());
+            vacina.setQtdDose((int) spnNumeroDosesVacina.getValue());
+            vacina.setIdInquilino(_vacinaController.inquilinoSelecionado.getIdInquilino());
+
+            _vacinaController.setVacina(vacina);
+
+            JOptionPane.showMessageDialog(null, _vacinaController.atualizarVacina());
+
+            if(!_vacinaController.erroReq)
+                atualizarLista();
+        }else {
+            JOptionPane.showMessageDialog(null, "Favor, preencher os campos adequadamente!");
+        }
     }//GEN-LAST:event_btnEditarCadastroVacinaActionPerformed
 
     private void btnApagarCadastroVacinaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnApagarCadastroVacinaActionPerformed
@@ -226,15 +253,19 @@ public class TelaCadastroVacina extends javax.swing.JFrame {
     private void btnCadastrarVacinaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarVacinaActionPerformed
         CadastroVacinaRequestDto request = new CadastroVacinaRequestDto();
         
-        request.setTipoVacina((String) txtTipoVacina.getText());
-        request.setQtdDoseVacina((int) spnNumeroDosesVacina.getValue());
-        request.setInquilino(_vacinaController.inquilinoSelecionado);
-        
-        JOptionPane.showMessageDialog(null, _vacinaController.cadastrarVacina(request));
-        
-        
-        if(!_vacinaController.erroReq)
-            atualizarLista();
+        if(this.camposPreenchidos()) {
+            request.setTipoVacina((String) txtTipoVacina.getText());
+            request.setQtdDoseVacina((int) spnNumeroDosesVacina.getValue());
+            request.setInquilino(_vacinaController.inquilinoSelecionado);
+
+            JOptionPane.showMessageDialog(null, _vacinaController.cadastrarVacina(request));
+
+
+            if(!_vacinaController.erroReq)
+                atualizarLista();
+        }else {
+            JOptionPane.showMessageDialog(null, "Favor, preencher os campos adequadamente!");
+        }
     }//GEN-LAST:event_btnCadastrarVacinaActionPerformed
 
     private void cboxVacinasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cboxVacinasActionPerformed
