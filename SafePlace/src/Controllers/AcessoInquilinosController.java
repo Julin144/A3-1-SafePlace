@@ -5,9 +5,9 @@
 package Controllers;
 
 import Database.AreaDB;
-import Database.CondominioDB;
 import Database.AcessoAreaDB;
 import Database.InquilinoDB;
+import Dto.Request.CadastroAcessoAreaRequestDto;
 import Models.AreaModel;
 import Models.AcessoAreaModel;
 import Models.InquilinoModel;
@@ -18,54 +18,53 @@ import javax.swing.table.DefaultTableModel;
  * @author er679
  */
 public class AcessoInquilinosController {
-    AreaDB dbArea;
-    CondominioDB dbCondominio;
-    AcessoAreaDB dbAcesso;
-    InquilinoDB dbInquilino;
-    AcessoAreaModel[] listaAcessos;
+    private InquilinoDB _inquilinoDb;
+    private AreaDB _areaDb;
+    private AcessoAreaDB _acessoDb;
+    private AcessoAreaModel[] _listaAcessos;
     
     public AcessoInquilinosController() {
-        this.dbArea = new AreaDB();
-        this.dbCondominio = new CondominioDB();
-        this.dbAcesso = new AcessoAreaDB();
-        this.dbInquilino = new InquilinoDB();
+        _areaDb = new AreaDB();
+        _acessoDb = new AcessoAreaDB();
+        _inquilinoDb = new InquilinoDB();
     }
 
     public void montarListaAcessos(AreaModel area) throws Exception {
-        this.listaAcessos = dbAcesso.buscarAcessoInquilino(area);
+        _listaAcessos = _acessoDb.buscarAcessoInquilino(area);
     }
     
     public void montarListaTabela(DefaultTableModel model) throws Exception{
-        InquilinoModel[] inqList = dbInquilino.buscarInquilino();
+        InquilinoModel[] inqList = _inquilinoDb.buscarInquilino();
         
-        for(AcessoAreaModel acesso : this.listaAcessos)
+        for(AcessoAreaModel acesso : _listaAcessos)
             for(InquilinoModel inq : inqList) {
                 if(inq.getIdInquilino() == acesso.getIdInquilino())
                     model.addRow(new Object[]{inq.getNome(), inq.getCpf(), inq.getAprtNumero(), acesso.getHrIni(), acesso.getHrFim()});
             }
     }
     
-    public String CadatrarInquilino(CadastroInquilinoRequestDto request)
+    public String CadatrarAcesso(CadastroAcessoAreaRequestDto request)
     {
         String result;
         
-        InquilinoModel inquilino = new InquilinoModel();
+        AcessoAreaModel acesso = new AcessoAreaModel();
         
-        inquilino.setNome(request.getNomeInquilino());
-        inquilino.setCpf(request.getCpfInquilino());
-        inquilino.setAprtNumero(Integer.parseInt(request.getNumeroApInquilino()));
+        acesso.setIdInquilino(request.getIdInquilino());
+        acesso.setIdArea(request.getIdArea());
+        acesso.setHrIni(request.getHrIni());
+        acesso.setHrFim(request.getHrFim());
         
         
         
         try
         {
-            _inquilinoDb.inserirInquilino(inquilino);
+            _acessoDb.inserirAcessoArea(acesso);
             
-            result = "Inquilino cadastrado com sucesso!";
+            result = "Acesso cadastrado com sucesso!";
             
         }catch(Exception ex)
         {
-            result = "Erro durante o cadastro do inquilino.";
+            result = "Erro durante o cadastro do acesso.";
         }
         
         return result;

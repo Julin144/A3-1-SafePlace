@@ -4,23 +4,27 @@
  */
 package View;
 
+import Controllers.AcessoInquilinosController;
+import Dto.Request.CadastroAcessoAreaRequestDto;
 import Models.AreaModel;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import javax.swing.JOptionPane;
 import javax.swing.JSpinner;
 import javax.swing.SpinnerDateModel;
-import javax.swing.table.DefaultTableModel;
 
 /**
  *
  * @author Thais Dias
  */
 public class TelaCadastroAcesso extends javax.swing.JFrame {
-
     /**
      * Creates new form TelaCadastroAcesso
      */
+    private AcessoInquilinosController _acessoInquilinosCon;
+    public AreaModel area;
+    
     public TelaCadastroAcesso() {
         super("Cadastro de Acesso");
         initComponents();
@@ -28,7 +32,8 @@ public class TelaCadastroAcesso extends javax.swing.JFrame {
     }
     
     public void setArea(AreaModel area) {
-        labelArea.setText(area.getDescricao());
+        this.area = area;
+        labelArea.setText(this.area.getDescricao());
     }
 
     /**
@@ -41,7 +46,6 @@ public class TelaCadastroAcesso extends javax.swing.JFrame {
     private void initComponents() {
 
         cboxInquilino = new javax.swing.JComboBox<>();
-        spnApartamento = new javax.swing.JSpinner();
         Date date2 = new Date();
         SpinnerDateModel sm02 =
         new SpinnerDateModel(date2, null, null, Calendar.DATE);
@@ -57,12 +61,8 @@ public class TelaCadastroAcesso extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        cboxInquilino.setBorder(javax.swing.BorderFactory.createTitledBorder("Inquilino"));
+        cboxInquilino.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createTitledBorder(""), " Inquilino "));
 
-        spnApartamento.setBorder(javax.swing.BorderFactory.createTitledBorder("Número Apartamento"));
-
-        JSpinner.DateEditor df = new JSpinner.DateEditor(spnDiaFim, "dd/MM/YYYY HH:MM:ss");
-        spnDiaFim.setEditor(df);
         spnDiaFim.setBorder(javax.swing.BorderFactory.createTitledBorder("Data Final"));
 
         spnDiaIni.setBorder(javax.swing.BorderFactory.createTitledBorder("Data Inicial"));
@@ -104,25 +104,23 @@ public class TelaCadastroAcesso extends javax.swing.JFrame {
                 .addGap(52, 52, 52)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(69, 69, 69)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(spnDiaFim, javax.swing.GroupLayout.PREFERRED_SIZE, 258, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                        .addComponent(spnApartamento)
-                                        .addComponent(spnDiaIni)
-                                        .addComponent(cboxInquilino, javax.swing.GroupLayout.PREFERRED_SIZE, 258, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel1)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(labelArea)))
-                        .addContainerGap(121, Short.MAX_VALUE))
+                        .addComponent(jLabel1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(labelArea)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(btnVoltar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(btnCadastrar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(52, 52, 52))))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(121, 121, 121)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(spnDiaFim, javax.swing.GroupLayout.PREFERRED_SIZE, 258, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(spnDiaIni)
+                        .addComponent(cboxInquilino, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 258, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(0, 117, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -131,19 +129,17 @@ public class TelaCadastroAcesso extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
                     .addComponent(labelArea))
+                .addGap(26, 26, 26)
+                .addComponent(cboxInquilino, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(spnDiaIni, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(spnDiaFim, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(cboxInquilino, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(spnApartamento, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addGap(54, 54, 54)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnVoltar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnCadastrar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(42, Short.MAX_VALUE))
+                .addContainerGap(87, Short.MAX_VALUE))
         );
 
         pack();
@@ -154,12 +150,20 @@ public class TelaCadastroAcesso extends javax.swing.JFrame {
     }//GEN-LAST:event_btnVoltarActionPerformed
 
     private void btnCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarActionPerformed
+        CadastroAcessoAreaRequestDto request = new CadastroAcessoAreaRequestDto();
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+        /////////////////////
+        request.setIdInquilino(1);
+        request.setIdArea(this.area.getIdArea());
+        request.setHrIni(sdf.format(spnDiaIni.getValue()));
+        request.setHrFim(sdf.format(spnDiaIni.getValue()));
+        
+        
+        JOptionPane.showMessageDialog(null, _acessoInquilinosCon.CadatrarAcesso(request));
         
         String ini = sdf.format(spnDiaIni.getValue());
         String fim = sdf.format(spnDiaIni.getValue());
-        int numApt = (int) spnApartamento.getValue();
-        System.out.println("AQUI ------------ "+ ini + " --- " + fim + " -- " +numApt);
+        System.out.println("AQUI ------------ "+ ini + " --- " + fim + " -- ");
     }//GEN-LAST:event_btnCadastrarActionPerformed
 
     /**
@@ -203,7 +207,6 @@ public class TelaCadastroAcesso extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> cboxInquilino;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel labelArea;
-    private javax.swing.JSpinner spnApartamento;
     private javax.swing.JSpinner spnDiaFim;
     private javax.swing.JSpinner spnDiaIni;
     // End of variables declaration//GEN-END:variables

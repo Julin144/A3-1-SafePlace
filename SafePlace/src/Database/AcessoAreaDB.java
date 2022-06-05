@@ -22,11 +22,9 @@ import java.text.SimpleDateFormat;
 
 public class AcessoAreaDB {
     
-    AcessoAreaModel acessoArea = new AcessoAreaModel();
+    //AcessoAreaModel acessoArea = new AcessoAreaModel();
     
-    public void inserirAcessoArea() throws Exception {
-
-
+    public void inserirAcessoArea(AcessoAreaModel acessoArea) throws Exception {
         String sql = "INSERT INTO AcessoArea(idInquilino,idArea,hrIni,hrFim) VALUES (?,?,?,?);";
         try (Connection conn = Conexao.obterConexao();
                 PreparedStatement ps
@@ -44,7 +42,7 @@ public class AcessoAreaDB {
         }
     }
    
-    public void updateAcessoArea() throws Exception {
+    public void updateAcessoArea(AcessoAreaModel acessoArea) throws Exception {
 
 
         String sql = "UPDATE AcessoArea SET idInquilino = ?,idArea= ?,hrIni= ?,hrFim= ? WHERE  idArea = ?";
@@ -107,7 +105,7 @@ public class AcessoAreaDB {
         }
     }
 
-    public void delete() throws Exception {
+    public void delete(AcessoAreaModel acessoArea) throws Exception {
 
 
         String sql = "DELETE FROM AcessoArea WHERE idAcesso = ?;";
