@@ -42,12 +42,6 @@ public class TelaCadastroInquilino extends javax.swing.JFrame {
             
             _inquilinoController.setInquilino(null);
             this.habilitarDesabilitarBotoes(false);
-            
-            /*this.habilitarDesabilitarBotoes(false);
-            /if(_inquilinoController.inquilinoSelecionado != null)
-                this.habilitarDesabilitarBotoes(true);
-            else
-                this.habilitarDesabilitarBotoes(false);*/
         } catch (Exception ex) {
             Logger.getLogger(Home.class.getName()).log(Level.SEVERE, null, ex);
         }
