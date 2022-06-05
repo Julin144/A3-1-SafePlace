@@ -5,6 +5,7 @@
 package View;
 
 import Controllers.AcessoInquilinosController;
+import Controllers.InquilinoController;
 import Dto.Request.CadastroAcessoAreaRequestDto;
 import Models.AreaModel;
 import Models.InquilinoModel;
@@ -28,16 +29,18 @@ public class TelaCadastroAcesso extends javax.swing.JFrame {
      * Creates new form TelaCadastroAcesso
      */
     private AcessoInquilinosController _acessoInquilinosCon;
+    private InquilinoController _inquilinoController;
     public AreaModel area;
 
     public TelaCadastroAcesso() {
         super("Cadastro de Acesso");
         initComponents();
         setLocationRelativeTo(null);
+        _inquilinoController = new InquilinoController();
     }
 
     public final void atualizarDados() {
-        try {
+        /*try {
             //_acessoInquilinosCon.montarListaInquilino();
             if (_acessoInquilinosCon.listaInq != null) {
                 cboxInquilino.setModel(new DefaultComboBoxModel<>(_acessoInquilinosCon.listaInq));
@@ -47,6 +50,13 @@ public class TelaCadastroAcesso extends javax.swing.JFrame {
         } catch (Exception ex) {
             Logger.getLogger(Home.class.getName()).log(Level.SEVERE, null, ex);
 
+        }*/
+        try 
+        {            
+            cboxInquilino.setModel(new DefaultComboBoxModel<>(_inquilinoController.montarListaInquilino()));
+            
+        } catch (Exception ex) {
+            Logger.getLogger(Home.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -85,6 +95,11 @@ public class TelaCadastroAcesso extends javax.swing.JFrame {
         cboxInquilino.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 cboxInquilinoItemStateChanged(evt);
+            }
+        });
+        cboxInquilino.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                comboInquilinosActionPerformed(evt);
             }
         });
         cboxInquilino.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createTitledBorder(""), " Inquilino "));
@@ -173,8 +188,16 @@ public class TelaCadastroAcesso extends javax.swing.JFrame {
 
     private void cboxInquilinoItemStateChanged(java.awt.event.ItemEvent evt) {
         //_acessoInquilinosCon.listaInq;
+        /*
         try {
             cboxInquilino.setModel(new DefaultComboBoxModel<>(this._acessoInquilinosCon.listaInq));
+        } catch (Exception ex) {
+            Logger.getLogger(Home.class.getName()).log(Level.SEVERE, null, ex);
+        }*/
+        try 
+        {            
+            cboxInquilino.setModel(new DefaultComboBoxModel<>(_inquilinoController.montarListaInquilino()));
+            
         } catch (Exception ex) {
             Logger.getLogger(Home.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -188,7 +211,6 @@ public class TelaCadastroAcesso extends javax.swing.JFrame {
     private void btnCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarActionPerformed
         CadastroAcessoAreaRequestDto request = new CadastroAcessoAreaRequestDto();
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
-        /////////////////////
         InquilinoModel inquilino = (InquilinoModel) cboxInquilino.getSelectedItem();
         request.setIdInquilino(inquilino.getIdInquilino());
         request.setHrIni(sdf.format(spnDiaIni.getValue()));
@@ -200,7 +222,15 @@ public class TelaCadastroAcesso extends javax.swing.JFrame {
         String fim = sdf.format(spnDiaIni.getValue());
         System.out.println("AQUI ------------ " + ini + " --- " + fim + " -- ");
     }//GEN-LAST:event_btnCadastrarActionPerformed
-
+    private void comboInquilinosActionPerformed(java.awt.event.ActionEvent evt) {
+        try 
+        {            
+            cboxInquilino.setModel(new DefaultComboBoxModel<>(_inquilinoController.montarListaInquilino()));
+            
+        } catch (Exception ex) {
+            Logger.getLogger(Home.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }     
     /**
      * @param args the command line arguments
      */

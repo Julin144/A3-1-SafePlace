@@ -4,7 +4,7 @@
  */
 package View;
 
-import Controllers.HomeControl;
+import Controllers.HomeController;
 import Models.AreaModel;
 import Models.CondominioModel;
 import java.util.logging.Level;
@@ -17,7 +17,7 @@ import javax.swing.DefaultComboBoxModel;
  */
 public class Home extends javax.swing.JFrame {
 
-    HomeControl home = new HomeControl();
+    HomeController home = new HomeController();
     boolean abriuTelaDeCRUD = false;
 
     /**

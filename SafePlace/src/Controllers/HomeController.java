@@ -13,7 +13,7 @@ import Models.CondominioModel;
  *
  * @author er679
  */
-public class HomeControl {
+public class HomeController {
 
     CondominioDB dbCondominio;
     AreaDB dbArea;
@@ -25,7 +25,7 @@ public class HomeControl {
     public AreaModel[] areas;
     public AreaModel areaSelecionada;
 
-    public HomeControl() {
+    public HomeController() {
         dbCondominio = new CondominioDB();
         dbArea = new AreaDB();
     }
