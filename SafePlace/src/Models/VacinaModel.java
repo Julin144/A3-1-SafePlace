@@ -12,9 +12,10 @@ public class VacinaModel
 {
 
     private int idVacina;
+    private int idInquilino;
     private String tipo;
     private int qtdDose;
-
+    
     public VacinaModel() 
     {
     }
@@ -29,6 +30,17 @@ public class VacinaModel
         this.idVacina = idVacina;
     }
 
+    public int getIdInquilino() 
+    {
+        return idInquilino;
+    }
+
+    public void setIdInquilino(int idInquilino) 
+    {
+        this.idInquilino = idInquilino;
+    }
+    
+    
     public String getTipo() 
     {
         return tipo;

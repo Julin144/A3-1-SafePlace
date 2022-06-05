@@ -55,7 +55,7 @@ public class UsuarioController {
         usuario.setTipo(request.getTipo());
 
         try {
-            //Colocar o metodo de inserirDB aqui
+            db.inserirUsuario(usuario);
 
             result = "Usuário cadastrado com sucesso!";
 

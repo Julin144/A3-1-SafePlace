@@ -4,8 +4,12 @@
  */
 package Controllers;
 
+import Database.InquilinoDB;
+import Database.VacinaDB;
 import Dto.Request.CadastroVacinaRequestDto;
+import Models.InquilinoModel;
 import Models.VacinaModel;
+import java.util.ArrayList;
 
 /**
  *
@@ -13,24 +17,33 @@ import Models.VacinaModel;
  */
 public class VacinaController 
 {
-    //Criar o objeto aqui
+    private static VacinaDB _vacinaDB;
+    private static InquilinoDB _inquilinoDB;
+    
+    
+    //Inquilino
+    public InquilinoModel inquilinoSelecionado;
+    
+    
     public VacinaController()
     {
-        //Abrir instancia do metodo cadastradar do objeto aqui
+        _vacinaDB = new VacinaDB();
+        _inquilinoDB = new InquilinoDB();
+        
     }
     
     
-    public String VacinaController(CadastroVacinaRequestDto request)
+    public String CadastrarVacina(CadastroVacinaRequestDto request)
     {
         String result;
     
     VacinaModel vacina = new VacinaModel();
     
-    vacina.setQtdDose(request.setQtdDoseVacina());
+    vacina.setQtdDose(request.getQtdDoseVacina());
     
     try
         {
-            //Usar o metodo inserir do objeto DB aqui
+            _vacinaDB.inserirInquilinoVacina(vacina);
             
             result = "Vacina cadastrada com sucesso!";
             
@@ -41,6 +54,17 @@ public class VacinaController
     
     return result;
     }
+    
+    public InquilinoModel[] montarListaInquilino() throws Exception 
+    {
+        InquilinoModel[] inquilinos;
+      
+        
+        inquilinos = _inquilinoDB.buscarInquilino();
+        
+        return inquilinos;
+    }
+    
     
     
     

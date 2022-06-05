@@ -15,6 +15,11 @@ public class InquilinoModel
     private String cpf;
     private int aprtNumero;
     
+    
+    public String toString() {
+        return this.nome +"-"+this.cpf;
+    }
+    
     public InquilinoModel()
     {    
     }

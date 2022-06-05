@@ -16,7 +16,7 @@ public class VacinaDB {
     
     VacinaModel vac = new VacinaModel();
     
-    public void inserirInquilino() throws Exception {
+    public void inserirInquilinoVacina(VacinaModel vacina) throws Exception {
 
 
         String sql = "INSERT INTO Vacina(tipo,qtdDose) VALUES (?,?);";
@@ -27,10 +27,10 @@ public class VacinaDB {
                         ResultSet.TYPE_SCROLL_INSENSITIVE,
                         ResultSet.CONCUR_READ_ONLY);) {
             
-            ps.setString(1, vac.getTipo());
-            ps.setInt(2, vac.getQtdDose());
+            ps.setString(1, vacina.getTipo());
+            ps.setInt(2, vacina.getQtdDose());
             
-            ResultSet rs = ps.executeQuery();
+            ps.execute();
         }
     }
 

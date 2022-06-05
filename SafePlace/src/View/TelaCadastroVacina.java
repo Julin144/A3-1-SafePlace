@@ -6,6 +6,11 @@ package View;
 
 import Controllers.VacinaController;
 import Dto.Request.CadastroVacinaRequestDto;
+import Models.InquilinoModel;
+import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
 
 /**
@@ -17,7 +22,7 @@ public class TelaCadastroVacina extends javax.swing.JFrame {
     /**
      * Creates new form TelaCadastroVacina
      */
-    private static VacinaController _inquilinoController;
+    private static VacinaController _vacinaController;
     
     public TelaCadastroVacina() 
     {
@@ -25,7 +30,16 @@ public class TelaCadastroVacina extends javax.swing.JFrame {
         initComponents();
         setLocationRelativeTo(null);
         
-        _inquilinoController = new VacinaController();
+        _vacinaController = new VacinaController();
+        
+        
+        try 
+        {            
+            cboxNomeInquilino.setModel(new DefaultComboBoxModel<>(_vacinaController.montarListaInquilino()));
+            
+        } catch (Exception ex) {
+            Logger.getLogger(Home.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**
@@ -48,13 +62,7 @@ public class TelaCadastroVacina extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        cboxNomeInquilino.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        cboxNomeInquilino.setBorder(javax.swing.BorderFactory.createTitledBorder("Nome do Inquilino:"));
-        cboxNomeInquilino.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cboxNomeInquilinoActionPerformed(evt);
-            }
-        });
+        cboxNomeInquilino.setBorder(javax.swing.BorderFactory.createTitledBorder("Nome do Inquilino/CPF:"));
 
         cboxTipoVacina.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "CoronaVac", "AstraZeneca", "Pfizer", "Janssen" }));
         cboxTipoVacina.setBorder(javax.swing.BorderFactory.createTitledBorder("Tipo de Vacina:"));
@@ -141,10 +149,6 @@ public class TelaCadastroVacina extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void cboxNomeInquilinoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cboxNomeInquilinoActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_cboxNomeInquilinoActionPerformed
-
     private void cboxTipoVacinaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cboxTipoVacinaActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_cboxTipoVacinaActionPerformed
@@ -170,8 +174,9 @@ public class TelaCadastroVacina extends javax.swing.JFrame {
         
         request.setTipoVacina((String) cboxTipoVacina.getSelectedItem());
         request.setQtdDoseVacina((int) spnNumeroDosesVacina.getValue());
+        request.setInquilino((InquilinoModel) cboxNomeInquilino.getSelectedItem());
         
-        JOptionPane.showMessageDialog(null, _inquilinoController.VacinaController(request));
+        JOptionPane.showMessageDialog(null, _vacinaController.CadastrarVacina(request));
         
     }//GEN-LAST:event_btnCadastrarVacinaActionPerformed
 
@@ -215,7 +220,7 @@ public class TelaCadastroVacina extends javax.swing.JFrame {
     private javax.swing.JButton btnCadastrarVacina;
     private javax.swing.JButton btnEditarCadastroVacina;
     private javax.swing.JButton btnVoltarCadastroVacina;
-    private javax.swing.JComboBox<String> cboxNomeInquilino;
+    private javax.swing.JComboBox<InquilinoModel> cboxNomeInquilino;
     private javax.swing.JComboBox<String> cboxTipoVacina;
     private javax.swing.JSpinner jSpinner1;
     private javax.swing.JSpinner spnNumeroDosesVacina;

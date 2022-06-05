@@ -44,4 +44,18 @@ public class AreaDB {
             return areas;
         }
     }
+    
+    public void inserirArea(AreaModel area) throws Exception {
+        String sql = "INSERT INTO Area(descricao,dosesRequisitadas) VALUES (?,?);";
+        try (Connection conn = Conexao.obterConexao();
+                PreparedStatement ps
+                = conn.prepareStatement(sql);) {
+            
+            ps.setString(1, area.getDescricao());
+            ps.setInt(2, area.getDosesRequisitadas());
+            
+            
+            ps.execute();
+        }
+    }
 }

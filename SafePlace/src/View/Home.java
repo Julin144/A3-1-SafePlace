@@ -168,6 +168,11 @@ public class Home extends javax.swing.JFrame {
                 comboCondominiosItemStateChanged(evt);
             }
         });
+        comboCondominios.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                comboCondominiosActionPerformed(evt);
+            }
+        });
 
         jLabel4.setFont(new java.awt.Font("Tahoma", 1, 36)); // NOI18N
         jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -355,6 +360,10 @@ public class Home extends javax.swing.JFrame {
         this.abriuTelaDeCRUD = false;
         this.setEnableBtnAcesso();
     }//GEN-LAST:event_btnAtualizarActionPerformed
+
+    private void comboCondominiosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboCondominiosActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_comboCondominiosActionPerformed
 
     /**
      * @param args the command line arguments

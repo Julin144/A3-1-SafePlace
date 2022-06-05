@@ -4,6 +4,7 @@
  */
 package Controllers;
 
+import Database.CondominioDB;
 import Dto.Request.CadastroCondominioRequestDto;
 import Models.CondominioModel;
 
@@ -13,11 +14,11 @@ import Models.CondominioModel;
  */
 public class CondominioController 
 {
-    //Criar o objeto DB aqui
+    CondominioDB _condominioDB;
     
     public CondominioController()
     {
-       //Instanciar o objeto DB aqui
+       _condominioDB = new CondominioDB();
     }
     
     public String CadastrarCondominio(CadastroCondominioRequestDto request)
@@ -31,7 +32,7 @@ public class CondominioController
         
         try
         {
-            //Usar o metodo inserir do objeto DB aqui
+            _condominioDB.inserirCondominio(condominio);
             
             result = "Condomínio cadastrado com sucesso!";
         }catch(Exception ex)
