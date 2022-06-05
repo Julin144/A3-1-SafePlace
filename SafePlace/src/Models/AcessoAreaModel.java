@@ -8,64 +8,52 @@ package Models;
  *
  * @author Jack
  */
-public class AcessoAreaModel 
-{
+public class AcessoAreaModel {
 
     private String hrIni;
     private String hrFim;
-    
+
     private int idAcesso;
     private int idInquilino;
     private int idArea;
-    
 
-    public String getHrIni() 
-    {
+    public String getHrIni() {
         return hrIni;
     }
 
-    public void setHrIni(String hrIni) 
-    {
+    public void setHrIni(String hrIni) {
         this.hrIni = hrIni;
     }
 
-    public String getHrFim() 
-    {
+    public String getHrFim() {
         return hrFim;
     }
 
-    public void setHrFim(String hrFim) 
-    {
+    public void setHrFim(String hrFim) {
         this.hrFim = hrFim;
     }
 
-    public int getIdAcesso() 
-    {
+    public int getIdAcesso() {
         return idAcesso;
     }
 
-    public void setIdAcesso(int idAcesso) 
-    {
+    public void setIdAcesso(int idAcesso) {
         this.idAcesso = idAcesso;
     }
 
-    public int getIdInquilino() 
-    {
+    public int getIdInquilino() {
         return idInquilino;
     }
 
-    public void setIdInquilino(int idInquilino) 
-    {
+    public void setIdInquilino(int idInquilino) {
         this.idInquilino = idInquilino;
     }
 
-    public int getIdArea() 
-    {
+    public int getIdArea() {
         return idArea;
     }
 
-    public void setIdArea(int idArea) 
-    {
+    public void setIdArea(int idArea) {
         this.idArea = idArea;
     }
 }

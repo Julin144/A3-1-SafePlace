@@ -19,18 +19,19 @@ import javax.swing.SpinnerDateModel;
  * @author Thais Dias
  */
 public class TelaCadastroAcesso extends javax.swing.JFrame {
+
     /**
      * Creates new form TelaCadastroAcesso
      */
     private AcessoInquilinosController _acessoInquilinosCon;
     public AreaModel area;
-    
+
     public TelaCadastroAcesso() {
         super("Cadastro de Acesso");
         initComponents();
         setLocationRelativeTo(null);
     }
-    
+
     public void setArea(AreaModel area) {
         this.area = area;
         labelArea.setText(this.area.getDescricao());
@@ -157,13 +158,12 @@ public class TelaCadastroAcesso extends javax.swing.JFrame {
         request.setIdArea(this.area.getIdArea());
         request.setHrIni(sdf.format(spnDiaIni.getValue()));
         request.setHrFim(sdf.format(spnDiaIni.getValue()));
-        
-        
+
         JOptionPane.showMessageDialog(null, _acessoInquilinosCon.CadatrarAcesso(request));
-        
+
         String ini = sdf.format(spnDiaIni.getValue());
         String fim = sdf.format(spnDiaIni.getValue());
-        System.out.println("AQUI ------------ "+ ini + " --- " + fim + " -- ");
+        System.out.println("AQUI ------------ " + ini + " --- " + fim + " -- ");
     }//GEN-LAST:event_btnCadastrarActionPerformed
 
     /**

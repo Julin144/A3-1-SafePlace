@@ -17,15 +17,13 @@ public class TelaCadastroArea extends javax.swing.JFrame {
     /**
      * Creates new form TelaCadastroArea
      */
-    
-   private static AreaController _areaController;
-    
-    public TelaCadastroArea() 
-    {
+    private static AreaController _areaController;
+
+    public TelaCadastroArea() {
         super("SafePlace");
         initComponents();
         setLocationRelativeTo(null);
-        
+
         _areaController = new AreaController();
     }
 
@@ -138,11 +136,10 @@ public class TelaCadastroArea extends javax.swing.JFrame {
     private void btnCadastrarAreaCondominioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarAreaCondominioActionPerformed
         // TODO add your handling code here:
         CadastroAreaRequestDto request = new CadastroAreaRequestDto();
-        
+
         request.setDescricao(txtNomeAreaCondominio.getText());
         request.setDosesRequisitadas((int) spnDosesRequisitadasArea.getValue());
-        
-        
+
         JOptionPane.showMessageDialog(null, _areaController.AreaController(request));
     }//GEN-LAST:event_btnCadastrarAreaCondominioActionPerformed
 
