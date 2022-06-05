@@ -62,7 +62,7 @@ public class TelaCadastroVacina extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        cboxNomeInquilino.setBorder(javax.swing.BorderFactory.createTitledBorder("Nome do Inquilino/CPF:"));
+        cboxNomeInquilino.setBorder(javax.swing.BorderFactory.createTitledBorder("CPF do inquilino:"));
 
         cboxTipoVacina.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "CoronaVac", "AstraZeneca", "Pfizer", "Janssen" }));
         cboxTipoVacina.setBorder(javax.swing.BorderFactory.createTitledBorder("Tipo de Vacina:"));
@@ -175,6 +175,8 @@ public class TelaCadastroVacina extends javax.swing.JFrame {
         request.setTipoVacina((String) cboxTipoVacina.getSelectedItem());
         request.setQtdDoseVacina((int) spnNumeroDosesVacina.getValue());
         request.setInquilino((InquilinoModel) cboxNomeInquilino.getSelectedItem());
+        
+        System.out.println(request.getInquilino());
         
         JOptionPane.showMessageDialog(null, _vacinaController.CadastrarVacina(request));
         

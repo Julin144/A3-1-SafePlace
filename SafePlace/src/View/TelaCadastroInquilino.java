@@ -6,6 +6,10 @@ package View;
 
 import Controllers.InquilinoController;
 import Dto.Request.*;
+import Models.InquilinoModel;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
 
 /**
@@ -26,6 +30,15 @@ public class TelaCadastroInquilino extends javax.swing.JFrame {
         setLocationRelativeTo(null);
         
         _inquilinoController = new InquilinoController();
+        
+        try 
+        {            
+            cboxListaInquilinos.setModel(new DefaultComboBoxModel<>(_inquilinoController.montarListaInquilino()));
+            
+        } catch (Exception ex) {
+            Logger.getLogger(Home.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
     }
 
     /**
@@ -49,7 +62,6 @@ public class TelaCadastroInquilino extends javax.swing.JFrame {
         txtCadastrarAPInquilino = new javax.swing.JTextPane();
         btnCadastrarVacinaInquilino = new javax.swing.JButton();
         cboxListaInquilinos = new javax.swing.JComboBox<>();
-        lbResponse = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setMinimumSize(new java.awt.Dimension(500, 500));
@@ -93,16 +105,12 @@ public class TelaCadastroInquilino extends javax.swing.JFrame {
             }
         });
 
-        cboxListaInquilinos.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Cadastrar um novo inquilino", "Item 2", "Item 3", "Item 4" }));
         cboxListaInquilinos.setBorder(javax.swing.BorderFactory.createTitledBorder("Inquilinos cadastrados:"));
-        cboxListaInquilinos.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cboxListaInquilinosActionPerformed(evt);
+        cboxListaInquilinos.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                cboxListaInquilinosItemStateChanged(evt);
             }
         });
-
-        lbResponse.setText("Resposta Cadastro");
-        lbResponse.setEnabled(false);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -126,9 +134,7 @@ public class TelaCadastroInquilino extends javax.swing.JFrame {
                     .addComponent(cboxListaInquilinos, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(158, 158, 158)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lbResponse)
-                            .addComponent(btnVoltarCadastroInquilino, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addComponent(btnVoltarCadastroInquilino, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(45, Short.MAX_VALUE))
         );
 
@@ -156,9 +162,7 @@ public class TelaCadastroInquilino extends javax.swing.JFrame {
                 .addComponent(btnCadastrarVacinaInquilino)
                 .addGap(30, 30, 30)
                 .addComponent(btnVoltarCadastroInquilino)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(lbResponse)
-                .addContainerGap())
+                .addGap(34, 34, 34))
         );
 
         layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {btnCadastrarInquilino, btnCadastrarVacinaInquilino, btnDeletarInquilino, btnEditarInquilino, btnVoltarCadastroInquilino});
@@ -179,7 +183,7 @@ public class TelaCadastroInquilino extends javax.swing.JFrame {
         //lbResponse.setText(_inquilinoController.CadatrarInquilino(request));
         //lbResponse.setEnabled(true);
         
-        JOptionPane.showMessageDialog(null, _inquilinoController.CadatrarInquilino(request));
+        JOptionPane.showMessageDialog(null, _inquilinoController.CadastrarInquilino(request));
         
     }//GEN-LAST:event_btnCadastrarInquilinoActionPerformed
 
@@ -187,11 +191,6 @@ public class TelaCadastroInquilino extends javax.swing.JFrame {
         // TODO add your handling code here:
         
     }//GEN-LAST:event_btnEditarInquilinoActionPerformed
-
-    private void cboxListaInquilinosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cboxListaInquilinosActionPerformed
-        // TODO add your handling code here:
-        
-    }//GEN-LAST:event_cboxListaInquilinosActionPerformed
 
     private void btnCadastrarVacinaInquilinoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarVacinaInquilinoActionPerformed
         // TODO add your handling code here:
@@ -205,6 +204,18 @@ public class TelaCadastroInquilino extends javax.swing.JFrame {
         this.dispose();
         
     }//GEN-LAST:event_btnVoltarCadastroInquilinoActionPerformed
+
+    private void cboxListaInquilinosItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cboxListaInquilinosItemStateChanged
+        // TODO add your handling code here:
+        InquilinoModel inquilino = (InquilinoModel)cboxListaInquilinos.getSelectedItem();
+        
+        txtCadastrarNomeInquilino.setText(inquilino.getNome());
+        txtCadastrarCPFInquilino.setText(inquilino.getCpf());
+        txtCadastrarAPInquilino.setText(String.valueOf(inquilino.getAprtNumero()));
+        
+        _inquilinoController.AtualizarInquilino(inquilino);
+        
+    }//GEN-LAST:event_cboxListaInquilinosItemStateChanged
 
     /**
      * @param args the command line arguments
@@ -247,11 +258,10 @@ public class TelaCadastroInquilino extends javax.swing.JFrame {
     private javax.swing.JButton btnDeletarInquilino;
     private javax.swing.JButton btnEditarInquilino;
     private javax.swing.JButton btnVoltarCadastroInquilino;
-    private javax.swing.JComboBox<String> cboxListaInquilinos;
+    private javax.swing.JComboBox<InquilinoModel> cboxListaInquilinos;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
-    private javax.swing.JLabel lbResponse;
     private javax.swing.JTextPane txtCadastrarAPInquilino;
     private javax.swing.JTextPane txtCadastrarCPFInquilino;
     private javax.swing.JTextPane txtCadastrarNomeInquilino;

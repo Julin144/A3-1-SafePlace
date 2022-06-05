@@ -21,7 +21,7 @@ public class AreaController
         _areaDB = new AreaDB();
     }
     
-    public String CadastrarArea(CadastroAreaRequestDto request)
+    public String cadastrarArea(CadastroAreaRequestDto request)
     {
         String result;
         

@@ -40,7 +40,7 @@ public class CondominioDB {
         }
     }
     
-    public void inserirCondominio() throws Exception {
+    public void inserirCondominio(CondominioModel condominio) throws Exception {
 
 
         String sql = "INSERT INTO Condominio(nome,endereco) VALUES (?,?);";

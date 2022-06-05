@@ -140,7 +140,7 @@ public class TelaCadastroArea extends javax.swing.JFrame {
         request.setDescricao(txtNomeAreaCondominio.getText());
         request.setDosesRequisitadas((int) spnDosesRequisitadasArea.getValue());
 
-        JOptionPane.showMessageDialog(null, _areaController.AreaController(request));
+        JOptionPane.showMessageDialog(null, _areaController.cadastrarArea(request));
     }//GEN-LAST:event_btnCadastrarAreaCondominioActionPerformed
 
     /**

@@ -40,6 +40,9 @@ public class VacinaController
     VacinaModel vacina = new VacinaModel();
     
     vacina.setQtdDose(request.getQtdDoseVacina());
+    vacina.setTipo(request.getTipoVacina());
+    vacina.setIdInquilino(request.getInquilino().getIdInquilino());
+    
     
     try
         {

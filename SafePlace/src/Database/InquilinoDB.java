@@ -59,7 +59,7 @@ public class InquilinoDB {
             return inquilinos;
         }
     }
-
+    
     public void updateInquilino(InquilinoModel inquilino) throws Exception {
 
         String sql = "UPDATE Inquilino SET nome = ?,cpf= ?,aprtNumero= ? WHERE  idInquilino = ?";

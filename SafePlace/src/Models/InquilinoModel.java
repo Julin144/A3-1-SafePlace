@@ -17,7 +17,7 @@ public class InquilinoModel
     
     
     public String toString() {
-        return this.nome +"-"+this.cpf;
+        return "Nome: " + this.nome + " - CPF: " + this.cpf;
     }
     
     public InquilinoModel()

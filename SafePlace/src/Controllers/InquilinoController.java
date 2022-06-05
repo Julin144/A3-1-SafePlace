@@ -22,7 +22,7 @@ public class InquilinoController
         _inquilinoDb = new InquilinoDB();
     }
     
-    public String CadatrarInquilino(CadastroInquilinoRequestDto request)
+    public String CadastrarInquilino(CadastroInquilinoRequestDto request)
     {
         String result;
         
@@ -47,4 +47,33 @@ public class InquilinoController
         
         return result;
     }
+    
+    public InquilinoModel[] montarListaInquilino() throws Exception 
+    {
+        InquilinoModel[] inquilinos;
+      
+        
+        inquilinos = _inquilinoDb.buscarInquilino();
+        
+        return inquilinos;
+    }
+    
+    public String AtualizarInquilino(InquilinoModel inquilino)
+    {
+        String result;  
+        
+        try
+        {
+            _inquilinoDb.updateInquilino(inquilino);
+            
+            result = "Inquilino atualizado com sucesso!";
+            
+        }catch(Exception ex)
+        {
+            result = "Erro durante a atualização do inquilino.";
+        }
+        
+        return result;
+    }
+    
 }
