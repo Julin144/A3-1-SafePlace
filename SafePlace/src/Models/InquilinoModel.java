@@ -8,59 +8,50 @@ package Models;
  *
  * @author Jack
  */
-public class InquilinoModel 
-{
+public class InquilinoModel {
+
     private int idInquilino;
     private String nome;
     private String cpf;
     private int aprtNumero;
-    
-    
+
+    @Override
     public String toString() {
         return "Nome: " + this.nome + " - CPF: " + this.cpf;
     }
-    
-    public InquilinoModel()
-    {    
+
+    public InquilinoModel() {
     }
-    
-    public int getIdInquilino()
-    {
+
+    public int getIdInquilino() {
         return idInquilino;
     }
 
-    public void setIdInquilino(int idInquilino)
-    {
+    public void setIdInquilino(int idInquilino) {
         this.idInquilino = idInquilino;
     }
 
-    public String getNome()
-    {
+    public String getNome() {
         return nome;
     }
-    
-    public void setNome(String nome)
-    {
+
+    public void setNome(String nome) {
         this.nome = nome;
     }
-    
-    public String getCpf()
-    {
+
+    public String getCpf() {
         return cpf;
     }
-    
-    public void setCpf(String cpf)
-    {
+
+    public void setCpf(String cpf) {
         this.cpf = cpf;
     }
-    
-    public int getAprtNumero()
-    {
+
+    public int getAprtNumero() {
         return aprtNumero;
     }
-    
-    public void setAprtNumero(int aprtNumero)
-    {
+
+    public void setAprtNumero(int aprtNumero) {
         this.aprtNumero = aprtNumero;
     }
 }

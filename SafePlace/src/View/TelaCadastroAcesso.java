@@ -7,9 +7,13 @@ package View;
 import Controllers.AcessoInquilinosController;
 import Dto.Request.CadastroAcessoAreaRequestDto;
 import Models.AreaModel;
+import Models.InquilinoModel;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
 import javax.swing.JSpinner;
 import javax.swing.SpinnerDateModel;
@@ -32,9 +36,25 @@ public class TelaCadastroAcesso extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }
 
-    public void setArea(AreaModel area) {
+    public final void atualizarDados() {
+        try {
+            //_acessoInquilinosCon.montarListaInquilino();
+            if (_acessoInquilinosCon.listaInq != null) {
+                cboxInquilino.setModel(new DefaultComboBoxModel<>(_acessoInquilinosCon.listaInq));
+            }
+            //this.setEnableBtnCadastrar();
+
+        } catch (Exception ex) {
+            Logger.getLogger(Home.class.getName()).log(Level.SEVERE, null, ex);
+
+        }
+    }
+
+    public void setArea(AreaModel area, AcessoInquilinosController acessoController) {
         this.area = area;
+        this._acessoInquilinosCon = acessoController;
         labelArea.setText(this.area.getDescricao());
+        this.atualizarDados();
     }
 
     /**
@@ -62,6 +82,11 @@ public class TelaCadastroAcesso extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
+        cboxInquilino.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                cboxInquilinoItemStateChanged(evt);
+            }
+        });
         cboxInquilino.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createTitledBorder(""), " Inquilino "));
 
         spnDiaFim.setBorder(javax.swing.BorderFactory.createTitledBorder("Data Final"));
@@ -146,6 +171,16 @@ public class TelaCadastroAcesso extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void cboxInquilinoItemStateChanged(java.awt.event.ItemEvent evt) {
+        //_acessoInquilinosCon.listaInq;
+        try {
+            cboxInquilino.setModel(new DefaultComboBoxModel<>(this._acessoInquilinosCon.listaInq));
+        } catch (Exception ex) {
+            Logger.getLogger(Home.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+    }
+    
     private void btnVoltarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVoltarActionPerformed
         this.dispose();
     }//GEN-LAST:event_btnVoltarActionPerformed
@@ -154,12 +189,12 @@ public class TelaCadastroAcesso extends javax.swing.JFrame {
         CadastroAcessoAreaRequestDto request = new CadastroAcessoAreaRequestDto();
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
         /////////////////////
-        request.setIdInquilino(1);
-        request.setIdArea(this.area.getIdArea());
+        InquilinoModel inquilino = (InquilinoModel) cboxInquilino.getSelectedItem();
+        request.setIdInquilino(inquilino.getIdInquilino());
         request.setHrIni(sdf.format(spnDiaIni.getValue()));
         request.setHrFim(sdf.format(spnDiaIni.getValue()));
 
-        JOptionPane.showMessageDialog(null, _acessoInquilinosCon.CadatrarAcesso(request));
+        JOptionPane.showMessageDialog(null, this._acessoInquilinosCon.CadatrarAcesso(request));
 
         String ini = sdf.format(spnDiaIni.getValue());
         String fim = sdf.format(spnDiaIni.getValue());
@@ -204,7 +239,7 @@ public class TelaCadastroAcesso extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCadastrar;
     private javax.swing.JButton btnVoltar;
-    private javax.swing.JComboBox<String> cboxInquilino;
+    private javax.swing.JComboBox<InquilinoModel> cboxInquilino;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel labelArea;
     private javax.swing.JSpinner spnDiaFim;

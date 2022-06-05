@@ -22,7 +22,9 @@ public class AcessoInquilinosController {
     private InquilinoDB _inquilinoDb;
     private AreaDB _areaDb;
     private AcessoAreaDB _acessoDb;
-    private AcessoAreaModel[] _listaAcessos;
+    public AcessoAreaModel[] _listaAcessos;
+    public InquilinoModel[] listaInq;
+    public InquilinoModel inquilinoSelecionado;
 
     public AcessoInquilinosController() {
         _areaDb = new AreaDB();
@@ -36,14 +38,28 @@ public class AcessoInquilinosController {
 
     public void montarListaTabela(DefaultTableModel model) throws Exception {
         InquilinoModel[] inqList = _inquilinoDb.buscarInquilino();
+        this.listaInq = new InquilinoModel[_listaAcessos.length];
+        int contLista = 0;
 
         for (AcessoAreaModel acesso : _listaAcessos) {
             for (InquilinoModel inq : inqList) {
                 if (inq.getIdInquilino() == acesso.getIdInquilino()) {
+                    listaInq[contLista++] = inq;
                     model.addRow(new Object[]{inq.getNome(), inq.getCpf(), inq.getAprtNumero(), acesso.getHrIni(), acesso.getHrFim()});
                 }
             }
         }
+    }
+
+    public void montarListaInquilino() throws Exception {
+        if (this.inquilinoSelecionado != null) {
+            //this.areas = dbArea.buscarAreas(this.inquilinoSelecionado);
+            //this.areaSelecionada = this.areas.length != 0 ? this.areas[0] : null;
+        }
+    }
+
+    public void definirInquilinoSelecionado(InquilinoModel inquilino) {
+        this.inquilinoSelecionado = inquilino;
     }
 
     public String CadatrarAcesso(CadastroAcessoAreaRequestDto request) {

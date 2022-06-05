@@ -17,8 +17,10 @@ import javax.swing.table.DefaultTableModel;
  * @author Thais Dias
  */
 public class TelaAcessoInquilinos extends javax.swing.JFrame {
+
     public AcessoInquilinosController aic = new AcessoInquilinosController();
     public AreaModel area;
+
     /**
      * Creates new form AcessoInquilinos
      */
@@ -27,23 +29,24 @@ public class TelaAcessoInquilinos extends javax.swing.JFrame {
         initComponents();
         setLocationRelativeTo(null);
     }
-    
+
     public void setArea(AreaModel area) {
         this.area = area;
         labelArea.setText(this.area.getDescricao());
-        
+
         DefaultTableModel model = (DefaultTableModel) tableInquilinos.getModel();
         model.setRowCount(0);
-        
+
         try {
             aic.montarListaAcessos(area);
             aic.montarListaTabela(model);
         } catch (Exception ex) {
             Logger.getLogger(TelaAcessoInquilinos.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+
         tableInquilinos.setModel(model);
     }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -174,7 +177,7 @@ public class TelaAcessoInquilinos extends javax.swing.JFrame {
 
     private void btnCadastrarAcessoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarAcessoActionPerformed
         TelaCadastroAcesso tca = new TelaCadastroAcesso();
-        tca.setArea(this.area);
+        tca.setArea(this.area, this.aic);
 
         tca.setVisible(true);
     }//GEN-LAST:event_btnCadastrarAcessoActionPerformed
