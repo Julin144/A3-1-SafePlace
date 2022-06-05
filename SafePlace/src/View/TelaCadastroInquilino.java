@@ -93,6 +93,11 @@ public class TelaCadastroInquilino extends javax.swing.JFrame {
         });
 
         btnDeletarInquilino.setText("Deletar");
+        btnDeletarInquilino.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDeletarInquilinoActionPerformed(evt);
+            }
+        });
 
         txtCadastrarNomeInquilino.setBorder(javax.swing.BorderFactory.createTitledBorder("Nome do inquilino: "));
         jScrollPane1.setViewportView(txtCadastrarNomeInquilino);
@@ -241,6 +246,15 @@ public class TelaCadastroInquilino extends javax.swing.JFrame {
         
         _inquilinoController.setInquilino(inquilino);
     }//GEN-LAST:event_cboxListaInquilinosActionPerformed
+
+    private void btnDeletarInquilinoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeletarInquilinoActionPerformed
+        InquilinoModel inquilino = (InquilinoModel)cboxListaInquilinos.getSelectedItem();
+        _inquilinoController.setInquilino(inquilino);
+        
+        JOptionPane.showMessageDialog(null, _inquilinoController.deletarInquilino());
+        if(!_inquilinoController.erroReq)
+            atualizarLista();
+    }//GEN-LAST:event_btnDeletarInquilinoActionPerformed
 
     /**
      * @param args the command line arguments

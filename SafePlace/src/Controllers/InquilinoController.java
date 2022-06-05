@@ -89,6 +89,25 @@ public class InquilinoController
         return result;
     }
     
+    public String deletarInquilino()
+    {
+        String result = "";  
+        
+        try
+        {
+            _inquilinoDb.deleteInquilino(this.inquilinoSelecionado);
+            result = "Inquilino Excluido com sucesso!";
+            erroReq = false;
+        }catch(Exception e)
+        {
+            Logger.getLogger(TelaCadastroInquilino.class.getName()).log(Level.SEVERE, null, e);
+            result = "Erro durante a Exclusão do inquilino.";
+            erroReq = true;
+        }
+        
+        return result;
+    }
+    
     public void setInquilino(InquilinoModel inquilino) {
         this.inquilinoSelecionado = inquilino;
     }

@@ -90,7 +90,7 @@ public class InquilinoDB {
 
             ps.setInt(1, inquilino.getIdInquilino());
 
-            ResultSet rs = ps.executeQuery();
+            int rs = ps.executeUpdate();
         }
     }
 
