@@ -198,7 +198,7 @@ public class Home extends javax.swing.JFrame {
         });
 
         lblAlerta.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        lblAlerta.setForeground(new java.awt.Color(0, 0, 255));
+        lblAlerta.setForeground(new java.awt.Color(0, 51, 255));
         lblAlerta.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblAlerta.setToolTipText("");
         lblAlerta.setPreferredSize(new java.awt.Dimension(40, 20));

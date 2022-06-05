@@ -6,6 +6,11 @@ package View;
 
 import Controllers.AreaController;
 import Dto.Request.CadastroAreaRequestDto;
+import Models.AreaModel;
+import Models.CondominioModel;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
 
 /**
@@ -17,16 +22,61 @@ public class TelaCadastroArea extends javax.swing.JFrame {
     /**
      * Creates new form TelaCadastroArea
      */
-    private static AreaController _areaController;
+    private static AreaController _areaController = new AreaController();
 
     public TelaCadastroArea() {
-        super("SafePlace");
+        super("Cadastro de Área");
         initComponents();
         setLocationRelativeTo(null);
-
-        _areaController = new AreaController();
+        
+        try {
+            _areaController.montarListaCondominioArea();
+            cboxCondominios.setModel(new DefaultComboBoxModel<>(_areaController.condominios));
+        } catch (Exception ex) {
+            Logger.getLogger(TelaCadastroArea.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        this.atualizarLista();
+        
+    }
+    
+    public void atualizarLista() {
+        try 
+        {            
+            
+            _areaController.montarListaAreas();
+            cboxAreas.setModel(new DefaultComboBoxModel<>(_areaController.areas));
+            txtNomeArea.setText("");
+            spnDosesRequisitas.setValue(0);
+            
+            _areaController.definirAreaSelecionada(null);
+            this.habilitarDesabilitarBotoes(false);
+            
+        } catch (Exception ex) {
+            Logger.getLogger(Home.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
+    public boolean camposPreenchidos() {
+        if(txtNomeArea.getText().equals("") &&
+           spnDosesRequisitas.getValue().equals(""))
+        {
+            return false;
+        }
+        return true;
+    }
+    
+    public void habilitarDesabilitarBotoes(boolean enabled) {
+        if(enabled) {
+            btnEditarArea.setEnabled(true);
+            btnApagarArea.setEnabled(true);
+            lblAcessoBotoes.setText("");
+        } else {
+            btnEditarArea.setEnabled(false);
+            btnApagarArea.setEnabled(false);
+            lblAcessoBotoes.setText("Selecione uma Área!");
+        }
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -38,13 +88,15 @@ public class TelaCadastroArea extends javax.swing.JFrame {
 
         jScrollPane1 = new javax.swing.JScrollPane();
         jTextArea1 = new javax.swing.JTextArea();
-        txtNomeAreaCondominio = new javax.swing.JTextField();
-        spnDosesRequisitadasArea = new javax.swing.JSpinner();
+        txtNomeArea = new javax.swing.JTextField();
+        spnDosesRequisitas = new javax.swing.JSpinner();
         btnCadastrarAreaCondominio = new javax.swing.JButton();
-        btnApagarAreaCondominio = new javax.swing.JButton();
-        cboxAreasCadastradasCondominio = new javax.swing.JComboBox<>();
+        btnApagarArea = new javax.swing.JButton();
+        cboxAreas = new javax.swing.JComboBox<>();
         btnVoltarCadastroArea = new javax.swing.JButton();
-        btnEditarAreaCondominio = new javax.swing.JButton();
+        btnEditarArea = new javax.swing.JButton();
+        cboxCondominios = new javax.swing.JComboBox<>();
+        lblAcessoBotoes = new javax.swing.JLabel();
 
         jTextArea1.setColumns(20);
         jTextArea1.setRows(5);
@@ -54,14 +106,9 @@ public class TelaCadastroArea extends javax.swing.JFrame {
         setMinimumSize(new java.awt.Dimension(500, 500));
         setPreferredSize(new java.awt.Dimension(600, 600));
 
-        txtNomeAreaCondominio.setBorder(javax.swing.BorderFactory.createTitledBorder("Nome da Área:"));
-        txtNomeAreaCondominio.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtNomeAreaCondominioActionPerformed(evt);
-            }
-        });
+        txtNomeArea.setBorder(javax.swing.BorderFactory.createTitledBorder("Nome da Área:"));
 
-        spnDosesRequisitadasArea.setBorder(javax.swing.BorderFactory.createTitledBorder("Número de doses requisitadas para acessar:"));
+        spnDosesRequisitas.setBorder(javax.swing.BorderFactory.createTitledBorder("Número de doses requisitadas para acessar:"));
 
         btnCadastrarAreaCondominio.setText("Cadastrar");
         btnCadastrarAreaCondominio.addActionListener(new java.awt.event.ActionListener() {
@@ -70,10 +117,24 @@ public class TelaCadastroArea extends javax.swing.JFrame {
             }
         });
 
-        btnApagarAreaCondominio.setText("Apagar");
+        btnApagarArea.setText("Apagar");
+        btnApagarArea.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnApagarAreaActionPerformed(evt);
+            }
+        });
 
-        cboxAreasCadastradasCondominio.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Cadastrar uma nova área", "Item 2", "Item 3", "Item 4" }));
-        cboxAreasCadastradasCondominio.setBorder(javax.swing.BorderFactory.createTitledBorder("Áreas cadastradas:"));
+        cboxAreas.setBorder(javax.swing.BorderFactory.createTitledBorder("Áreas cadastradas:"));
+        cboxAreas.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                cboxAreasItemStateChanged(evt);
+            }
+        });
+        cboxAreas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cboxAreasActionPerformed(evt);
+            }
+        });
 
         btnVoltarCadastroArea.setText("Voltar");
         btnVoltarCadastroArea.addActionListener(new java.awt.event.ActionListener() {
@@ -82,51 +143,73 @@ public class TelaCadastroArea extends javax.swing.JFrame {
             }
         });
 
-        btnEditarAreaCondominio.setText("Editar");
+        btnEditarArea.setText("Editar");
+        btnEditarArea.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEditarAreaActionPerformed(evt);
+            }
+        });
+
+        cboxCondominios.setBorder(javax.swing.BorderFactory.createTitledBorder("Condominios cadastrados:"));
+        cboxCondominios.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                cboxCondominiosItemStateChanged(evt);
+            }
+        });
+        cboxCondominios.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cboxCondominiosActionPerformed(evt);
+            }
+        });
+
+        lblAcessoBotoes.setForeground(new java.awt.Color(0, 51, 255));
+        lblAcessoBotoes.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(99, 99, 99)
+                .addGap(100, 100, 100)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                    .addComponent(txtNomeAreaCondominio)
-                    .addComponent(spnDosesRequisitadasArea)
-                    .addGroup(layout.createSequentialGroup()
+                    .addComponent(txtNomeArea)
+                    .addComponent(spnDosesRequisitas)
+                    .addComponent(cboxAreas, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnVoltarCadastroArea, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnEditarArea, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cboxCondominios, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(btnCadastrarAreaCondominio, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 112, Short.MAX_VALUE)
-                        .addComponent(btnApagarAreaCondominio, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(cboxAreasCadastradasCondominio, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnVoltarCadastroArea, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnEditarAreaCondominio, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(99, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 111, Short.MAX_VALUE)
+                        .addComponent(btnApagarArea, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(lblAcessoBotoes, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(99, 99, 99))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(60, 60, 60)
-                .addComponent(cboxAreasCadastradasCondominio, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(50, 50, 50)
-                .addComponent(txtNomeAreaCondominio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 50, Short.MAX_VALUE)
-                .addComponent(spnDosesRequisitadasArea, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(50, 50, 50)
+                .addComponent(cboxCondominios, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(20, 20, 20)
+                .addComponent(cboxAreas, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(26, 26, 26)
+                .addComponent(txtNomeArea, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 37, Short.MAX_VALUE)
+                .addComponent(spnDosesRequisitas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(40, 40, 40)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnCadastrarAreaCondominio)
-                    .addComponent(btnApagarAreaCondominio)
-                    .addComponent(btnEditarAreaCondominio))
-                .addGap(50, 50, 50)
-                .addComponent(btnVoltarCadastroArea)
-                .addGap(60, 60, 60))
+                    .addComponent(btnCadastrarAreaCondominio, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnApagarArea, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnEditarArea, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addComponent(btnVoltarCadastroArea, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(lblAcessoBotoes, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void txtNomeAreaCondominioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNomeAreaCondominioActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtNomeAreaCondominioActionPerformed
 
     private void btnVoltarCadastroAreaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVoltarCadastroAreaActionPerformed
         // TODO add your handling code here:
@@ -134,14 +217,94 @@ public class TelaCadastroArea extends javax.swing.JFrame {
     }//GEN-LAST:event_btnVoltarCadastroAreaActionPerformed
 
     private void btnCadastrarAreaCondominioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarAreaCondominioActionPerformed
-        // TODO add your handling code here:
         CadastroAreaRequestDto request = new CadastroAreaRequestDto();
 
-        request.setDescricao(txtNomeAreaCondominio.getText());
-        request.setDosesRequisitadas((int) spnDosesRequisitadasArea.getValue());
-
-        JOptionPane.showMessageDialog(null, _areaController.cadastrarArea(request));
+        if(this.camposPreenchidos()) {
+            request.setDescricao(txtNomeArea.getText());
+            request.setDosesRequisitadas((int) spnDosesRequisitas.getValue());
+            JOptionPane.showMessageDialog(null, _areaController.cadastrarArea(request));
+            if(!_areaController.erroReq)
+                atualizarLista();
+        }else {
+            JOptionPane.showMessageDialog(null, "Favor, preencher os campos adequadamente!");
+        }
     }//GEN-LAST:event_btnCadastrarAreaCondominioActionPerformed
+
+    private void cboxCondominiosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cboxCondominiosActionPerformed
+        CondominioModel con = (CondominioModel) cboxCondominios.getSelectedItem();
+
+        if (con.getIdCondominio() != this._areaController.condominioSelecionado.getIdCondominio()) {
+            _areaController.definirCondominioSelecionado(con);
+
+            try {
+                _areaController.montarListaAreas();
+                cboxAreas.setModel(new DefaultComboBoxModel<>(_areaController.areas));
+            } catch (Exception ex) {
+                Logger.getLogger(Home.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    }//GEN-LAST:event_cboxCondominiosActionPerformed
+
+    private void cboxCondominiosItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cboxCondominiosItemStateChanged
+        CondominioModel con = (CondominioModel) cboxCondominios.getSelectedItem();
+
+        if (con.getIdCondominio() != this._areaController.condominioSelecionado.getIdCondominio()) {
+            _areaController.definirCondominioSelecionado(con);
+
+            try {
+                _areaController.montarListaAreas();
+                cboxAreas.setModel(new DefaultComboBoxModel<>(_areaController.areas));
+            } catch (Exception ex) {
+                Logger.getLogger(Home.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    }//GEN-LAST:event_cboxCondominiosItemStateChanged
+
+    private void cboxAreasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cboxAreasActionPerformed
+        AreaModel a = (AreaModel) cboxAreas.getSelectedItem();
+
+        txtNomeArea.setText(a.getDescricao());
+        spnDosesRequisitas.setValue(a.getDosesRequisitadas());
+
+        _areaController.definirAreaSelecionada(a);
+        this.habilitarDesabilitarBotoes(true);
+    }//GEN-LAST:event_cboxAreasActionPerformed
+
+    private void cboxAreasItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cboxAreasItemStateChanged
+        AreaModel a = (AreaModel) cboxAreas.getSelectedItem();
+
+        txtNomeArea.setText(a.getDescricao());
+        spnDosesRequisitas.setValue(a.getDosesRequisitadas());
+
+        _areaController.definirAreaSelecionada(a);
+        this.habilitarDesabilitarBotoes(true);
+    }//GEN-LAST:event_cboxAreasItemStateChanged
+
+    private void btnEditarAreaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarAreaActionPerformed
+        AreaModel area = (AreaModel)cboxAreas.getSelectedItem();
+
+        if(this.camposPreenchidos()) {
+            area.setDescricao(txtNomeArea.getText());
+            area.setDosesRequisitadas((int) spnDosesRequisitas.getValue());
+            
+             _areaController.definirAreaSelecionada(area);
+            
+            JOptionPane.showMessageDialog(null, _areaController.atualizarArea());
+            if(!_areaController.erroReq)
+                atualizarLista();
+        }else {
+            JOptionPane.showMessageDialog(null, "Favor, preencher os campos adequadamente!");
+        }
+    }//GEN-LAST:event_btnEditarAreaActionPerformed
+
+    private void btnApagarAreaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnApagarAreaActionPerformed
+        AreaModel area = (AreaModel)cboxAreas.getSelectedItem();
+        _areaController.definirAreaSelecionada(area);
+        
+        JOptionPane.showMessageDialog(null, _areaController.deletarArea());
+        if(!_areaController.erroReq)
+            atualizarLista();
+    }//GEN-LAST:event_btnApagarAreaActionPerformed
 
     /**
      * @param args the command line arguments
@@ -179,14 +342,16 @@ public class TelaCadastroArea extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnApagarAreaCondominio;
+    private javax.swing.JButton btnApagarArea;
     private javax.swing.JButton btnCadastrarAreaCondominio;
-    private javax.swing.JButton btnEditarAreaCondominio;
+    private javax.swing.JButton btnEditarArea;
     private javax.swing.JButton btnVoltarCadastroArea;
-    private javax.swing.JComboBox<String> cboxAreasCadastradasCondominio;
+    private javax.swing.JComboBox<AreaModel> cboxAreas;
+    private javax.swing.JComboBox<CondominioModel> cboxCondominios;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextArea jTextArea1;
-    private javax.swing.JSpinner spnDosesRequisitadasArea;
-    private javax.swing.JTextField txtNomeAreaCondominio;
+    private javax.swing.JLabel lblAcessoBotoes;
+    private javax.swing.JSpinner spnDosesRequisitas;
+    private javax.swing.JTextField txtNomeArea;
     // End of variables declaration//GEN-END:variables
 }

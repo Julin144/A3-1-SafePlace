@@ -47,47 +47,53 @@
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" attributes="0">
-              <EmptySpace min="-2" pref="99" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="100" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="2" attributes="0">
-                  <Component id="txtNomeAreaCondominio" alignment="2" max="32767" attributes="0"/>
-                  <Component id="spnDosesRequisitadasArea" alignment="2" max="32767" attributes="0"/>
-                  <Group type="102" alignment="2" attributes="0">
+                  <Component id="txtNomeArea" alignment="2" max="32767" attributes="0"/>
+                  <Component id="spnDosesRequisitas" alignment="2" max="32767" attributes="0"/>
+                  <Component id="cboxAreas" alignment="2" max="32767" attributes="0"/>
+                  <Component id="btnVoltarCadastroArea" alignment="2" min="-2" pref="90" max="-2" attributes="0"/>
+                  <Component id="btnEditarArea" alignment="2" min="-2" pref="95" max="-2" attributes="0"/>
+                  <Component id="cboxCondominios" alignment="2" max="32767" attributes="0"/>
+                  <Group type="102" alignment="1" attributes="0">
                       <Component id="btnCadastrarAreaCondominio" min="-2" pref="95" max="-2" attributes="0"/>
-                      <EmptySpace pref="112" max="32767" attributes="0"/>
-                      <Component id="btnApagarAreaCondominio" min="-2" pref="95" max="-2" attributes="0"/>
+                      <EmptySpace pref="111" max="32767" attributes="0"/>
+                      <Component id="btnApagarArea" min="-2" pref="95" max="-2" attributes="0"/>
                   </Group>
-                  <Component id="cboxAreasCadastradasCondominio" alignment="2" max="32767" attributes="0"/>
-                  <Component id="btnVoltarCadastroArea" alignment="2" min="-2" pref="75" max="-2" attributes="0"/>
-                  <Component id="btnEditarAreaCondominio" alignment="2" min="-2" pref="95" max="-2" attributes="0"/>
+                  <Component id="lblAcessoBotoes" alignment="0" max="32767" attributes="0"/>
               </Group>
-              <EmptySpace pref="99" max="32767" attributes="0"/>
+              <EmptySpace min="-2" pref="99" max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
     <DimensionLayout dim="1">
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="0" attributes="0">
-              <EmptySpace min="-2" pref="60" max="-2" attributes="0"/>
-              <Component id="cboxAreasCadastradasCondominio" min="-2" pref="41" max="-2" attributes="0"/>
               <EmptySpace min="-2" pref="50" max="-2" attributes="0"/>
-              <Component id="txtNomeAreaCondominio" min="-2" max="-2" attributes="0"/>
-              <EmptySpace pref="50" max="32767" attributes="0"/>
-              <Component id="spnDosesRequisitadasArea" min="-2" max="-2" attributes="0"/>
-              <EmptySpace min="-2" pref="50" max="-2" attributes="0"/>
+              <Component id="cboxCondominios" min="-2" pref="64" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
+              <Component id="cboxAreas" min="-2" pref="64" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="26" max="-2" attributes="0"/>
+              <Component id="txtNomeArea" min="-2" max="-2" attributes="0"/>
+              <EmptySpace pref="37" max="32767" attributes="0"/>
+              <Component id="spnDosesRequisitas" min="-2" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="40" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="btnCadastrarAreaCondominio" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="btnApagarAreaCondominio" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="btnEditarAreaCondominio" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="btnCadastrarAreaCondominio" alignment="3" min="-2" pref="50" max="-2" attributes="0"/>
+                  <Component id="btnApagarArea" alignment="3" min="-2" pref="50" max="-2" attributes="0"/>
+                  <Component id="btnEditarArea" alignment="3" min="-2" pref="50" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace min="-2" pref="50" max="-2" attributes="0"/>
-              <Component id="btnVoltarCadastroArea" min="-2" max="-2" attributes="0"/>
-              <EmptySpace min="-2" pref="60" max="-2" attributes="0"/>
+              <EmptySpace type="separate" max="-2" attributes="0"/>
+              <Component id="btnVoltarCadastroArea" min="-2" pref="54" max="-2" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
+              <Component id="lblAcessoBotoes" min="-2" pref="21" max="-2" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
   </Layout>
   <SubComponents>
-    <Component class="javax.swing.JTextField" name="txtNomeAreaCondominio">
+    <Component class="javax.swing.JTextField" name="txtNomeArea">
       <Properties>
         <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
           <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
@@ -95,11 +101,8 @@
           </Border>
         </Property>
       </Properties>
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtNomeAreaCondominioActionPerformed"/>
-      </Events>
     </Component>
-    <Component class="javax.swing.JSpinner" name="spnDosesRequisitadasArea">
+    <Component class="javax.swing.JSpinner" name="spnDosesRequisitas">
       <Properties>
         <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
           <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
@@ -116,20 +119,18 @@
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnCadastrarAreaCondominioActionPerformed"/>
       </Events>
     </Component>
-    <Component class="javax.swing.JButton" name="btnApagarAreaCondominio">
+    <Component class="javax.swing.JButton" name="btnApagarArea">
       <Properties>
         <Property name="text" type="java.lang.String" value="Apagar"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnApagarAreaActionPerformed"/>
+      </Events>
     </Component>
-    <Component class="javax.swing.JComboBox" name="cboxAreasCadastradasCondominio">
+    <Component class="javax.swing.JComboBox" name="cboxAreas">
       <Properties>
         <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-          <StringArray count="4">
-            <StringItem index="0" value="Cadastrar uma nova &#xe1;rea"/>
-            <StringItem index="1" value="Item 2"/>
-            <StringItem index="2" value="Item 3"/>
-            <StringItem index="3" value="Item 4"/>
-          </StringArray>
+          <StringArray count="0"/>
         </Property>
         <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
           <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
@@ -137,8 +138,12 @@
           </Border>
         </Property>
       </Properties>
+      <Events>
+        <EventHandler event="itemStateChanged" listener="java.awt.event.ItemListener" parameters="java.awt.event.ItemEvent" handler="cboxAreasItemStateChanged"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="cboxAreasActionPerformed"/>
+      </Events>
       <AuxValues>
-        <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
+        <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;AreaModel&gt;"/>
       </AuxValues>
     </Component>
     <Component class="javax.swing.JButton" name="btnVoltarCadastroArea">
@@ -149,9 +154,39 @@
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnVoltarCadastroAreaActionPerformed"/>
       </Events>
     </Component>
-    <Component class="javax.swing.JButton" name="btnEditarAreaCondominio">
+    <Component class="javax.swing.JButton" name="btnEditarArea">
       <Properties>
         <Property name="text" type="java.lang.String" value="Editar"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnEditarAreaActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JComboBox" name="cboxCondominios">
+      <Properties>
+        <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+          <StringArray count="0"/>
+        </Property>
+        <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
+          <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
+            <TitledBorder title="Condominios cadastrados:"/>
+          </Border>
+        </Property>
+      </Properties>
+      <Events>
+        <EventHandler event="itemStateChanged" listener="java.awt.event.ItemListener" parameters="java.awt.event.ItemEvent" handler="cboxCondominiosItemStateChanged"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="cboxCondominiosActionPerformed"/>
+      </Events>
+      <AuxValues>
+        <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;CondominioModel&gt;"/>
+      </AuxValues>
+    </Component>
+    <Component class="javax.swing.JLabel" name="lblAcessoBotoes">
+      <Properties>
+        <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+          <Color blue="ff" green="33" red="0" type="rgb"/>
+        </Property>
+        <Property name="horizontalAlignment" type="int" value="4"/>
       </Properties>
     </Component>
   </SubComponents>

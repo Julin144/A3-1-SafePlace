@@ -46,10 +46,10 @@ public class AreaDB {
         }
     }
     
-    public void inserirArea() throws Exception {
+    public void inserirArea(AreaModel area) throws Exception {
 
 
-        String sql = "INSERT INTO Area(descriçao,dosesRequisitadas) VALUES (?,?);";
+        String sql = "INSERT INTO Area(descricao,dosesRequisitadas, idCondominio) VALUES (?,?,?);";
         try (Connection conn = Conexao.obterConexao();
                 PreparedStatement ps
                 = conn.prepareStatement(
@@ -58,16 +58,17 @@ public class AreaDB {
                         ResultSet.CONCUR_READ_ONLY);) {
             
             ps.setString(1, area.getDescricao());
-            ps.setInt(2,area.getDosesRequisitadas() );
+            ps.setInt(2,area.getDosesRequisitadas());
+            ps.setInt(3,area.getIdCondominio());
             
-            ResultSet rs = ps.executeQuery();
+            int rs = ps.executeUpdate();
         }
     }
 
        
-    public void updateArea() throws Exception {
+    public void updateArea(AreaModel area) throws Exception {
 
-        String sql = "UPDATE Area SET     descriçao = ?, dosesRequisitadas= ? WHERE   idArea = x;";
+        String sql = "UPDATE Area SET descricao = ?, dosesRequisitadas= ? WHERE   idArea = ?;";
         
         try (Connection conn = Conexao.obterConexao();
                 PreparedStatement ps
@@ -81,13 +82,13 @@ public class AreaDB {
             ps.setInt(3, area.getIdArea());
      
             
-            ResultSet rs = ps.executeQuery();
+            int rs = ps.executeUpdate();
         }
     }
     
-    public void deleteArea() throws Exception {
+    public void deleteArea(AreaModel area) throws Exception {
 
-        String sql = "DELETE FROM   Condominio WHERE  idCondominio = ?;";
+        String sql = "DELETE FROM Area WHERE  idArea = ?;";
 
         try (Connection conn = Conexao.obterConexao();
                 PreparedStatement ps
@@ -98,11 +99,11 @@ public class AreaDB {
            
             ps.setInt(1, area.getIdArea());       
             
-            ResultSet rs = ps.executeQuery();
+            int rs = ps.executeUpdate();
         }
     }
     
-    public void inserirArea(AreaModel area) throws Exception {
+    /*public void inserirArea(AreaModel area) throws Exception {
         String sql = "INSERT INTO Area(descricao,dosesRequisitadas) VALUES (?,?);";
         try (Connection conn = Conexao.obterConexao();
                 PreparedStatement ps
@@ -114,5 +115,5 @@ public class AreaDB {
             
             ps.execute();
         }
-    }
+    }*/
 }

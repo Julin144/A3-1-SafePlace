@@ -73,7 +73,7 @@ public class TelaCadastroInquilino extends javax.swing.JFrame {
             btnCadastrarVacinaInquilino.setEnabled(false);
             btnDeletarInquilino.setEnabled(false);
             btnEditarInquilino.setEnabled(false);
-            lblAcessoBotoes.setText("Selecione um registro!");
+            lblAcessoBotoes.setText("Selecione um Inquilino!");
         }
     }
     /**
@@ -210,11 +210,12 @@ public class TelaCadastroInquilino extends javax.swing.JFrame {
                     .addComponent(btnEditarInquilino)
                     .addComponent(btnDeletarInquilino))
                 .addGap(30, 30, 30)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnCadastrarVacinaInquilino, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(btnCadastrarVacinaInquilino, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnVoltarCadastroInquilino, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(lblAcessoBotoes, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addComponent(btnVoltarCadastroInquilino, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
 

@@ -74,12 +74,14 @@
                   <Component id="btnDeletarInquilino" linkSize="2" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="btnCadastrarVacinaInquilino" alignment="3" min="-2" pref="40" max="-2" attributes="0"/>
-                  <Component id="lblAcessoBotoes" alignment="3" min="-2" pref="35" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="1" attributes="0">
+                  <Group type="102" attributes="0">
+                      <Component id="btnCadastrarVacinaInquilino" min="-2" pref="40" max="-2" attributes="0"/>
+                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                      <Component id="btnVoltarCadastroInquilino" linkSize="2" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <Component id="lblAcessoBotoes" min="-2" pref="35" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace type="separate" max="-2" attributes="0"/>
-              <Component id="btnVoltarCadastroInquilino" linkSize="2" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
           </Group>
       </Group>
