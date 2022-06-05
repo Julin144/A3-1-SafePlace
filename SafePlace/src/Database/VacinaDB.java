@@ -16,7 +16,7 @@ public class VacinaDB {
     
     VacinaModel vac = new VacinaModel();
     
-    public void inserirInquilinoVacina(VacinaModel vacina) throws Exception {
+    public void inserirVacina(VacinaModel vacina) throws Exception {
 
 
         String sql = "INSERT INTO Vacina(tipo,qtdDose) VALUES (?,?);";
@@ -34,16 +34,19 @@ public class VacinaDB {
         }
     }
 
-    public VacinaModel[] buscarInquilino() throws Exception {
+    public VacinaModel[] buscarVacina(int idInquilino) throws Exception {
     
-        String sql = "SELECT * FROM INQUILINO";
+        String sql = "SELECT * FROM Vacina WHERE idInquilino = ?";
         
         try (Connection conn = Conexao.obterConexao();
                 PreparedStatement ps
                 = conn.prepareStatement(sql,
                         ResultSet.TYPE_SCROLL_INSENSITIVE,
                         ResultSet.CONCUR_READ_ONLY);
-                ResultSet rs = ps.executeQuery()) {
+                ) {
+            
+            ps.setInt(1, idInquilino);
+            ResultSet rs = ps.executeQuery();
 
             int totalVacinas = rs.last() ? rs.getRow() : 0;
             
@@ -53,12 +56,19 @@ public class VacinaDB {
             int contador = 0;
             
             while (rs.next()) {
-            
-                int id = rs.getInt("idVacina");
-                String tipo = rs.getString("tipo");
-                int qntDose = rs.getInt("aprtNumero");
+                VacinaModel vac = new VacinaModel();
                 
-                vacinas[contador++] = new VacinaModel();
+                int id = rs.getInt("idVacina");
+                int idInq   = rs.getInt("idInquilino");
+                String tipo = rs.getString("tipo");
+                int qntDose = rs.getInt("qtdDose");
+                
+                vac.setIdVacina(id);
+                vac.setIdInquilino(idInq);
+                vac.setTipo(tipo);
+                vac.setQtdDose(qntDose);
+                
+                vacinas[contador++] = vac;
             }
             return vacinas;
         }

@@ -72,6 +72,7 @@ public class TelaCadastroInquilino extends javax.swing.JFrame {
         setMinimumSize(new java.awt.Dimension(500, 500));
 
         btnVoltarCadastroInquilino.setText("Voltar");
+        btnVoltarCadastroInquilino.setPreferredSize(new java.awt.Dimension(118, 22));
         btnVoltarCadastroInquilino.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnVoltarCadastroInquilinoActionPerformed(evt);
@@ -139,17 +140,16 @@ public class TelaCadastroInquilino extends javax.swing.JFrame {
                     .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 410, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(btnCadastrarVacinaInquilino)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(btnCadastrarInquilino)
                                 .addGap(28, 28, 28)
-                                .addComponent(btnEditarInquilino)))
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(btnVoltarCadastroInquilino, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(btnEditarInquilino, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                            .addComponent(btnCadastrarVacinaInquilino, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(btnDeletarInquilino))
-                    .addComponent(cboxListaInquilinos, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(158, 158, 158)
-                        .addComponent(btnVoltarCadastroInquilino, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(cboxListaInquilinos, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(45, Short.MAX_VALUE))
         );
 
@@ -173,14 +173,14 @@ public class TelaCadastroInquilino extends javax.swing.JFrame {
                     .addComponent(btnCadastrarInquilino)
                     .addComponent(btnEditarInquilino)
                     .addComponent(btnDeletarInquilino))
-                .addGap(30, 30, 30)
+                .addGap(31, 31, 31)
                 .addComponent(btnCadastrarVacinaInquilino)
-                .addGap(30, 30, 30)
-                .addComponent(btnVoltarCadastroInquilino)
+                .addGap(29, 29, 29)
+                .addComponent(btnVoltarCadastroInquilino, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(34, 34, 34))
         );
 
-        layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {btnCadastrarInquilino, btnCadastrarVacinaInquilino, btnDeletarInquilino, btnEditarInquilino, btnVoltarCadastroInquilino});
+        layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {btnCadastrarInquilino, btnDeletarInquilino, btnEditarInquilino, btnVoltarCadastroInquilino});
 
         layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {cboxListaInquilinos, jScrollPane1, jScrollPane2, jScrollPane3});
 
@@ -215,10 +215,13 @@ public class TelaCadastroInquilino extends javax.swing.JFrame {
     }//GEN-LAST:event_btnEditarInquilinoActionPerformed
 
     private void btnCadastrarVacinaInquilinoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarVacinaInquilinoActionPerformed
-        // TODO add your handling code here:
-        TelaCadastroVacina tCadVacina = new TelaCadastroVacina();
-        tCadVacina.setVisible(true);
-        this.dispose();
+        if(_inquilinoController.inquilinoSelecionado != null) {
+            TelaCadastroVacina tCadVacina = new TelaCadastroVacina();
+            tCadVacina.setInquilino(_inquilinoController.inquilinoSelecionado);
+            tCadVacina.setVisible(true);
+            
+            this.dispose();
+        }
     }//GEN-LAST:event_btnCadastrarVacinaInquilinoActionPerformed
 
     private void btnVoltarCadastroInquilinoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVoltarCadastroInquilinoActionPerformed

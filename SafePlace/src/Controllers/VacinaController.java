@@ -15,60 +15,49 @@ import java.util.ArrayList;
  *
  * @author Jack
  */
-public class VacinaController 
-{
+public class VacinaController {
+
     private static VacinaDB _vacinaDB;
     private static InquilinoDB _inquilinoDB;
-    
-    
-    //Inquilino
-    public InquilinoModel inquilinoSelecionado;
-    
-    
-    public VacinaController()
-    {
+    private InquilinoModel inquilinoSelecionado;
+
+    public VacinaController() {
         _vacinaDB = new VacinaDB();
         _inquilinoDB = new InquilinoDB();
-        
+
     }
-    
-    
-    public String CadastrarVacina(CadastroVacinaRequestDto request)
-    {
+
+    public VacinaModel[] montarListaVacinas() throws Exception {
+        VacinaModel[] vacinas = new VacinaModel[1];
+        if(this.inquilinoSelecionado != null)
+            vacinas = _vacinaDB.buscarVacina(this.inquilinoSelecionado.getIdInquilino());
+
+        return vacinas;
+    }
+
+    public String CadastrarVacina(CadastroVacinaRequestDto request) {
         String result;
-    
-    VacinaModel vacina = new VacinaModel();
-    
-    vacina.setQtdDose(request.getQtdDoseVacina());
-    vacina.setTipo(request.getTipoVacina());
-    vacina.setIdInquilino(request.getInquilino().getIdInquilino());
-    
-    
-    try
-        {
-            _vacinaDB.inserirInquilinoVacina(vacina);
-            
+
+        VacinaModel vacina = new VacinaModel();
+
+        vacina.setQtdDose(request.getQtdDoseVacina());
+        vacina.setTipo(request.getTipoVacina());
+        vacina.setIdInquilino(request.getInquilino().getIdInquilino());
+
+        try {
+            _vacinaDB.inserirVacina(vacina);
+
             result = "Vacina cadastrada com sucesso!";
-            
-        }catch(Exception ex)
-        {
+
+        } catch (Exception ex) {
             result = "Erro durante o cadastro da vacina.";
         }
-    
-    return result;
+
+        return result;
     }
     
-    public InquilinoModel[] montarListaInquilino() throws Exception 
-    {
-        InquilinoModel[] inquilinos;
-      
-        
-        inquilinos = _inquilinoDB.buscarInquilino();
-        
-        return inquilinos;
+    public void setInquilino(InquilinoModel inquilino) {
+        this.inquilinoSelecionado = inquilino;
     }
-    
-    
-    
-    
+
 }

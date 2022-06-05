@@ -19,6 +19,11 @@ public class VacinaModel
     public VacinaModel() 
     {
     }
+    
+    @Override
+    public String toString() {
+        return "Tipo: " + this.tipo + " - Doses: " + this.qtdDose;
+    }
 
     public int getIdVacina() 
     {
