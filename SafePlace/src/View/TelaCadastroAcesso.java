@@ -7,6 +7,7 @@ package View;
 import Controllers.AcessoInquilinosController;
 import Controllers.InquilinoController;
 import Dto.Request.CadastroAcessoAreaRequestDto;
+import Models.AcessoAreaModel;
 import Models.AreaModel;
 import Models.InquilinoModel;
 import java.text.SimpleDateFormat;
@@ -186,22 +187,17 @@ public class TelaCadastroAcesso extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void cboxInquilinoItemStateChanged(java.awt.event.ItemEvent evt) {
-        //_acessoInquilinosCon.listaInq;
-        /*
-        try {
-            cboxInquilino.setModel(new DefaultComboBoxModel<>(this._acessoInquilinosCon.listaInq));
-        } catch (Exception ex) {
-            Logger.getLogger(Home.class.getName()).log(Level.SEVERE, null, ex);
-        }*/
-        try 
-        {            
-            cboxInquilino.setModel(new DefaultComboBoxModel<>(_inquilinoController.montarListaInquilino()));
-            
-        } catch (Exception ex) {
-            Logger.getLogger(Home.class.getName()).log(Level.SEVERE, null, ex);
-        }
-
+    private void cboxInquilinoItemStateChanged(java.awt.event.ItemEvent evt){
+        //AcessoAreaModel acesso = (AcessoAreaModel)cboxInquilino.getSelectedItem();
+        
+        //montarListaInquilino;
+        this._acessoInquilinosCon.montarListaInquilino();
+        //this._acessoInquilinosCon.acessoSelecionado.setHrIni(acesso.getHrIni());
+        //this._acessoInquilinosCon.acessoSelecionado.setHrFim(acesso.getHrFim());
+        //spnDiaIni.setValue(this._acessoInquilinosCon.acessoSelecionado.getHrIni());
+        //spnDiaIni.setValue(this._acessoInquilinosCon.acessoSelecionado.getHrFim());
+        System.out.println(this._acessoInquilinosCon.acessoSelecionado.getHrIni());
+        System.out.println(this._acessoInquilinosCon.acessoSelecionado.getHrFim());
     }
     
     private void btnVoltarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVoltarActionPerformed
@@ -223,13 +219,11 @@ public class TelaCadastroAcesso extends javax.swing.JFrame {
         System.out.println("AQUI ------------ " + ini + " --- " + fim + " -- ");
     }//GEN-LAST:event_btnCadastrarActionPerformed
     private void comboInquilinosActionPerformed(java.awt.event.ActionEvent evt) {
-        try 
-        {            
-            cboxInquilino.setModel(new DefaultComboBoxModel<>(_inquilinoController.montarListaInquilino()));
-            
-        } catch (Exception ex) {
-            Logger.getLogger(Home.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        //InquilinoModel inquilino = (InquilinoModel)cboxListaInquilinos.getSelectedItem();
+        
+        
+        //txtCadastrarCPFInquilino.setText(inquilino.getCpf());
+        //txtCadastrarAPInquilino.setText(String.valueOf(inquilino.getAprtNumero()));
     }     
     /**
      * @param args the command line arguments

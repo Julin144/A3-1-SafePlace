@@ -25,6 +25,7 @@ public class AcessoInquilinosController {
     public AcessoAreaModel[] _listaAcessos;
     public InquilinoModel[] listaInq;
     public InquilinoModel inquilinoSelecionado;
+    public AcessoAreaModel acessoSelecionado;
 
     public AcessoInquilinosController() {
         _areaDb = new AreaDB();
@@ -51,10 +52,13 @@ public class AcessoInquilinosController {
         }
     }
 
-    public void montarListaInquilino() throws Exception {
+    public void montarListaInquilino() {
         if (this.inquilinoSelecionado != null) {
-            //this.areas = dbArea.buscarAreas(this.inquilinoSelecionado);
-            //this.areaSelecionada = this.areas.length != 0 ? this.areas[0] : null;
+            for (AcessoAreaModel acesso : _listaAcessos) {
+                if (this.inquilinoSelecionado.getIdInquilino() == acesso.getIdInquilino()) {
+                    this.acessoSelecionado = acesso;
+                }
+            }
         }
     }
 
