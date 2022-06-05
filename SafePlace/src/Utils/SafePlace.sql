@@ -12,7 +12,7 @@ CREATE TABLE Condominio(
 
 #DROP TABLE Usuario;
 CREATE TABLE Usuario(
-    idUsuario INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    idUsuario INT PRIMARY KEY AUTO_INCREMENT,
     login VARCHAR(100) UNIQUE NOT NULL,
     senha VARCHAR(50) NOT NULL,
     tipo  VARCHAR(20) NULL,
@@ -42,8 +42,8 @@ CREATE TABLE Inquilino(
 CREATE TABLE Vacina(
     idVacina INT PRIMARY KEY AUTO_INCREMENT,
     idInquilino INT NOT NULL,
-    tipo VARCHAR(19),
-    qtdDose INT,
+    tipo VARCHAR(19) NOT NULL,
+    qtdDose INT NOT NULL,
     
     FOREIGN KEY (idInquilino) REFERENCES Inquilino (idInquilino)
 );
@@ -51,8 +51,8 @@ CREATE TABLE Vacina(
 #DROP TABLE AcessoArea;
 CREATE TABLE AcessoArea(
     idAcesso INT PRIMARY KEY AUTO_INCREMENT,
-    idInquilino INT,
-    idArea INT,
+    idInquilino INT NOT NULL,
+    idArea INT NOT NULL,
     hrIni DATETIME,
     hrFim DATETIME,
     FOREIGN KEY (idInquilino) REFERENCES inquilino (idInquilino),
