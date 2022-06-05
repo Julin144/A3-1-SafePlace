@@ -6,6 +6,7 @@
 package Database;
 
 import Models.InquilinoModel;
+import Models.UsuarioModel;
 /**
  *
  * @author 822158274
@@ -17,7 +18,7 @@ import java.sql.ResultSet;
 public class InquilinoDB {
 
     public void inserirInquilino(InquilinoModel inquilino) throws Exception {
-        String sql = "INSERT INTO Inquilino(nome,cpf ,aprtNumero) VALUES (?,?,?);";
+        String sql = "INSERT INTO Inquilino(nome,cpf,aprtNumero) VALUES (?,?,?);";
         try ( Connection conn = Conexao.obterConexao();  PreparedStatement ps
                 = conn.prepareStatement(sql);) {
 
@@ -59,7 +60,7 @@ public class InquilinoDB {
             return inquilinos;
         }
     }
-    
+
     public void updateInquilino(InquilinoModel inquilino) throws Exception {
 
         String sql = "UPDATE Inquilino SET nome = ?,cpf= ?,aprtNumero= ? WHERE  idInquilino = ?";
@@ -74,7 +75,7 @@ public class InquilinoDB {
             ps.setInt(3, inquilino.getAprtNumero());
             ps.setInt(4, inquilino.getIdInquilino());
 
-            ResultSet rs = ps.executeQuery();
+            int rs = ps.executeUpdate();
         }
     }
 
@@ -89,7 +90,26 @@ public class InquilinoDB {
 
             ps.setInt(1, inquilino.getIdInquilino());
 
+            int rs = ps.executeUpdate();
+        }
+    }
+
+    public boolean existeInquilino(InquilinoModel inq) throws Exception {
+        String sql = "select * from Inquilino where cpf = ?;";
+
+        boolean r;
+        try ( Connection conn = Conexao.obterConexao();  PreparedStatement ps = conn.prepareStatement(sql)) {
+
+            ps.setString(1, inq.getCpf());
             ResultSet rs = ps.executeQuery();
+
+            if (rs.next()) {
+                r = true;
+            } else {
+                r = false;
+            }
+
+            return r;
         }
     }
 }
