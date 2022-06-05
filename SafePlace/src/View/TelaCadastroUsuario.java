@@ -54,8 +54,13 @@ public class TelaCadastroUsuario extends javax.swing.JFrame {
         passwordFieldCadastroSenhaUsuario.setText("jPasswordField1");
         passwordFieldCadastroSenhaUsuario.setBorder(javax.swing.BorderFactory.createTitledBorder("Senha:"));
 
-        cboxTipoUsuario.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Funcionário", "Administrador" }));
+        cboxTipoUsuario.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "ADMIN", "USER" }));
         cboxTipoUsuario.setBorder(javax.swing.BorderFactory.createTitledBorder("Tipo de usuário:"));
+        cboxTipoUsuario.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cboxTipoUsuarioActionPerformed(evt);
+            }
+        });
 
         cboxUsuariosCadastrados.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         cboxUsuariosCadastrados.setBorder(javax.swing.BorderFactory.createTitledBorder("Usuários Cadastrados:"));
@@ -136,8 +141,10 @@ public class TelaCadastroUsuario extends javax.swing.JFrame {
                 .addComponent(btnApagarFuncionario)
                 .addGap(30, 30, 30)
                 .addComponent(btnVoltarCadastroFuncionario)
-                .addContainerGap(41, Short.MAX_VALUE))
+                .addContainerGap(35, Short.MAX_VALUE))
         );
+
+        layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {cboxTipoUsuario, cboxUsuariosCadastrados, passwordFieldCadastroSenhaUsuario, txtCadastroNomeUsuario});
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -170,6 +177,11 @@ public class TelaCadastroUsuario extends javax.swing.JFrame {
     private void cboxUsuariosCadastradosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cboxUsuariosCadastradosActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_cboxUsuariosCadastradosActionPerformed
+
+    private void cboxTipoUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cboxTipoUsuarioActionPerformed
+        // TODO add your handling code here:
+        
+    }//GEN-LAST:event_cboxTipoUsuarioActionPerformed
 
     /**
      * @param args the command line arguments

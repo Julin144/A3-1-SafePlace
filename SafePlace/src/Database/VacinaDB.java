@@ -16,7 +16,7 @@ public class VacinaDB {
     
     VacinaModel vac = new VacinaModel();
     
-    public void inserirVacina() throws Exception {
+    public void inserirVacina(VacinaModel vacina) throws Exception {
 
 
         String sql = "INSERT INTO Vacina(tipo,qtdDose) VALUES (?,?);";
@@ -27,23 +27,27 @@ public class VacinaDB {
                         ResultSet.TYPE_SCROLL_INSENSITIVE,
                         ResultSet.CONCUR_READ_ONLY);) {
             
-            ps.setString(1, vac.getTipo());
-            ps.setInt(2, vac.getQtdDose());
+            ps.setString(1, vacina.getTipo());
+            ps.setInt(2, vacina.getQtdDose());
             
-            ResultSet rs = ps.executeQuery();
+            ps.execute();
         }
     }
 
+
     public VacinaModel[] buscarVacina() throws Exception {
     
-        String sql = "SELECT * FROM INQUILINO";
+        String sql = "SELECT * FROM Vacina WHERE idVacina= ?";
         
         try (Connection conn = Conexao.obterConexao();
                 PreparedStatement ps
                 = conn.prepareStatement(sql,
                         ResultSet.TYPE_SCROLL_INSENSITIVE,
                         ResultSet.CONCUR_READ_ONLY);
-                ResultSet rs = ps.executeQuery()) {
+                ) {
+            
+            ps.setInt(1, vac.getIdVacina());
+            ResultSet rs = ps.executeQuery();
 
             int totalVacinas = rs.last() ? rs.getRow() : 0;
             
@@ -53,12 +57,19 @@ public class VacinaDB {
             int contador = 0;
             
             while (rs.next()) {
-            
-                int id = rs.getInt("idVacina");
-                String tipo = rs.getString("tipo");
-                int qntDose = rs.getInt("aprtNumero");
+                VacinaModel vac = new VacinaModel();
                 
-                vacinas[contador++] = new VacinaModel();
+                int id = rs.getInt("idVacina");
+                int idInq   = rs.getInt("idInquilino");
+                String tipo = rs.getString("tipo");
+                int qntDose = rs.getInt("qtdDose");
+                
+                vac.setIdVacina(id);
+                vac.setIdInquilino(idInq);
+                vac.setTipo(tipo);
+                vac.setQtdDose(qntDose);
+                
+                vacinas[contador++] = vac;
             }
             return vacinas;
         }

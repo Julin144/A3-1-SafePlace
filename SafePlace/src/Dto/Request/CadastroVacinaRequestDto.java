@@ -4,6 +4,8 @@
  */
 package Dto.Request;
 
+import Models.InquilinoModel;
+
 /**
  *
  * @author Jack
@@ -13,13 +15,16 @@ public class CadastroVacinaRequestDto
     
     private String tipoVacina;
     private int qtdDoseVacina;
+    private InquilinoModel inquilino;
+    
+    
 
     public String getTipoVacina() 
     {
         return tipoVacina;
     }
 
-    public void setTipoVacina(String tipo) 
+    public void setTipoVacina(String tipoVacina) 
     {
         this.tipoVacina = tipoVacina;
     }
@@ -33,9 +38,16 @@ public class CadastroVacinaRequestDto
     {
         this.qtdDoseVacina = qtdDoseVacina;
     }
-
-    public int setQtdDoseVacina() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    
+    public InquilinoModel getInquilino() 
+    {
+        return inquilino;
     }
+
+    public void setInquilino(InquilinoModel inquilino) 
+    {
+        this.inquilino = inquilino;
+    }
+    
     
 }

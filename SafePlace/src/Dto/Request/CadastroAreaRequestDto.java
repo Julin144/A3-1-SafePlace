@@ -10,10 +10,20 @@ package Dto.Request;
  */
 public class CadastroAreaRequestDto 
 {
-
+    private int idInquilino;
     private String descricao;
     private int dosesRequisitadas;
 
+    
+    public int getIdInquilino() 
+    {
+        return idInquilino;
+    }
+
+    public void setIdInquilino(int IdInquilino) 
+    {
+        this.idInquilino = idInquilino;
+    }
 
     public String getDescricao() 
     {

@@ -4,6 +4,7 @@
  */
 package Controllers;
 
+import Database.AreaDB;
 import Dto.Request.CadastroAreaRequestDto;
 import Models.AreaModel;
 
@@ -13,14 +14,14 @@ import Models.AreaModel;
  */
 public class AreaController 
 {
-    //Criar o objeto aqui
+    private static AreaDB _areaDB;
     
     public AreaController()
     {
-        //instanciar o objeto aqui    
+        _areaDB = new AreaDB();
     }
     
-    public String AreaController(CadastroAreaRequestDto request)
+    public String cadastrarArea(CadastroAreaRequestDto request)
     {
         String result;
         
@@ -31,7 +32,7 @@ public class AreaController
         
         try
         {
-            //Chamar o metedo inserirArea aqui
+            _areaDB.inserirArea(area);
             
             result = "Área cadastrada com sucesso!";
             

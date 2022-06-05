@@ -4,13 +4,12 @@
  */
 package View;
 
-import Controllers.HomeControl;
+import Controllers.HomeController;
 import Models.AreaModel;
 import Models.CondominioModel;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.DefaultComboBoxModel;
-import javax.swing.JOptionPane;
 
 /**
  *
@@ -18,31 +17,63 @@ import javax.swing.JOptionPane;
  */
 public class Home extends javax.swing.JFrame {
 
-    HomeControl home = new HomeControl();
+    HomeController home = new HomeController();
+    boolean abriuTelaDeCRUD = false;
 
     /**
      * Creates new form Home
      */
     public Home() {
+        super("Home");
         initComponents();
         setLocationRelativeTo(null);
 
+        this.atualizarDados();
+    }
+
+    public final void atualizarDados() {
         try {
             home.montarListaCondominioArea();
-            comboCondominios.setModel(new DefaultComboBoxModel<>(home.condominios));
-            comboAreas.setModel(new DefaultComboBoxModel<>(home.areas));
+            if (home.condominios != null) {
+                comboCondominios.setModel(new DefaultComboBoxModel<>(home.condominios));
+            }
+            if (home.areas != null) {
+                comboAreas.setModel(new DefaultComboBoxModel<>(home.areas));
+            }
+            this.setEnableBtnAcesso();
+
         } catch (Exception ex) {
             Logger.getLogger(Home.class.getName()).log(Level.SEVERE, null, ex);
+
         }
     }
-    
+
     public void setAcessoBotoes(String acesso) {
-        if(acesso.equals("ADMIN")) {
+        if (acesso.equals("ADMIN")) {
             btnCondominio.setEnabled(true);
             btnFuncionario.setEnabled(true);
         } else {
             btnCondominio.setEnabled(false);
             btnFuncionario.setEnabled(false);
+        }
+
+        this.setEnableBtnAcesso();
+    }
+
+    public void setEnableBtnAcesso() {
+        if ((home.areas == null || home.areas.length == 0) || this.abriuTelaDeCRUD) {
+            btnAcessarInquilinos.setEnabled(false);
+        } else {
+            btnAcessarInquilinos.setEnabled(true);
+        }
+        this.setLabelAlerta();
+    }
+
+    public void setLabelAlerta() {
+        if (this.abriuTelaDeCRUD) {
+            lblAlerta.setText("Favor, atualizar dados!");
+        } else {
+            lblAlerta.setText("");
         }
     }
 
@@ -67,6 +98,8 @@ public class Home extends javax.swing.JFrame {
         comboCondominios = new javax.swing.JComboBox<>();
         jLabel4 = new javax.swing.JLabel();
         btnLogOut = new javax.swing.JButton();
+        btnAtualizar = new javax.swing.JButton();
+        lblAlerta = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -107,7 +140,7 @@ public class Home extends javax.swing.JFrame {
         });
 
         btnAcessarInquilinos.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        btnAcessarInquilinos.setText("Consultar Acessos");
+        btnAcessarInquilinos.setText("Ver Acessos");
         btnAcessarInquilinos.setPreferredSize(new java.awt.Dimension(125, 40));
         btnAcessarInquilinos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -156,6 +189,20 @@ public class Home extends javax.swing.JFrame {
             }
         });
 
+        btnAtualizar.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        btnAtualizar.setText("Atualizar dados");
+        btnAtualizar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAtualizarActionPerformed(evt);
+            }
+        });
+
+        lblAlerta.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        lblAlerta.setForeground(new java.awt.Color(0, 0, 255));
+        lblAlerta.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblAlerta.setToolTipText("");
+        lblAlerta.setPreferredSize(new java.awt.Dimension(40, 20));
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -164,35 +211,44 @@ public class Home extends javax.swing.JFrame {
                 .addGap(40, 40, 40)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel1)
-                            .addComponent(jLabel3))
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel2)
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGap(264, 264, 264)
-                        .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnLogOut)
-                        .addGap(40, 40, 40))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(comboAreas, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(comboCondominios, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(0, 0, Short.MAX_VALUE)
-                                .addComponent(btnInquilino, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(60, 60, 60)
-                                .addComponent(btnArea, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(60, 60, 60)
-                                .addComponent(btnFuncionario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(60, 60, 60)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(btnCondominio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnAcessarInquilinos, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(15, 15, 15))))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addGap(264, 264, 264)
+                                .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(btnLogOut))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                            .addComponent(comboAreas, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                            .addComponent(comboCondominios, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                            .addGroup(layout.createSequentialGroup()
+                                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                    .addGroup(layout.createSequentialGroup()
+                                                        .addGap(0, 0, Short.MAX_VALUE)
+                                                        .addComponent(btnInquilino, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                        .addGap(60, 60, 60)
+                                                        .addComponent(btnArea, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                        .addGap(60, 60, 60))
+                                                    .addGroup(layout.createSequentialGroup()
+                                                        .addComponent(jLabel3)
+                                                        .addGap(262, 262, 262)))
+                                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                                    .addComponent(btnAtualizar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                                    .addComponent(btnFuncionario, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                                        .addGap(60, 60, 60))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(jLabel1)
+                                        .addGap(502, 502, 502)))
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                    .addComponent(btnCondominio, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(btnAcessarInquilinos, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(lblAlerta, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                        .addGap(40, 40, 40))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -212,11 +268,15 @@ public class Home extends javax.swing.JFrame {
                         .addComponent(btnFuncionario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(btnCondominio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(56, 56, 56)
-                .addComponent(jLabel3)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel3)
+                    .addComponent(btnAtualizar))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(comboCondominios, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(46, 46, 46)
-                .addComponent(jLabel1)
+                .addGap(40, 40, 40)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel1)
+                    .addComponent(lblAlerta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(comboAreas, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -230,21 +290,33 @@ public class Home extends javax.swing.JFrame {
     private void btnInquilinoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInquilinoActionPerformed
         TelaCadastroInquilino tci = new TelaCadastroInquilino();
         tci.setVisible(true);
+
+        abriuTelaDeCRUD = true;
+        this.setEnableBtnAcesso();
     }//GEN-LAST:event_btnInquilinoActionPerformed
 
     private void btnAreaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAreaActionPerformed
         TelaCadastroArea tca = new TelaCadastroArea();
         tca.setVisible(true);
+
+        abriuTelaDeCRUD = true;
+        this.setEnableBtnAcesso();
     }//GEN-LAST:event_btnAreaActionPerformed
 
     private void btnFuncionarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFuncionarioActionPerformed
         TelaCadastroUsuario tf = new TelaCadastroUsuario();
         tf.setVisible(true);
+
+        abriuTelaDeCRUD = true;
+        this.setEnableBtnAcesso();
     }//GEN-LAST:event_btnFuncionarioActionPerformed
 
     private void btnCondominioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCondominioActionPerformed
         TelaCadastroCondominio tcc = new TelaCadastroCondominio();
         tcc.setVisible(true);
+
+        abriuTelaDeCRUD = true;
+        this.setEnableBtnAcesso();
     }//GEN-LAST:event_btnCondominioActionPerformed
 
     private void comboCondominiosItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_comboCondominiosItemStateChanged
@@ -259,12 +331,6 @@ public class Home extends javax.swing.JFrame {
             } catch (Exception ex) {
                 Logger.getLogger(Home.class.getName()).log(Level.SEVERE, null, ex);
             }
-
-            System.out.println(String.format("%d, %s, %s",
-                    home.condominioSelecionado.getIdCondominio(),
-                    home.condominioSelecionado.getNome(),
-                    home.condominioSelecionado.getEndereco())
-            );
         }
     }//GEN-LAST:event_comboCondominiosItemStateChanged
 
@@ -273,18 +339,13 @@ public class Home extends javax.swing.JFrame {
 
         if (a.getIdArea() != this.home.areaSelecionada.getIdArea()) {
             home.definirAreaSelecionada(a);
-            System.out.println(String.format("%d, %s, %d",
-                    home.areaSelecionada.getIdArea(),
-                    home.areaSelecionada.getDescricao(),
-                    home.areaSelecionada.getDosesRequisitadas())
-            );
         }
     }//GEN-LAST:event_comboAreasItemStateChanged
 
     private void btnAcessarInquilinosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAcessarInquilinosActionPerformed
         TelaAcessoInquilinos tcai = new TelaAcessoInquilinos();
         tcai.setArea(home.areaSelecionada);
-        
+
         tcai.setVisible(true);
     }//GEN-LAST:event_btnAcessarInquilinosActionPerformed
 
@@ -293,6 +354,12 @@ public class Home extends javax.swing.JFrame {
         tl.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnLogOutActionPerformed
+
+    private void btnAtualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAtualizarActionPerformed
+        this.atualizarDados();
+        this.abriuTelaDeCRUD = false;
+        this.setEnableBtnAcesso();
+    }//GEN-LAST:event_btnAtualizarActionPerformed
 
     private void comboCondominiosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboCondominiosActionPerformed
         // TODO add your handling code here:
@@ -336,6 +403,7 @@ public class Home extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAcessarInquilinos;
     private javax.swing.JButton btnArea;
+    private javax.swing.JButton btnAtualizar;
     private javax.swing.JButton btnCondominio;
     private javax.swing.JButton btnFuncionario;
     private javax.swing.JButton btnInquilino;
@@ -346,5 +414,6 @@ public class Home extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel lblAlerta;
     // End of variables declaration//GEN-END:variables
 }

@@ -4,7 +4,7 @@
  */
 package View;
 
-import Controllers.AcessoInquilinosControl;
+import Controllers.AcessoInquilinosController;
 import Models.AreaModel;
 import Models.InquilinoModel;
 import java.util.logging.Level;
@@ -17,32 +17,36 @@ import javax.swing.table.DefaultTableModel;
  * @author Thais Dias
  */
 public class TelaAcessoInquilinos extends javax.swing.JFrame {
-    public AcessoInquilinosControl aic = new AcessoInquilinosControl();
+
+    public AcessoInquilinosController aic = new AcessoInquilinosController();
     public AreaModel area;
+
     /**
      * Creates new form AcessoInquilinos
      */
     public TelaAcessoInquilinos() {
+        super("Acesso Inquilinos");
         initComponents();
         setLocationRelativeTo(null);
     }
-    
+
     public void setArea(AreaModel area) {
         this.area = area;
         labelArea.setText(this.area.getDescricao());
-        
+
         DefaultTableModel model = (DefaultTableModel) tableInquilinos.getModel();
         model.setRowCount(0);
-        
+
         try {
             aic.montarListaAcessos(area);
             aic.montarListaTabela(model);
         } catch (Exception ex) {
             Logger.getLogger(TelaAcessoInquilinos.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+
         tableInquilinos.setModel(model);
     }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -54,8 +58,8 @@ public class TelaAcessoInquilinos extends javax.swing.JFrame {
 
         jScrollPane1 = new javax.swing.JScrollPane();
         tableInquilinos = new javax.swing.JTable();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        btnCadastrarAcesso = new javax.swing.JButton();
+        btnVoltar = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         labelArea = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
@@ -68,14 +72,14 @@ public class TelaAcessoInquilinos extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Nome", "CPF", "Apartamento"
+                "Nome", "CPF", "Apartamento", "Hora Inicial", "Hora Final"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.Integer.class
+                java.lang.String.class, java.lang.String.class, java.lang.Integer.class, java.lang.String.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false
+                false, false, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -86,22 +90,28 @@ public class TelaAcessoInquilinos extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
+        tableInquilinos.getTableHeader().setReorderingAllowed(false);
         jScrollPane1.setViewportView(tableInquilinos);
 
-        jButton1.setText("Gerar Acesso");
-        jButton1.setMaximumSize(new java.awt.Dimension(77, 22));
-        jButton1.setMinimumSize(new java.awt.Dimension(77, 22));
-        jButton1.setPreferredSize(new java.awt.Dimension(125, 40));
-        jButton1.setRequestFocusEnabled(false);
-
-        jButton2.setText("Voltar");
-        jButton2.setMaximumSize(new java.awt.Dimension(77, 22));
-        jButton2.setMinimumSize(new java.awt.Dimension(77, 22));
-        jButton2.setPreferredSize(new java.awt.Dimension(125, 40));
-        jButton2.setRequestFocusEnabled(false);
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        btnCadastrarAcesso.setText("Gerar Acesso");
+        btnCadastrarAcesso.setMaximumSize(new java.awt.Dimension(77, 22));
+        btnCadastrarAcesso.setMinimumSize(new java.awt.Dimension(77, 22));
+        btnCadastrarAcesso.setPreferredSize(new java.awt.Dimension(125, 40));
+        btnCadastrarAcesso.setRequestFocusEnabled(false);
+        btnCadastrarAcesso.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                btnCadastrarAcessoActionPerformed(evt);
+            }
+        });
+
+        btnVoltar.setText("Voltar");
+        btnVoltar.setMaximumSize(new java.awt.Dimension(77, 22));
+        btnVoltar.setMinimumSize(new java.awt.Dimension(77, 22));
+        btnVoltar.setPreferredSize(new java.awt.Dimension(125, 40));
+        btnVoltar.setRequestFocusEnabled(false);
+        btnVoltar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnVoltarActionPerformed(evt);
             }
         });
 
@@ -121,21 +131,23 @@ public class TelaAcessoInquilinos extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(100, 100, 100)
-                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(100, 100, 100))
-            .addGroup(layout.createSequentialGroup()
                 .addGap(52, 52, 52)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel2)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(labelArea))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(52, Short.MAX_VALUE))
+                        .addGap(48, 48, 48)
+                        .addComponent(btnVoltar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 299, Short.MAX_VALUE)
+                        .addComponent(btnCadastrarAcesso, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(100, 100, 100))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel2)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel1)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(labelArea))
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 644, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addContainerGap(53, Short.MAX_VALUE))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -145,23 +157,30 @@ public class TelaAcessoInquilinos extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel1)
                         .addGap(40, 40, 40)
-                        .addComponent(jLabel2)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 231, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jLabel2))
                     .addComponent(labelArea))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 231, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(31, 31, 31)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnCadastrarAcesso, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnVoltar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(40, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    private void btnVoltarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVoltarActionPerformed
         this.dispose();
-    }//GEN-LAST:event_jButton2ActionPerformed
+    }//GEN-LAST:event_btnVoltarActionPerformed
+
+    private void btnCadastrarAcessoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarAcessoActionPerformed
+        TelaCadastroAcesso tca = new TelaCadastroAcesso();
+        tca.setArea(this.area, this.aic);
+
+        tca.setVisible(true);
+    }//GEN-LAST:event_btnCadastrarAcessoActionPerformed
 
     /**
      * @param args the command line arguments
@@ -193,17 +212,18 @@ public class TelaAcessoInquilinos extends javax.swing.JFrame {
         //</editor-fold>
         //</editor-fold>
 
+        TelaAcessoInquilinos tca = new TelaAcessoInquilinos();
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new TelaAcessoInquilinos().setVisible(true);
+                tca.setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
+    private javax.swing.JButton btnCadastrarAcesso;
+    private javax.swing.JButton btnVoltar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollPane jScrollPane1;

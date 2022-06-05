@@ -40,4 +40,20 @@ public class UsuarioDB {
         return r;
     }
  }
+    
+    public void inserirUsuario(UsuarioModel usuario) throws Exception 
+    {
+        String sql = "INSERT INTO USUARIO (LOGIN, SENHA, TIPO) VALUES (?, ?, ?);";
+        try (Connection conn = Conexao.obterConexao();
+                PreparedStatement ps
+                = conn.prepareStatement(sql);) 
+        {
+            
+            ps.setString(1, usuario.getLogin());
+            ps.setString(2, usuario.getSenha());
+            ps.setString(3, usuario.getTipo());
+            
+            ps.execute();
+        }
+    }
 }
