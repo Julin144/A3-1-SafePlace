@@ -40,11 +40,41 @@ public class TelaCadastroInquilino extends javax.swing.JFrame {
             txtCadastrarCPFInquilino.setText("");
             txtCadastrarAPInquilino.setText("");
             
+            _inquilinoController.setInquilino(null);
+            this.habilitarDesabilitarBotoes(false);
+            /*this.habilitarDesabilitarBotoes(false);
+            /if(_inquilinoController.inquilinoSelecionado != null)
+                this.habilitarDesabilitarBotoes(true);
+            else
+                this.habilitarDesabilitarBotoes(false);*/
         } catch (Exception ex) {
             Logger.getLogger(Home.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-
+    
+    public boolean camposPreenchidos() {
+        if(txtCadastrarNomeInquilino.getText().equals("") &&
+           txtCadastrarCPFInquilino.getText().equals("")  &&
+           txtCadastrarAPInquilino.getText().equals(""))
+        {
+            return false;
+        }
+        return true;
+    }
+    
+    public void habilitarDesabilitarBotoes(boolean enabled) {
+        if(enabled) {
+            btnCadastrarVacinaInquilino.setEnabled(true);
+            btnDeletarInquilino.setEnabled(true);
+            btnEditarInquilino.setEnabled(true);
+            lblAcessoBotoes.setText("");
+        } else {
+            btnCadastrarVacinaInquilino.setEnabled(false);
+            btnDeletarInquilino.setEnabled(false);
+            btnEditarInquilino.setEnabled(false);
+            lblAcessoBotoes.setText("Selecione um registro!");
+        }
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -66,6 +96,7 @@ public class TelaCadastroInquilino extends javax.swing.JFrame {
         txtCadastrarAPInquilino = new javax.swing.JTextPane();
         btnCadastrarVacinaInquilino = new javax.swing.JButton();
         cboxListaInquilinos = new javax.swing.JComboBox<>();
+        lblAcessoBotoes = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setMinimumSize(new java.awt.Dimension(500, 500));
@@ -127,6 +158,9 @@ public class TelaCadastroInquilino extends javax.swing.JFrame {
             }
         });
 
+        lblAcessoBotoes.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        lblAcessoBotoes.setForeground(new java.awt.Color(0, 153, 153));
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -146,8 +180,10 @@ public class TelaCadastroInquilino extends javax.swing.JFrame {
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                 .addComponent(btnVoltarCadastroInquilino, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(btnCadastrarVacinaInquilino, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnDeletarInquilino))
+                        .addGap(18, 18, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(btnDeletarInquilino, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(lblAcessoBotoes, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                     .addComponent(cboxListaInquilinos, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(45, Short.MAX_VALUE))
         );
@@ -172,8 +208,10 @@ public class TelaCadastroInquilino extends javax.swing.JFrame {
                     .addComponent(btnCadastrarInquilino, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnEditarInquilino)
                     .addComponent(btnDeletarInquilino))
-                .addGap(18, 18, 18)
-                .addComponent(btnCadastrarVacinaInquilino, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(30, 30, 30)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnCadastrarVacinaInquilino, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblAcessoBotoes, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(btnVoltarCadastroInquilino, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
@@ -188,29 +226,37 @@ public class TelaCadastroInquilino extends javax.swing.JFrame {
 
     private void btnCadastrarInquilinoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarInquilinoActionPerformed
         CadastroInquilinoRequestDto request = new CadastroInquilinoRequestDto();
-        
-        request.setNomeInquilino(txtCadastrarNomeInquilino.getText());
-        request.setCpfInquilino(txtCadastrarCPFInquilino.getText());
-        request.setNumeroApInquilino(txtCadastrarAPInquilino.getText());
-        
-        JOptionPane.showMessageDialog(null, _inquilinoController.CadastrarInquilino(request));
-        if(!_inquilinoController.erroReq)
-            atualizarLista();
+       
+        if(this.camposPreenchidos()) {
+            request.setNomeInquilino(txtCadastrarNomeInquilino.getText());
+            request.setCpfInquilino(txtCadastrarCPFInquilino.getText());
+            request.setNumeroApInquilino(txtCadastrarAPInquilino.getText());
+
+            JOptionPane.showMessageDialog(null, _inquilinoController.CadastrarInquilino(request));
+            if(!_inquilinoController.erroReq)
+                atualizarLista();
+        }else {
+            JOptionPane.showMessageDialog(null, "Favor, preencher os campos adequadamente!");
+        }
     }//GEN-LAST:event_btnCadastrarInquilinoActionPerformed
 
     private void btnEditarInquilinoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarInquilinoActionPerformed
         InquilinoModel inquilino = (InquilinoModel)cboxListaInquilinos.getSelectedItem();
         
-        inquilino.setNome(txtCadastrarNomeInquilino.getText());
-        inquilino.setCpf(txtCadastrarCPFInquilino.getText());
-        inquilino.setAprtNumero(Integer.parseInt(txtCadastrarAPInquilino.getText()));
-        
-        _inquilinoController.setInquilino(inquilino);
-        
-        JOptionPane.showMessageDialog(null, _inquilinoController.atualizarInquilino());
-        
-        if(!_inquilinoController.erroReq)
-            atualizarLista();
+        if(this.camposPreenchidos()) {
+            inquilino.setNome(txtCadastrarNomeInquilino.getText());
+            inquilino.setCpf(txtCadastrarCPFInquilino.getText());
+            inquilino.setAprtNumero(Integer.parseInt(txtCadastrarAPInquilino.getText()));
+
+            _inquilinoController.setInquilino(inquilino);
+
+            JOptionPane.showMessageDialog(null, _inquilinoController.atualizarInquilino());
+
+            if(!_inquilinoController.erroReq)
+                atualizarLista();
+        }else {
+            JOptionPane.showMessageDialog(null, "Favor, preencher os campos adequadamente!");
+        }
     }//GEN-LAST:event_btnEditarInquilinoActionPerformed
 
     private void btnCadastrarVacinaInquilinoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarVacinaInquilinoActionPerformed
@@ -237,6 +283,7 @@ public class TelaCadastroInquilino extends javax.swing.JFrame {
         txtCadastrarAPInquilino.setText(String.valueOf(inquilino.getAprtNumero()));
         
         _inquilinoController.setInquilino(inquilino);
+        this.habilitarDesabilitarBotoes(true);
     }//GEN-LAST:event_cboxListaInquilinosItemStateChanged
 
     private void cboxListaInquilinosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cboxListaInquilinosActionPerformed
@@ -247,6 +294,7 @@ public class TelaCadastroInquilino extends javax.swing.JFrame {
         txtCadastrarAPInquilino.setText(String.valueOf(inquilino.getAprtNumero()));
         
         _inquilinoController.setInquilino(inquilino);
+        this.habilitarDesabilitarBotoes(true);
     }//GEN-LAST:event_cboxListaInquilinosActionPerformed
 
     private void btnDeletarInquilinoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeletarInquilinoActionPerformed
@@ -303,6 +351,7 @@ public class TelaCadastroInquilino extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JLabel lblAcessoBotoes;
     private javax.swing.JTextPane txtCadastrarAPInquilino;
     private javax.swing.JTextPane txtCadastrarCPFInquilino;
     private javax.swing.JTextPane txtCadastrarNomeInquilino;

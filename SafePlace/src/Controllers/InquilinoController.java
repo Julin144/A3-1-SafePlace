@@ -32,6 +32,7 @@ public class InquilinoController
     {
         InquilinoModel[] inquilinos;
         inquilinos = _inquilinoDb.buscarInquilino();
+        //this.inquilinoSelecionado = inquilinos != null ? inquilinos[0] : null;
         
         return inquilinos;
     }
