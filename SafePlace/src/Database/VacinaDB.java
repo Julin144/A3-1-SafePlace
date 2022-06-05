@@ -19,7 +19,7 @@ public class VacinaDB {
     public void inserirVacina(VacinaModel vacina) throws Exception {
 
 
-        String sql = "INSERT INTO Vacina(tipo,qtdDose) VALUES (?,?);";
+        String sql = "INSERT INTO Vacina(tipo,qtdDose,idInquilino) VALUES (?,?,?);";
         try (Connection conn = Conexao.obterConexao();
                 PreparedStatement ps
                 = conn.prepareStatement(
@@ -29,15 +29,16 @@ public class VacinaDB {
             
             ps.setString(1, vacina.getTipo());
             ps.setInt(2, vacina.getQtdDose());
+            ps.setInt(3, vacina.getIdInquilino());
             
             ps.execute();
         }
     }
 
 
-    public VacinaModel[] buscarVacina() throws Exception {
+    public VacinaModel[] buscarVacina(int idInquilino) throws Exception {
     
-        String sql = "SELECT * FROM Vacina WHERE idVacina= ?";
+        String sql = "SELECT * FROM Vacina WHERE idInquilino = ?";
         
         try (Connection conn = Conexao.obterConexao();
                 PreparedStatement ps
@@ -46,7 +47,7 @@ public class VacinaDB {
                         ResultSet.CONCUR_READ_ONLY);
                 ) {
             
-            ps.setInt(1, vac.getIdVacina());
+            ps.setInt(1, idInquilino);
             ResultSet rs = ps.executeQuery();
 
             int totalVacinas = rs.last() ? rs.getRow() : 0;
@@ -75,9 +76,9 @@ public class VacinaDB {
         }
     }
    
-    public void updateVacina() throws Exception {
+    public void updateVacina(VacinaModel vac) throws Exception {
 
-        String sql = "UPDATE Vacina SET     tipo = ?, qtdDose= ? WHERE   idVacina = ?;";
+        String sql = "UPDATE Vacina SET tipo = ?, qtdDose= ? WHERE   idVacina = ?;";
         
         try (Connection conn = Conexao.obterConexao();
                 PreparedStatement ps
@@ -91,13 +92,13 @@ public class VacinaDB {
             ps.setInt(3, vac.getIdVacina());
      
             
-            ResultSet rs = ps.executeQuery();
+            int rs = ps.executeUpdate();
         }
     }
     
-    public void deleteVacina() throws Exception {
+    public void deleteVacina(VacinaModel vac) throws Exception {
 
-        String sql = "DELETE FROM   Vacina WHERE  idVacina = ?;";
+        String sql = "DELETE FROM Vacina WHERE  idVacina = ?;";
 
         try (Connection conn = Conexao.obterConexao();
                 PreparedStatement ps
@@ -108,7 +109,7 @@ public class VacinaDB {
            
             ps.setInt(1, vac.getIdVacina());       
             
-            ResultSet rs = ps.executeQuery();
+            int rs = ps.executeUpdate();
         }
     }
 }

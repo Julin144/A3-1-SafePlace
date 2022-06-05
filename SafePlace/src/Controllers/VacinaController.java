@@ -9,7 +9,10 @@ import Database.VacinaDB;
 import Dto.Request.CadastroVacinaRequestDto;
 import Models.InquilinoModel;
 import Models.VacinaModel;
+import View.TelaCadastroInquilino;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -19,7 +22,9 @@ public class VacinaController {
 
     private static VacinaDB _vacinaDB;
     private static InquilinoDB _inquilinoDB;
-    private InquilinoModel inquilinoSelecionado;
+    public InquilinoModel inquilinoSelecionado;
+    public VacinaModel vacinaSelecionada;
+    public boolean erroReq = false;
 
     public VacinaController() {
         _vacinaDB = new VacinaDB();
@@ -29,13 +34,12 @@ public class VacinaController {
 
     public VacinaModel[] montarListaVacinas() throws Exception {
         VacinaModel[] vacinas = new VacinaModel[1];
-        if(this.inquilinoSelecionado != null)
-            vacinas = _vacinaDB.buscarVacina(this.inquilinoSelecionado.getIdInquilino());
+        vacinas = _vacinaDB.buscarVacina(this.inquilinoSelecionado.getIdInquilino());
 
         return vacinas;
     }
 
-    public String CadastrarVacina(CadastroVacinaRequestDto request) {
+    public String cadastrarVacina(CadastroVacinaRequestDto request) {
         String result;
 
         VacinaModel vacina = new VacinaModel();
@@ -54,6 +58,50 @@ public class VacinaController {
         }
 
         return result;
+    }
+    
+    public String atualizarVacina()
+    {
+        String result = "";  
+        
+        try
+        {
+            if(this.inquilinoSelecionado != null) {
+                _vacinaDB.updateVacina(this.vacinaSelecionada);
+                result = "Vacina atualizada com sucesso!";
+                erroReq = false;
+            }
+        }catch(Exception e)
+        {
+            Logger.getLogger(TelaCadastroInquilino.class.getName()).log(Level.SEVERE, null, e);
+            result = "Erro durante a atualização da vacina.";
+            erroReq = true;
+        }
+        
+        return result;
+    }
+    
+    public String deletarVacina()
+    {
+        String result = "";  
+        
+        try
+        {
+            _vacinaDB.deleteVacina(this.vacinaSelecionada);
+            result = "Vacina do Inquilno Excluida com sucesso!";
+            erroReq = false;
+        }catch(Exception e)
+        {
+            Logger.getLogger(TelaCadastroInquilino.class.getName()).log(Level.SEVERE, null, e);
+            result = "Erro durante a Exclusão da Vacina.";
+            erroReq = true;
+        }
+        
+        return result;
+    }
+    
+    public void setVacina(VacinaModel vacina) {
+        this.vacinaSelecionada = vacina;
     }
     
     public void setInquilino(InquilinoModel inquilino) {

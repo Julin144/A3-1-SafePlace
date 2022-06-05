@@ -39,11 +39,24 @@ public class TelaCadastroVacina extends javax.swing.JFrame {
         {            
             _vacinaController.setInquilino(inq);
             lblInquilino.setText(inq.toString());
-            
-            cboxVacinas.setModel(new DefaultComboBoxModel<>(_vacinaController.montarListaVacinas()));
+            if(_vacinaController.inquilinoSelecionado != null)
+                cboxVacinas.setModel(new DefaultComboBoxModel<>(_vacinaController.montarListaVacinas()));
             
         } catch (Exception ex) {
             Logger.getLogger(Home.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    public void atualizarLista() {
+        try 
+        {            
+            cboxVacinas.setModel(new DefaultComboBoxModel<>(_vacinaController.montarListaVacinas()));
+            txtTipoVacina.setText("");
+            spnNumeroDosesVacina.setValue(0);
+            
+        } catch (Exception ex) {
+            Logger.getLogger(Home.class.getName()).log(Level.SEVERE, null, ex);
+            
         }
     }
 
@@ -180,11 +193,27 @@ public class TelaCadastroVacina extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnEditarCadastroVacinaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarCadastroVacinaActionPerformed
-        // TODO add your handling code here:
+        VacinaModel vacina = (VacinaModel)cboxVacinas.getSelectedItem();
+        
+        vacina.setTipo(txtTipoVacina.getText());
+        vacina.setQtdDose((int) spnNumeroDosesVacina.getValue());
+        vacina.setIdInquilino(_vacinaController.inquilinoSelecionado.getIdInquilino());
+        
+        _vacinaController.setVacina(vacina);
+        
+        JOptionPane.showMessageDialog(null, _vacinaController.atualizarVacina());
+        
+        if(!_vacinaController.erroReq)
+            atualizarLista();
     }//GEN-LAST:event_btnEditarCadastroVacinaActionPerformed
 
     private void btnApagarCadastroVacinaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnApagarCadastroVacinaActionPerformed
-        // TODO add your handling code here:
+        VacinaModel vacina = (VacinaModel)cboxVacinas.getSelectedItem();
+        _vacinaController.setVacina(vacina);
+        
+        JOptionPane.showMessageDialog(null, _vacinaController.deletarVacina());
+        if(!_vacinaController.erroReq)
+            atualizarLista();
     }//GEN-LAST:event_btnApagarCadastroVacinaActionPerformed
 
     private void btnVoltarCadastroVacinaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVoltarCadastroVacinaActionPerformed
@@ -195,15 +224,17 @@ public class TelaCadastroVacina extends javax.swing.JFrame {
     }//GEN-LAST:event_btnVoltarCadastroVacinaActionPerformed
 
     private void btnCadastrarVacinaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarVacinaActionPerformed
-        // TODO add your handling code here:
         CadastroVacinaRequestDto request = new CadastroVacinaRequestDto();
         
-        request.setTipoVacina((String) lblInquilino.getText());
+        request.setTipoVacina((String) txtTipoVacina.getText());
         request.setQtdDoseVacina((int) spnNumeroDosesVacina.getValue());
-        request.setInquilino((InquilinoModel) cboxVacinas.getSelectedItem());
+        request.setInquilino(_vacinaController.inquilinoSelecionado);
         
-        JOptionPane.showMessageDialog(null, _vacinaController.CadastrarVacina(request));
+        JOptionPane.showMessageDialog(null, _vacinaController.cadastrarVacina(request));
         
+        
+        if(!_vacinaController.erroReq)
+            atualizarLista();
     }//GEN-LAST:event_btnCadastrarVacinaActionPerformed
 
     private void cboxVacinasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cboxVacinasActionPerformed
