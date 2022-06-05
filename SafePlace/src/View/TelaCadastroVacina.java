@@ -200,12 +200,12 @@ public class TelaCadastroVacina extends javax.swing.JFrame {
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(32, 32, 32)
                 .addComponent(spnNumeroDosesVacina, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(47, 47, 47)
+                .addGap(30, 30, 30)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnApagarCadastroVacina)
-                    .addComponent(btnCadastrarVacina, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnCadastrarVacina, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnEditarCadastroVacina))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 31, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 20, Short.MAX_VALUE)
                 .addComponent(btnVoltarCadastroVacina)
                 .addGap(25, 25, 25))
         );
@@ -273,6 +273,9 @@ public class TelaCadastroVacina extends javax.swing.JFrame {
         
         txtTipoVacina.setText(vacina.getTipo());
         spnNumeroDosesVacina.setValue(vacina.getQtdDose());
+        
+        _vacinaController.setVacina(vacina);
+        habilitarDesabilitarBotoes(true);
     }//GEN-LAST:event_cboxVacinasActionPerformed
 
     private void cboxVacinasItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cboxVacinasItemStateChanged
@@ -280,6 +283,9 @@ public class TelaCadastroVacina extends javax.swing.JFrame {
         
         txtTipoVacina.setText(vacina.getTipo());
         spnNumeroDosesVacina.setValue(vacina.getQtdDose());
+        
+        _vacinaController.setVacina(vacina);
+        habilitarDesabilitarBotoes(true);
     }//GEN-LAST:event_cboxVacinasItemStateChanged
 
     /**

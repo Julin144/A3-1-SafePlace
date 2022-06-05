@@ -160,7 +160,7 @@ public class TelaCadastroInquilino extends javax.swing.JFrame {
         });
 
         lblAcessoBotoes.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        lblAcessoBotoes.setForeground(new java.awt.Color(0, 153, 153));
+        lblAcessoBotoes.setForeground(new java.awt.Color(0, 51, 255));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
