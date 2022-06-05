@@ -21,24 +21,29 @@ public class TelaCadastroInquilino extends javax.swing.JFrame {
     /**
      * Creates new form TelaCadastroInquilino
      */
-    private static InquilinoController _inquilinoController;
+    private static InquilinoController _inquilinoController = new InquilinoController();
     
     public TelaCadastroInquilino() 
     {
-        super("SafePlace");
+        super("Cadastro de Inquilino");
         initComponents();
         setLocationRelativeTo(null);
         
-        _inquilinoController = new InquilinoController();
-        
+        this.atualizarLista();
+    }
+    
+    public void atualizarLista() {
         try 
         {            
             cboxListaInquilinos.setModel(new DefaultComboBoxModel<>(_inquilinoController.montarListaInquilino()));
+            txtCadastrarNomeInquilino.setText("");
+            txtCadastrarCPFInquilino.setText("");
+            txtCadastrarAPInquilino.setText("");
             
         } catch (Exception ex) {
             Logger.getLogger(Home.class.getName()).log(Level.SEVERE, null, ex);
+            
         }
-        
     }
 
     /**
@@ -111,6 +116,11 @@ public class TelaCadastroInquilino extends javax.swing.JFrame {
                 cboxListaInquilinosItemStateChanged(evt);
             }
         });
+        cboxListaInquilinos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cboxListaInquilinosActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -173,23 +183,30 @@ public class TelaCadastroInquilino extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnCadastrarInquilinoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarInquilinoActionPerformed
-        // TODO add your handling code here:
         CadastroInquilinoRequestDto request = new CadastroInquilinoRequestDto();
         
         request.setNomeInquilino(txtCadastrarNomeInquilino.getText());
         request.setCpfInquilino(txtCadastrarCPFInquilino.getText());
         request.setNumeroApInquilino(txtCadastrarAPInquilino.getText());
         
-        //lbResponse.setText(_inquilinoController.CadatrarInquilino(request));
-        //lbResponse.setEnabled(true);
-        
         JOptionPane.showMessageDialog(null, _inquilinoController.CadastrarInquilino(request));
-        
+        if(!_inquilinoController.erroReq)
+            atualizarLista();
     }//GEN-LAST:event_btnCadastrarInquilinoActionPerformed
 
     private void btnEditarInquilinoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarInquilinoActionPerformed
-        // TODO add your handling code here:
+        InquilinoModel inquilino = (InquilinoModel)cboxListaInquilinos.getSelectedItem();
         
+        inquilino.setNome(txtCadastrarNomeInquilino.getText());
+        inquilino.setCpf(txtCadastrarCPFInquilino.getText());
+        inquilino.setAprtNumero(Integer.parseInt(txtCadastrarAPInquilino.getText()));
+        
+        _inquilinoController.setInquilino(inquilino);
+        
+        JOptionPane.showMessageDialog(null, _inquilinoController.atualizarInquilino());
+        
+        if(!_inquilinoController.erroReq)
+            atualizarLista();
     }//GEN-LAST:event_btnEditarInquilinoActionPerformed
 
     private void btnCadastrarVacinaInquilinoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarVacinaInquilinoActionPerformed
@@ -206,16 +223,24 @@ public class TelaCadastroInquilino extends javax.swing.JFrame {
     }//GEN-LAST:event_btnVoltarCadastroInquilinoActionPerformed
 
     private void cboxListaInquilinosItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cboxListaInquilinosItemStateChanged
-        // TODO add your handling code here:
         InquilinoModel inquilino = (InquilinoModel)cboxListaInquilinos.getSelectedItem();
         
         txtCadastrarNomeInquilino.setText(inquilino.getNome());
         txtCadastrarCPFInquilino.setText(inquilino.getCpf());
         txtCadastrarAPInquilino.setText(String.valueOf(inquilino.getAprtNumero()));
         
-        _inquilinoController.AtualizarInquilino(inquilino);
-        
+        _inquilinoController.setInquilino(inquilino);
     }//GEN-LAST:event_cboxListaInquilinosItemStateChanged
+
+    private void cboxListaInquilinosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cboxListaInquilinosActionPerformed
+        InquilinoModel inquilino = (InquilinoModel)cboxListaInquilinos.getSelectedItem();
+        
+        txtCadastrarNomeInquilino.setText(inquilino.getNome());
+        txtCadastrarCPFInquilino.setText(inquilino.getCpf());
+        txtCadastrarAPInquilino.setText(String.valueOf(inquilino.getAprtNumero()));
+        
+        _inquilinoController.setInquilino(inquilino);
+    }//GEN-LAST:event_cboxListaInquilinosActionPerformed
 
     /**
      * @param args the command line arguments

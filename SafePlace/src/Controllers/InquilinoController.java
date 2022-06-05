@@ -7,6 +7,10 @@ package Controllers;
 import Database.InquilinoDB;
 import Dto.Request.*;
 import Models.InquilinoModel;
+import View.TelaCadastroInquilino;
+import View.TelaLogin;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 
 /**
@@ -15,16 +19,26 @@ import Models.InquilinoModel;
  */
 public class InquilinoController 
 {
-    private static InquilinoDB _inquilinoDb;
+    public InquilinoDB _inquilinoDb;
+    public InquilinoModel inquilinoSelecionado;
+    public boolean erroReq = false;
     
     public InquilinoController()
     {
         _inquilinoDb = new InquilinoDB();
     }
     
+    public InquilinoModel[] montarListaInquilino() throws Exception 
+    {
+        InquilinoModel[] inquilinos;
+        inquilinos = _inquilinoDb.buscarInquilino();
+        
+        return inquilinos;
+    }
+    
     public String CadastrarInquilino(CadastroInquilinoRequestDto request)
     {
-        String result;
+        String result = "";
         
         InquilinoModel inquilino = new InquilinoModel();
         
@@ -32,48 +46,50 @@ public class InquilinoController
         inquilino.setCpf(request.getCpfInquilino());
         inquilino.setAprtNumero(Integer.parseInt(request.getNumeroApInquilino()));
         
-        
-        
         try
         {
-            _inquilinoDb.inserirInquilino(inquilino);
-            
-            result = "Inquilino cadastrado com sucesso!";
-            
-        }catch(Exception ex)
+            if(!_inquilinoDb.existeInquilino(inquilino)){
+                _inquilinoDb.inserirInquilino(inquilino);
+                inquilinoSelecionado = inquilino;
+                
+                result = "Inquilino cadastrado com sucesso!";
+                erroReq = false;
+            } else {
+                result = "Inquilino com o mesmo CPF já cadastrado, favor alterar!";
+                erroReq = true;
+            }
+        }catch(Exception e)
         {
+            Logger.getLogger(TelaCadastroInquilino.class.getName()).log(Level.SEVERE, null, e);
             result = "Erro durante o cadastro do inquilino.";
+            erroReq = true;
         }
         
         return result;
     }
-    
-    public InquilinoModel[] montarListaInquilino() throws Exception 
+ 
+    public String atualizarInquilino()
     {
-        InquilinoModel[] inquilinos;
-      
-        
-        inquilinos = _inquilinoDb.buscarInquilino();
-        
-        return inquilinos;
-    }
-    
-    public String AtualizarInquilino(InquilinoModel inquilino)
-    {
-        String result;  
+        String result = "";  
         
         try
         {
-            _inquilinoDb.updateInquilino(inquilino);
-            
-            result = "Inquilino atualizado com sucesso!";
-            
-        }catch(Exception ex)
+            if(this.inquilinoSelecionado != null) {
+                _inquilinoDb.updateInquilino(this.inquilinoSelecionado);
+                result = "Inquilino atualizado com sucesso!";
+                erroReq = false;
+            }
+        }catch(Exception e)
         {
+            Logger.getLogger(TelaCadastroInquilino.class.getName()).log(Level.SEVERE, null, e);
             result = "Erro durante a atualização do inquilino.";
+            erroReq = true;
         }
         
         return result;
     }
     
+    public void setInquilino(InquilinoModel inquilino) {
+        this.inquilinoSelecionado = inquilino;
+    }
 }
