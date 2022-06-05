@@ -16,7 +16,7 @@ public class VacinaDB {
     
     VacinaModel vac = new VacinaModel();
     
-    public void inserirInquilino() throws Exception {
+    public void inserirVacina() throws Exception {
 
 
         String sql = "INSERT INTO Vacina(tipo,qtdDose) VALUES (?,?);";
@@ -34,7 +34,7 @@ public class VacinaDB {
         }
     }
 
-    public VacinaModel[] buscarInquilino() throws Exception {
+    public VacinaModel[] buscarVacina() throws Exception {
     
         String sql = "SELECT * FROM INQUILINO";
         
@@ -64,7 +64,7 @@ public class VacinaDB {
         }
     }
    
-    public void updateInquilino() throws Exception {
+    public void updateVacina() throws Exception {
 
         String sql = "UPDATE Vacina SET     tipo = ?, qtdDose= ? WHERE   idVacina = ?;";
         
@@ -84,7 +84,7 @@ public class VacinaDB {
         }
     }
     
-    public void deleteInquilino() throws Exception {
+    public void deleteVacina() throws Exception {
 
         String sql = "DELETE FROM   Vacina WHERE  idVacina = ?;";
 
