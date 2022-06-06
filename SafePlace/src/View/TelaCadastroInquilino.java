@@ -118,7 +118,7 @@ public class TelaCadastroInquilino extends javax.swing.JFrame {
             }
         });
 
-        btnDeletarInquilino.setText("Deletar");
+        btnDeletarInquilino.setText("Apagar");
         btnDeletarInquilino.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnDeletarInquilinoActionPerformed(evt);

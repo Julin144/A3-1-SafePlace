@@ -11,6 +11,9 @@ import Dto.Request.CadastroAcessoAreaRequestDto;
 import Models.AreaModel;
 import Models.AcessoAreaModel;
 import Models.InquilinoModel;
+import View.TelaCadastroInquilino;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -18,7 +21,6 @@ import javax.swing.table.DefaultTableModel;
  * @author er679
  */
 public class AcessoInquilinosController {
-
     private InquilinoDB _inquilinoDb;
     private AreaDB _areaDb;
     private AcessoAreaDB _acessoDb;
@@ -26,6 +28,7 @@ public class AcessoInquilinosController {
     public InquilinoModel[] listaInq;
     public InquilinoModel inquilinoSelecionado;
     public AcessoAreaModel acessoSelecionado;
+    public boolean erroReq = false;
 
     public AcessoInquilinosController() {
         _areaDb = new AreaDB();
@@ -34,14 +37,14 @@ public class AcessoInquilinosController {
     }
 
     public void montarListaAcessos(AreaModel area) throws Exception {
-        _listaAcessos = _acessoDb.buscarAcessoInquilino(area);
+        _listaAcessos = _acessoDb.buscarAcessosArea(area);
     }
 
     public void montarListaTabela(DefaultTableModel model) throws Exception {
         InquilinoModel[] inqList = _inquilinoDb.buscarInquilino();
         this.listaInq = new InquilinoModel[_listaAcessos.length];
+                
         int contLista = 0;
-
         for (AcessoAreaModel acesso : _listaAcessos) {
             for (InquilinoModel inq : inqList) {
                 if (inq.getIdInquilino() == acesso.getIdInquilino()) {
@@ -52,7 +55,7 @@ public class AcessoInquilinosController {
         }
     }
 
-    public void montarListaInquilino() {
+    public void getAcessoInquilino() {
         if (this.inquilinoSelecionado != null) {
             for (AcessoAreaModel acesso : _listaAcessos) {
                 if (this.inquilinoSelecionado.getIdInquilino() == acesso.getIdInquilino()) {
@@ -61,6 +64,13 @@ public class AcessoInquilinosController {
             }
         }
     }
+    
+    public AcessoAreaModel[] montarListaAcessosInquilino() throws Exception {
+        AcessoAreaModel[] acessos;
+        acessos = _acessoDb.buscarAcessosInquilino(this.inquilinoSelecionado);
+        
+        return acessos;
+    }    
 
     public void definirInquilinoSelecionado(InquilinoModel inquilino) {
         this.inquilinoSelecionado = inquilino;
@@ -81,10 +91,51 @@ public class AcessoInquilinosController {
 
             result = "Acesso cadastrado com sucesso!";
 
-        } catch (Exception ex) {
+        } catch (Exception e) {
+            Logger.getLogger(TelaCadastroInquilino.class.getName()).log(Level.SEVERE, null, e);
             result = "Erro durante o cadastro do acesso.";
         }
 
+        return result;
+    }
+    
+    public String atualizarAcesso()
+    {
+        String result = "";  
+        
+        try
+        {
+            if(this.inquilinoSelecionado != null) {
+                _acessoDb.updateAcessoArea(this.acessoSelecionado);
+                result = "Inquilino atualizado com sucesso!";
+                erroReq = false;
+            }
+        }catch(Exception e)
+        {
+            Logger.getLogger(TelaCadastroInquilino.class.getName()).log(Level.SEVERE, null, e);
+            result = "Erro durante a atualização do inquilino.";
+            erroReq = true;
+        }
+        
+        return result;
+    }
+    
+    public String deletarAcesso()
+    {
+        String result = "";  
+        
+        try
+        {
+            _acessoDb.delete(this.acessoSelecionado);
+            result = "Acesso Excluido com sucesso!";
+            erroReq = false;
+        }catch(Exception e)
+        {
+            Logger.getLogger(TelaCadastroInquilino.class.getName()).log(Level.SEVERE, null, e);
+            result = "Erro durante a Exclusão do Acesso.";
+            erroReq = true;
+        }
+        
         return result;
     }
 }

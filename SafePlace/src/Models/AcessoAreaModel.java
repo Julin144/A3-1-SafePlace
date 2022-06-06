@@ -16,6 +16,11 @@ public class AcessoAreaModel {
     private int idAcesso;
     private int idInquilino;
     private int idArea;
+    
+    @Override
+    public String toString() {
+        return "DtIni: " + this.hrIni + " - DtFim: " + this.hrFim;
+    }
 
     public String getHrIni() {
         return hrIni;

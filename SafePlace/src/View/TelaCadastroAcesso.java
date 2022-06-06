@@ -10,6 +10,7 @@ import Dto.Request.CadastroAcessoAreaRequestDto;
 import Models.AcessoAreaModel;
 import Models.AreaModel;
 import Models.InquilinoModel;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -30,42 +31,66 @@ public class TelaCadastroAcesso extends javax.swing.JFrame {
      * Creates new form TelaCadastroAcesso
      */
     private AcessoInquilinosController _acessoInquilinosCon;
-    private InquilinoController _inquilinoController;
+    private InquilinoController _inquilinoController = new InquilinoController();
     public AreaModel area;
 
     public TelaCadastroAcesso() {
         super("Cadastro de Acesso");
         initComponents();
         setLocationRelativeTo(null);
-        _inquilinoController = new InquilinoController();
     }
 
-    public final void atualizarDados() {
-        /*try {
-            //_acessoInquilinosCon.montarListaInquilino();
-            if (_acessoInquilinosCon.listaInq != null) {
-                cboxInquilino.setModel(new DefaultComboBoxModel<>(_acessoInquilinosCon.listaInq));
-            }
-            //this.setEnableBtnCadastrar();
-
-        } catch (Exception ex) {
-            Logger.getLogger(Home.class.getName()).log(Level.SEVERE, null, ex);
-
-        }*/
-        try 
-        {            
-            cboxInquilino.setModel(new DefaultComboBoxModel<>(_inquilinoController.montarListaInquilino()));
+    public final void atualizarLista() {
+        try {
+            cboxAcessos.setModel(new DefaultComboBoxModel<>(_acessoInquilinosCon.montarListaAcessosInquilino()));
+            Date date = new Date();
             
+            spnDiaIni.setValue(date);
+            spnDiaFim.setValue(date);
+
         } catch (Exception ex) {
             Logger.getLogger(Home.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+    
+    public boolean camposPreenchidos() {
+        if(spnDiaIni.getValue().equals("") &&
+           spnDiaFim.getValue().equals(""))
+        {
+            return false;
+        }
+        return true;
+    }
+    
+    public void habilitarDesabilitarBotoes(boolean enabled) {
+        if(enabled) {
+            btnAtualizar.setEnabled(true);
+            btnApagar.setEnabled(true);
+            //lblAcessoBotoes.setText("");
+        } else {
+            btnAtualizar.setEnabled(true);
+            btnApagar.setEnabled(true);
+            //lblAcessoBotoes.setText("Selecione um Inquilino!");
+        }
+    }
 
     public void setArea(AreaModel area, AcessoInquilinosController acessoController) {
+
         this.area = area;
         this._acessoInquilinosCon = acessoController;
         labelArea.setText(this.area.getDescricao());
-        this.atualizarDados();
+
+        try {
+            cboxInquilino.setModel(new DefaultComboBoxModel<>(_inquilinoController.montarListaInquilino()));
+            InquilinoModel inq = (InquilinoModel) cboxInquilino.getSelectedItem();
+
+            if (inq != null) {
+                this._acessoInquilinosCon.definirInquilinoSelecionado(inq);
+                this.atualizarLista();
+            }
+        } catch (Exception ex) {
+            Logger.getLogger(TelaCadastroAcesso.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**
@@ -90,6 +115,9 @@ public class TelaCadastroAcesso extends javax.swing.JFrame {
         labelArea = new javax.swing.JLabel();
         btnVoltar = new javax.swing.JButton();
         btnCadastrar = new javax.swing.JButton();
+        btnAtualizar = new javax.swing.JButton();
+        cboxAcessos = new javax.swing.JComboBox<>();
+        btnApagar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -103,7 +131,12 @@ public class TelaCadastroAcesso extends javax.swing.JFrame {
                 comboInquilinosActionPerformed(evt);
             }
         });
-        cboxInquilino.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createTitledBorder(""), " Inquilino "));
+        cboxInquilino.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createTitledBorder(""), " Inquilinos"));
+        cboxInquilino.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cboxInquilinoActionPerformed(evt);
+            }
+        });
 
         spnDiaFim.setBorder(javax.swing.BorderFactory.createTitledBorder("Data Final"));
 
@@ -138,6 +171,40 @@ public class TelaCadastroAcesso extends javax.swing.JFrame {
             }
         });
 
+        btnAtualizar.setText("Editar");
+        btnAtualizar.setMaximumSize(new java.awt.Dimension(77, 22));
+        btnAtualizar.setMinimumSize(new java.awt.Dimension(77, 22));
+        btnAtualizar.setPreferredSize(new java.awt.Dimension(125, 40));
+        btnAtualizar.setRequestFocusEnabled(false);
+        btnAtualizar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAtualizarActionPerformed(evt);
+            }
+        });
+
+        cboxAcessos.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createTitledBorder(""), "Acessos"));
+        cboxAcessos.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                cboxAcessosItemStateChanged(evt);
+            }
+        });
+        cboxAcessos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cboxAcessosActionPerformed(evt);
+            }
+        });
+
+        btnApagar.setText("Apagar");
+        btnApagar.setMaximumSize(new java.awt.Dimension(77, 22));
+        btnApagar.setMinimumSize(new java.awt.Dimension(77, 22));
+        btnApagar.setPreferredSize(new java.awt.Dimension(125, 40));
+        btnApagar.setRequestFocusEnabled(false);
+        btnApagar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnApagarActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -149,20 +216,22 @@ public class TelaCadastroAcesso extends javax.swing.JFrame {
                         .addComponent(jLabel1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(labelArea)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(btnVoltar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnCadastrar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(52, 52, 52))))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(121, 121, 121)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(spnDiaFim, javax.swing.GroupLayout.PREFERRED_SIZE, 258, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(spnDiaIni)
-                        .addComponent(cboxInquilino, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 258, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(0, 117, Short.MAX_VALUE))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(cboxInquilino, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(spnDiaFim, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(spnDiaIni, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(cboxAcessos, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                .addComponent(btnCadastrar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(12, 12, 12)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(btnVoltar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(btnAtualizar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(btnApagar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(51, 51, 51))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -173,33 +242,36 @@ public class TelaCadastroAcesso extends javax.swing.JFrame {
                     .addComponent(labelArea))
                 .addGap(26, 26, 26)
                 .addComponent(cboxInquilino, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addGap(22, 22, 22)
+                .addComponent(cboxAcessos, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 26, Short.MAX_VALUE)
                 .addComponent(spnDiaIni, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(spnDiaFim, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(54, 54, 54)
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnVoltar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnCadastrar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(87, Short.MAX_VALUE))
+                    .addComponent(btnCadastrar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnAtualizar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnApagar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(27, 27, 27)
+                .addComponent(btnVoltar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(31, 31, 31))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void cboxInquilinoItemStateChanged(java.awt.event.ItemEvent evt){
-        //AcessoAreaModel acesso = (AcessoAreaModel)cboxInquilino.getSelectedItem();
+    private void cboxInquilinoItemStateChanged(java.awt.event.ItemEvent evt) {
+        InquilinoModel inquilino = (InquilinoModel) cboxInquilino.getSelectedItem();
+        _acessoInquilinosCon.definirInquilinoSelecionado(inquilino);
         
-        //montarListaInquilino;
-        this._acessoInquilinosCon.montarListaInquilino();
-        //this._acessoInquilinosCon.acessoSelecionado.setHrIni(acesso.getHrIni());
-        //this._acessoInquilinosCon.acessoSelecionado.setHrFim(acesso.getHrFim());
-        //spnDiaIni.setValue(this._acessoInquilinosCon.acessoSelecionado.getHrIni());
-        //spnDiaIni.setValue(this._acessoInquilinosCon.acessoSelecionado.getHrFim());
-        System.out.println(this._acessoInquilinosCon.acessoSelecionado.getHrIni());
-        System.out.println(this._acessoInquilinosCon.acessoSelecionado.getHrFim());
+        try {
+            cboxAcessos.setModel(new DefaultComboBoxModel<>(_acessoInquilinosCon.montarListaAcessosInquilino()));
+        } catch (Exception ex) {
+            Logger.getLogger(TelaCadastroAcesso.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
-    
+
     private void btnVoltarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVoltarActionPerformed
         this.dispose();
     }//GEN-LAST:event_btnVoltarActionPerformed
@@ -208,23 +280,99 @@ public class TelaCadastroAcesso extends javax.swing.JFrame {
         CadastroAcessoAreaRequestDto request = new CadastroAcessoAreaRequestDto();
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
         InquilinoModel inquilino = (InquilinoModel) cboxInquilino.getSelectedItem();
+
         request.setIdInquilino(inquilino.getIdInquilino());
+        request.setIdArea(this.area.getIdArea());
         request.setHrIni(sdf.format(spnDiaIni.getValue()));
-        request.setHrFim(sdf.format(spnDiaIni.getValue()));
+        request.setHrFim(sdf.format(spnDiaFim.getValue()));
 
         JOptionPane.showMessageDialog(null, this._acessoInquilinosCon.CadatrarAcesso(request));
-
+        if(!_acessoInquilinosCon.erroReq)
+            this.atualizarLista();
+        
         String ini = sdf.format(spnDiaIni.getValue());
-        String fim = sdf.format(spnDiaIni.getValue());
+        String fim = sdf.format(spnDiaFim.getValue());
         System.out.println("AQUI ------------ " + ini + " --- " + fim + " -- ");
     }//GEN-LAST:event_btnCadastrarActionPerformed
+
+    private void btnAtualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAtualizarActionPerformed
+        AcessoAreaModel acesso = (AcessoAreaModel)cboxAcessos.getSelectedItem();
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+        
+        if(this.camposPreenchidos()) {
+            acesso.setHrIni(sdf.format(spnDiaIni.getValue()));
+            acesso.setHrFim(sdf.format(spnDiaFim.getValue()));
+
+            _acessoInquilinosCon.acessoSelecionado = acesso;
+
+            JOptionPane.showMessageDialog(null, _inquilinoController.atualizarInquilino());
+
+            if(!_inquilinoController.erroReq)
+                atualizarLista();
+        }else {
+            JOptionPane.showMessageDialog(null, "Favor, preencher os campos adequadamente!");
+        }
+    }//GEN-LAST:event_btnAtualizarActionPerformed
+
+    private void cboxAcessosItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cboxAcessosItemStateChanged
+        AcessoAreaModel acesso = (AcessoAreaModel) cboxAcessos.getSelectedItem();
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+
+        try {
+            String dtIni = acesso.getHrIni();
+            if (dtIni != null) {
+                spnDiaIni.setValue((Date) sdf.parse(dtIni));
+            }
+
+            String dtFim = acesso.getHrFim();
+            if (dtFim != null) {
+                spnDiaFim.setValue((Date) sdf.parse(dtFim));
+            }
+
+            _acessoInquilinosCon.acessoSelecionado = acesso;
+            System.out.println(dtIni + " - " + dtFim);
+        } catch (ParseException ex) {
+            Logger.getLogger(TelaCadastroAcesso.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_cboxAcessosItemStateChanged
+
+    private void cboxAcessosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cboxAcessosActionPerformed
+        AcessoAreaModel acesso = (AcessoAreaModel) cboxAcessos.getSelectedItem();
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+
+        try {
+            String dtIni = acesso.getHrIni();
+            if (dtIni != null) {
+                spnDiaIni.setValue((Date) sdf.parse(dtIni));
+            }
+
+            String dtFim = acesso.getHrFim();
+            if (dtFim != null) {
+                spnDiaFim.setValue((Date) sdf.parse(dtFim));
+            }
+
+            _acessoInquilinosCon.acessoSelecionado = acesso;
+            System.out.println(dtIni + " - " + dtFim);
+        } catch (ParseException ex) {
+            Logger.getLogger(TelaCadastroAcesso.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_cboxAcessosActionPerformed
+
+    private void cboxInquilinoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cboxInquilinoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cboxInquilinoActionPerformed
+
+    private void btnApagarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnApagarActionPerformed
+        AcessoAreaModel acesso = (AcessoAreaModel) cboxAcessos.getSelectedItem();
+        _acessoInquilinosCon.acessoSelecionado = acesso;
+
+        JOptionPane.showMessageDialog(null, _acessoInquilinosCon.deletarAcesso());
+        if (!_inquilinoController.erroReq)
+            atualizarLista();
+    }//GEN-LAST:event_btnApagarActionPerformed
     private void comboInquilinosActionPerformed(java.awt.event.ActionEvent evt) {
-        //InquilinoModel inquilino = (InquilinoModel)cboxListaInquilinos.getSelectedItem();
-        
-        
-        //txtCadastrarCPFInquilino.setText(inquilino.getCpf());
-        //txtCadastrarAPInquilino.setText(String.valueOf(inquilino.getAprtNumero()));
-    }     
+    }
+
     /**
      * @param args the command line arguments
      */
@@ -261,8 +409,11 @@ public class TelaCadastroAcesso extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnApagar;
+    private javax.swing.JButton btnAtualizar;
     private javax.swing.JButton btnCadastrar;
     private javax.swing.JButton btnVoltar;
+    private javax.swing.JComboBox<AcessoAreaModel> cboxAcessos;
     private javax.swing.JComboBox<InquilinoModel> cboxInquilino;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel labelArea;

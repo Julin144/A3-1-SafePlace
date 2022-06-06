@@ -17,7 +17,7 @@ public class InquilinoModel {
 
     @Override
     public String toString() {
-        return "Nome: " + this.nome + " - CPF: " + this.cpf;
+        return "Nome: " + this.nome + " - CPF: " + this.cpf + " - " + this.idInquilino;
     }
 
     public InquilinoModel() {
