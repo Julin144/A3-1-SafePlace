@@ -6,6 +6,10 @@ package View;
 
 import Controllers.UsuarioController;
 import Dto.Request.CadastroUsuarioRequestDto;
+import Models.UsuarioModel;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
 
 /**
@@ -28,7 +32,44 @@ public class TelaCadastroUsuario extends javax.swing.JFrame {
         
         _usuarioController = new UsuarioController();
     }
-
+    
+       public void atualizarLista() {
+        try 
+        {            
+            cboxUsuariosCadastrados.setModel(new DefaultComboBoxModel<>(_usuarioController.montarListaUsuario()));
+            passwordFieldCadastroSenhaUsuario.setText("");
+            txtCadastroNomeUsuario.setText("");
+            
+            
+            _usuarioController.setUsuario(null);
+            this.habilitarDesabilitarBotoes(false);
+        } catch (Exception ex) {
+            Logger.getLogger(Home.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+       public boolean camposPreenchidos() {
+        if(passwordFieldCadastroSenhaUsuario.getText().equals("") &&
+           txtCadastroNomeUsuario.getText().equals(""))
+           
+        {
+            return false;
+        }
+        return true;
+    }
+       
+        public void habilitarDesabilitarBotoes(boolean enabled) {
+        if(enabled) {
+            btnCadastroFuncionario.setEnabled(true);
+            btnApagarFuncionario.setEnabled(true);
+            btnEditarFuncionario.setEnabled(true);
+            //lblAcessoBotoes.setText("");
+        } else {
+            btnCadastroFuncionario.setEnabled(false);
+            btnApagarFuncionario.setEnabled(false);
+            btnEditarFuncionario.setEnabled(false);            //lblAcessoBotoes.setText("Selecione um Inquilino!");
+        }
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -62,7 +103,6 @@ public class TelaCadastroUsuario extends javax.swing.JFrame {
             }
         });
 
-        cboxUsuariosCadastrados.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         cboxUsuariosCadastrados.setBorder(javax.swing.BorderFactory.createTitledBorder("Usuários Cadastrados:"));
         cboxUsuariosCadastrados.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -167,15 +207,42 @@ public class TelaCadastroUsuario extends javax.swing.JFrame {
     }//GEN-LAST:event_btnVoltarCadastroFuncionarioActionPerformed
 
     private void btnApagarFuncionarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnApagarFuncionarioActionPerformed
-        // TODO add your handling code here:
+        UsuarioModel user = (UsuarioModel)cboxUsuariosCadastrados.getSelectedItem();
+        _usuarioController.setUsuario(user);
+        
+        JOptionPane.showMessageDialog(null, _usuarioController.deletarUsuario());
+        if(!_usuarioController.erroReq)
+            atualizarLista();
     }//GEN-LAST:event_btnApagarFuncionarioActionPerformed
 
     private void btnEditarFuncionarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarFuncionarioActionPerformed
-        // TODO add your handling code here:
+        UsuarioModel user = (UsuarioModel)cboxUsuariosCadastrados.getSelectedItem();
+        
+        if(this.camposPreenchidos()) {
+            user.setLogin(txtCadastroNomeUsuario.getText());
+            user.setSenha(passwordFieldCadastroSenhaUsuario.getPassword().toString());
+            user.setTipo(cboxTipoUsuario.getSelectedItem().toString());
+
+            _usuarioController.setUsuario(user);
+
+            JOptionPane.showMessageDialog(null, _usuarioController.atualizarUsuario());
+
+            if(!_usuarioController.erroReq)
+                atualizarLista();
+        }else {
+            JOptionPane.showMessageDialog(null, "Favor, preencher os campos adequadamente!");
+        }
     }//GEN-LAST:event_btnEditarFuncionarioActionPerformed
 
     private void cboxUsuariosCadastradosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cboxUsuariosCadastradosActionPerformed
-        // TODO add your handling code here:
+        UsuarioModel user = (UsuarioModel)cboxUsuariosCadastrados.getSelectedItem();
+        
+        user.setLogin(txtCadastroNomeUsuario.getText());
+        user.setSenha(passwordFieldCadastroSenhaUsuario.getPassword().toString());
+        user.setTipo(cboxTipoUsuario.getSelectedItem().toString());
+        
+        _usuarioController.setUsuario(user);
+        this.habilitarDesabilitarBotoes(true);
     }//GEN-LAST:event_cboxUsuariosCadastradosActionPerformed
 
     private void cboxTipoUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cboxTipoUsuarioActionPerformed
@@ -231,7 +298,7 @@ public class TelaCadastroUsuario extends javax.swing.JFrame {
     private javax.swing.JButton btnEditarFuncionario;
     private javax.swing.JButton btnVoltarCadastroFuncionario;
     private javax.swing.JComboBox<String> cboxTipoUsuario;
-    private javax.swing.JComboBox<String> cboxUsuariosCadastrados;
+    private javax.swing.JComboBox<UsuarioModel> cboxUsuariosCadastrados;
     private javax.swing.JPasswordField passwordFieldCadastroSenhaUsuario;
     private javax.swing.JTextField txtCadastroNomeUsuario;
     // End of variables declaration//GEN-END:variables

@@ -52,7 +52,7 @@ public class InquilinoController
             if(!_inquilinoDb.existeInquilino(inquilino)){
                 _inquilinoDb.inserirInquilino(inquilino);
                 inquilinoSelecionado = inquilino;
-                
+                              
                 result = "Inquilino cadastrado com sucesso!";
                 erroReq = false;
             } else {

@@ -3,6 +3,7 @@ package Controllers;
 import Models.UsuarioModel;
 import Database.UsuarioDB;
 import Dto.Request.CadastroUsuarioRequestDto;
+import View.TelaCadastroUsuario;
 import View.TelaLogin;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -18,6 +19,8 @@ public class UsuarioController {
         db = new UsuarioDB();
 
     }
+    public UsuarioModel usuarioSelecionado;
+    public boolean erroReq = false;
 
     public String login(String login, String senha) {
         user.setLogin(login);
@@ -65,33 +68,58 @@ public class UsuarioController {
 
         return result;
     }
-
-    public void cadastrarArea() {
-    }
-
-    ;
     
-    public void cadastarVacina() {
+    public UsuarioModel[] montarListaUsuario() throws Exception 
+    {
+        UsuarioModel[] users;
+        users = db.buscarUsuario();
+        //this.inquilinoSelecionado = users != null ? users[0] : null;
+        
+        return users;
     }
-
-    ;
     
-    public void cadastarCondominio() {
+    public String atualizarUsuario()
+    {
+        String result = "";  
+        
+        try
+        {
+            if(this.usuarioSelecionado != null) {
+                db.updateUsuario(this.usuarioSelecionado);
+                result = "Usuario atualizado com sucesso!";
+                erroReq = false;
+            }
+        }catch(Exception e)
+        {
+            Logger.getLogger(TelaCadastroUsuario.class.getName()).log(Level.SEVERE, null, e);
+            result = "Erro durante a atualização do usuario.";
+            erroReq = true;
+        }
+        
+        return result;
     }
-
-    ;
     
-    public void gerarAcesso() {
+    public String deletarUsuario()
+    {
+        String result = "";  
+        
+        try
+        {
+            db.deleteUsuario(this.usuarioSelecionado);
+            result = "Inquilino Excluido com sucesso!";
+            erroReq = false;
+        }catch(Exception e)
+        {
+            Logger.getLogger(TelaCadastroUsuario.class.getName()).log(Level.SEVERE, null, e);
+            result = "Erro durante a Exclusão do inquilino.";
+            erroReq = true;
+        }
+        
+        return result;
     }
-
-    ;
     
-    public void consultarAcesso() {
+    public void setUsuario(UsuarioModel usuario) {
+        this.usuarioSelecionado = usuario;
     }
-
-    ;
     
-    public void consultarAreas() {
-    }
-;
 }

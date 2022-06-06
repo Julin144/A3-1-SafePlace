@@ -13,7 +13,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 public class CondominioDB {
     
-    CondominioModel condominio = new CondominioModel();
     
     public CondominioModel[] buscarCondominios() throws Exception {
         String sql = "SELECT * FROM CONDOMINIO";
@@ -55,12 +54,12 @@ public class CondominioDB {
             ps.setString(1, condominio.getNome());
             ps.setString(2, condominio.getEndereco());
             
-            ResultSet rs = ps.executeQuery();
+            ps.execute();
         }
     }
 
        
-    public void updateCondominio() throws Exception {
+    public void updateCondominio(CondominioModel condominio) throws Exception {
 
         String sql = "UPDATE Condominio SET nome = ?, endereco= ? WHERE   idCondominio = ?;";
         
@@ -76,11 +75,11 @@ public class CondominioDB {
             ps.setInt(3, condominio.getIdCondominio());
      
             
-            ResultSet rs = ps.executeQuery();
+            int rs = ps.executeUpdate();
         }
     }
     
-    public void deleteCondominio() throws Exception {
+    public void deleteCondominio(CondominioModel condominio) throws Exception {
 
         String sql = "DELETE FROM Condominio WHERE  idCondominio = ?;";
 
@@ -93,7 +92,25 @@ public class CondominioDB {
            
             ps.setInt(1, condominio.getIdCondominio());       
             
-            ResultSet rs = ps.executeQuery();
+            int rs = ps.executeUpdate();
+        }
+    }
+    public boolean existeCondominio(CondominioModel cond) throws Exception {
+    String sql = "select * from Inquilino where nome = ?;";
+    boolean r;
+    
+    try ( Connection conn = Conexao.obterConexao();  PreparedStatement ps = conn.prepareStatement(sql)) {
+
+        ps.setString(1, cond.getNome());
+        ResultSet rs = ps.executeQuery();
+
+        if (rs.next()) {
+            r = true;
+        } else {
+            r = false;
+        }
+
+        return r;
         }
     }
 }
