@@ -47,6 +47,9 @@ public class TelaCadastroAcesso extends javax.swing.JFrame {
             
             spnDiaIni.setValue(date);
             spnDiaFim.setValue(date);
+            
+            _acessoInquilinosCon.acessoSelecionado = null;
+            this.habilitarDesabilitarBotoes(false);
 
         } catch (Exception ex) {
             Logger.getLogger(Home.class.getName()).log(Level.SEVERE, null, ex);
@@ -68,8 +71,8 @@ public class TelaCadastroAcesso extends javax.swing.JFrame {
             btnApagar.setEnabled(true);
             //lblAcessoBotoes.setText("");
         } else {
-            btnAtualizar.setEnabled(true);
-            btnApagar.setEnabled(true);
+            btnAtualizar.setEnabled(false);
+            btnApagar.setEnabled(false);
             //lblAcessoBotoes.setText("Selecione um Inquilino!");
         }
     }
@@ -305,7 +308,7 @@ public class TelaCadastroAcesso extends javax.swing.JFrame {
 
             _acessoInquilinosCon.acessoSelecionado = acesso;
 
-            JOptionPane.showMessageDialog(null, _inquilinoController.atualizarInquilino());
+            JOptionPane.showMessageDialog(null, _acessoInquilinosCon.atualizarAcesso());
 
             if(!_inquilinoController.erroReq)
                 atualizarLista();
@@ -330,6 +333,8 @@ public class TelaCadastroAcesso extends javax.swing.JFrame {
             }
 
             _acessoInquilinosCon.acessoSelecionado = acesso;
+            this.habilitarDesabilitarBotoes(false);
+            
             System.out.println(dtIni + " - " + dtFim);
         } catch (ParseException ex) {
             Logger.getLogger(TelaCadastroAcesso.class.getName()).log(Level.SEVERE, null, ex);
@@ -352,6 +357,8 @@ public class TelaCadastroAcesso extends javax.swing.JFrame {
             }
 
             _acessoInquilinosCon.acessoSelecionado = acesso;
+            this.habilitarDesabilitarBotoes(true);
+            
             System.out.println(dtIni + " - " + dtFim);
         } catch (ParseException ex) {
             Logger.getLogger(TelaCadastroAcesso.class.getName()).log(Level.SEVERE, null, ex);

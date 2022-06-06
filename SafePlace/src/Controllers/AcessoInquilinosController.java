@@ -105,15 +105,15 @@ public class AcessoInquilinosController {
         
         try
         {
-            if(this.inquilinoSelecionado != null) {
+            if(this.acessoSelecionado != null) {
                 _acessoDb.updateAcessoArea(this.acessoSelecionado);
-                result = "Inquilino atualizado com sucesso!";
+                result = "Acesso atualizado com sucesso!";
                 erroReq = false;
             }
         }catch(Exception e)
         {
             Logger.getLogger(TelaCadastroInquilino.class.getName()).log(Level.SEVERE, null, e);
-            result = "Erro durante a atualização do inquilino.";
+            result = "Erro durante a atualização do Acesso.";
             erroReq = true;
         }
         
