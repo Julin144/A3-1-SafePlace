@@ -57,16 +57,20 @@ public class UsuarioController {
         usuario.setSenha(request.getSenha());
         usuario.setTipo(request.getTipo());
 
-        System.out.println(usuario.getLogin());
-        System.out.println(usuario.getSenha());
         try {
-            db.inserirUsuario(usuario);
-
-            result = "Usuário cadastrado com sucesso!";
+            if(!db.existeUsuario(usuario)){
+                db.inserirUsuario(usuario);
+                result = "Usuário cadastrado com sucesso!";
+                erroReq = false;
+            } else {
+                result = "Usuário com o mesmo nome já cadastrado, favor alterar!";
+                erroReq = true;
+            }
 
         } catch (Exception e) {
             Logger.getLogger(TelaCadastroUsuario.class.getName()).log(Level.SEVERE, null, e);
             result = "Erro durante o cadastro do usuário";
+            erroReq = true;
         }
 
         return result;

@@ -125,12 +125,12 @@ public class UsuarioDB {
     }
 
     public boolean existeUsuario(UsuarioModel user) throws Exception {
-        String sql = "select * from Usuario where idUsuario = ?;";
+        String sql = "select * from Usuario where login = ?;";
 
         boolean r;
         try ( Connection conn = Conexao.obterConexao();  PreparedStatement ps = conn.prepareStatement(sql)) {
 
-            ps.setInt(1, user.getIdUsuario());
+            ps.setString(1, user.getLogin());
             ResultSet rs = ps.executeQuery();
 
             if (rs.next()) {

@@ -54,16 +54,6 @@ public class AcessoInquilinosController {
             }
         }
     }
-
-    public void getAcessoInquilino() {
-        if (this.inquilinoSelecionado != null) {
-            for (AcessoAreaModel acesso : _listaAcessos) {
-                if (this.inquilinoSelecionado.getIdInquilino() == acesso.getIdInquilino()) {
-                    this.acessoSelecionado = acesso;
-                }
-            }
-        }
-    }
     
     public AcessoAreaModel[] montarListaAcessosInquilino() throws Exception {
         AcessoAreaModel[] acessos;
@@ -88,12 +78,13 @@ public class AcessoInquilinosController {
 
         try {
             _acessoDb.inserirAcessoArea(acesso);
-
             result = "Acesso cadastrado com sucesso!";
+            erroReq = false;
 
         } catch (Exception e) {
             Logger.getLogger(TelaCadastroInquilino.class.getName()).log(Level.SEVERE, null, e);
             result = "Erro durante o cadastro do acesso.";
+            erroReq = true;
         }
 
         return result;
