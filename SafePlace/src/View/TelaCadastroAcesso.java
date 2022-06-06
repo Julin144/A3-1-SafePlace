@@ -18,7 +18,6 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
-import javax.swing.JSpinner;
 import javax.swing.SpinnerDateModel;
 
 /**
@@ -44,10 +43,10 @@ public class TelaCadastroAcesso extends javax.swing.JFrame {
         try {
             cboxAcessos.setModel(new DefaultComboBoxModel<>(_acessoInquilinosCon.montarListaAcessosInquilino()));
             Date date = new Date();
-            
+
             spnDiaIni.setValue(date);
             spnDiaFim.setValue(date);
-            
+
             _acessoInquilinosCon.acessoSelecionado = null;
             this.habilitarDesabilitarBotoes(false);
 
@@ -55,25 +54,24 @@ public class TelaCadastroAcesso extends javax.swing.JFrame {
             Logger.getLogger(Home.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
+
     public boolean camposPreenchidos() {
-        if(spnDiaIni.getValue().equals("") &&
-           spnDiaFim.getValue().equals(""))
-        {
+        if (spnDiaIni.getValue().equals("")
+                && spnDiaFim.getValue().equals("")) {
             return false;
         }
         return true;
     }
-    
+
     public void habilitarDesabilitarBotoes(boolean enabled) {
-        if(enabled) {
+        if (enabled) {
             btnAtualizar.setEnabled(true);
             btnApagar.setEnabled(true);
-            //lblAcessoBotoes.setText("");
+            lblAcessoBotoes.setText("");
         } else {
             btnAtualizar.setEnabled(false);
             btnApagar.setEnabled(false);
-            //lblAcessoBotoes.setText("Selecione um Inquilino!");
+            lblAcessoBotoes.setText("Selecione um Acesso para Editar/Apagar");
         }
     }
 
@@ -81,10 +79,10 @@ public class TelaCadastroAcesso extends javax.swing.JFrame {
 
         this.area = area;
         this._acessoInquilinosCon = acessoController;
-        labelArea.setText(this.area.getDescricao());
+        labelArea.setText(this.area.toString());
 
         try {
-            cboxInquilino.setModel(new DefaultComboBoxModel<>(_inquilinoController.montarListaInquilino()));
+            cboxInquilino.setModel(new DefaultComboBoxModel<>(_inquilinoController.montarListaInquilinoReq(this.area)));
             InquilinoModel inq = (InquilinoModel) cboxInquilino.getSelectedItem();
 
             if (inq != null) {
@@ -121,6 +119,7 @@ public class TelaCadastroAcesso extends javax.swing.JFrame {
         btnAtualizar = new javax.swing.JButton();
         cboxAcessos = new javax.swing.JComboBox<>();
         btnApagar = new javax.swing.JButton();
+        lblAcessoBotoes = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -134,7 +133,7 @@ public class TelaCadastroAcesso extends javax.swing.JFrame {
                 comboInquilinosActionPerformed(evt);
             }
         });
-        cboxInquilino.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createTitledBorder(""), " Inquilinos"));
+        cboxInquilino.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createTitledBorder(""), " Inquilinos que atendem ao número de doses requisitado"));
         cboxInquilino.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cboxInquilinoActionPerformed(evt);
@@ -208,6 +207,10 @@ public class TelaCadastroAcesso extends javax.swing.JFrame {
             }
         });
 
+        lblAcessoBotoes.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        lblAcessoBotoes.setForeground(new java.awt.Color(0, 51, 255));
+        lblAcessoBotoes.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -222,6 +225,7 @@ public class TelaCadastroAcesso extends javax.swing.JFrame {
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(lblAcessoBotoes, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(cboxInquilino, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(spnDiaFim, javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(spnDiaIni, javax.swing.GroupLayout.Alignment.LEADING)
@@ -233,7 +237,8 @@ public class TelaCadastroAcesso extends javax.swing.JFrame {
                                     .addComponent(btnVoltar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                     .addComponent(btnAtualizar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(btnApagar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(btnApagar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(0, 0, Short.MAX_VALUE)))
                         .addGap(51, 51, 51))))
         );
         layout.setVerticalGroup(
@@ -247,7 +252,7 @@ public class TelaCadastroAcesso extends javax.swing.JFrame {
                 .addComponent(cboxInquilino, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(22, 22, 22)
                 .addComponent(cboxAcessos, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 26, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
                 .addComponent(spnDiaIni, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(spnDiaFim, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -258,7 +263,9 @@ public class TelaCadastroAcesso extends javax.swing.JFrame {
                     .addComponent(btnApagar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(27, 27, 27)
                 .addComponent(btnVoltar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(31, 31, 31))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 26, Short.MAX_VALUE)
+                .addComponent(lblAcessoBotoes, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(17, 17, 17))
         );
 
         pack();
@@ -267,7 +274,7 @@ public class TelaCadastroAcesso extends javax.swing.JFrame {
     private void cboxInquilinoItemStateChanged(java.awt.event.ItemEvent evt) {
         InquilinoModel inquilino = (InquilinoModel) cboxInquilino.getSelectedItem();
         _acessoInquilinosCon.definirInquilinoSelecionado(inquilino);
-        
+
         try {
             cboxAcessos.setModel(new DefaultComboBoxModel<>(_acessoInquilinosCon.montarListaAcessosInquilino()));
         } catch (Exception ex) {
@@ -290,19 +297,15 @@ public class TelaCadastroAcesso extends javax.swing.JFrame {
         request.setHrFim(sdf.format(spnDiaFim.getValue()));
 
         JOptionPane.showMessageDialog(null, this._acessoInquilinosCon.CadatrarAcesso(request));
-        if(!_acessoInquilinosCon.erroReq)
+        if (!_acessoInquilinosCon.erroReq)
             this.atualizarLista();
-        
-        String ini = sdf.format(spnDiaIni.getValue());
-        String fim = sdf.format(spnDiaFim.getValue());
-        System.out.println("AQUI ------------ " + ini + " --- " + fim + " -- ");
     }//GEN-LAST:event_btnCadastrarActionPerformed
 
     private void btnAtualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAtualizarActionPerformed
-        AcessoAreaModel acesso = (AcessoAreaModel)cboxAcessos.getSelectedItem();
+        AcessoAreaModel acesso = (AcessoAreaModel) cboxAcessos.getSelectedItem();
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
-        
-        if(this.camposPreenchidos()) {
+
+        if (this.camposPreenchidos()) {
             acesso.setHrIni(sdf.format(spnDiaIni.getValue()));
             acesso.setHrFim(sdf.format(spnDiaFim.getValue()));
 
@@ -310,9 +313,10 @@ public class TelaCadastroAcesso extends javax.swing.JFrame {
 
             JOptionPane.showMessageDialog(null, _acessoInquilinosCon.atualizarAcesso());
 
-            if(!_inquilinoController.erroReq)
+            if (!_inquilinoController.erroReq) {
                 atualizarLista();
-        }else {
+            }
+        } else {
             JOptionPane.showMessageDialog(null, "Favor, preencher os campos adequadamente!");
         }
     }//GEN-LAST:event_btnAtualizarActionPerformed
@@ -334,8 +338,7 @@ public class TelaCadastroAcesso extends javax.swing.JFrame {
 
             _acessoInquilinosCon.acessoSelecionado = acesso;
             this.habilitarDesabilitarBotoes(false);
-            
-            System.out.println(dtIni + " - " + dtFim);
+
         } catch (ParseException ex) {
             Logger.getLogger(TelaCadastroAcesso.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -358,8 +361,7 @@ public class TelaCadastroAcesso extends javax.swing.JFrame {
 
             _acessoInquilinosCon.acessoSelecionado = acesso;
             this.habilitarDesabilitarBotoes(true);
-            
-            System.out.println(dtIni + " - " + dtFim);
+
         } catch (ParseException ex) {
             Logger.getLogger(TelaCadastroAcesso.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -424,6 +426,7 @@ public class TelaCadastroAcesso extends javax.swing.JFrame {
     private javax.swing.JComboBox<InquilinoModel> cboxInquilino;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel labelArea;
+    private javax.swing.JLabel lblAcessoBotoes;
     private javax.swing.JSpinner spnDiaFim;
     private javax.swing.JSpinner spnDiaIni;
     // End of variables declaration//GEN-END:variables

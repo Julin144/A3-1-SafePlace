@@ -22,55 +22,50 @@ public class TelaCadastroCondominio extends javax.swing.JFrame {
      * Creates new form TelaCadastroCondominio
      */
     private static CondominioController _condominioController = new CondominioController();
-    
-    public TelaCadastroCondominio() 
-    {
-        super("SafePlace");
+
+    public TelaCadastroCondominio() {
+        super("Cadastro de Condomínios");
         initComponents();
         setLocationRelativeTo(null);
-        
+
         this.atualizarLista();
-         
+
     }
-    
-    public void atualizarLista(){
-        try{
-            
+
+    public void atualizarLista() {
+        try {
+
             cboxCondominiosCadastrados.setModel(new DefaultComboBoxModel<>(_condominioController.mostrarListaCondominio()));
             txtNomeCondominio.setText("");
             txtEnderecoCondominio.setText("");
 
             _condominioController.setCondominio(null);
-            //this.habilitarDesabilitarBotoes(false);
+            this.habilitarDesabilitarBotoes(false);
 
-        }catch (Exception ex){
+        } catch (Exception ex) {
             Logger.getLogger(Home.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
+
     public boolean camposPreenchidos() {
-        if(txtNomeCondominio.getText().equals("") &&
-           txtEnderecoCondominio.getText().equals(""))
-        {
+        if (txtNomeCondominio.getText().equals("")
+                && txtEnderecoCondominio.getText().equals("")) {
             return false;
         }
         return true;
     }
-        public void habilitarDesabilitarBotoes(boolean enabled) {
-        if(enabled) {
-            btnCadastrarCondominio.setEnabled(true);
+
+    public void habilitarDesabilitarBotoes(boolean enabled) {
+        if (enabled) {
             btnApagarCondominio.setEnabled(true);
             btnEditarCondominio.setEnabled(true);
-            //lblAcessoBotoes.setText("");
+            lblAcessoBotoes.setText("");
         } else {
-            btnCadastrarCondominio.setEnabled(false);
             btnApagarCondominio.setEnabled(false);
             btnEditarCondominio.setEnabled(false);
-            //lblAcessoBotoes.setText("Selecione um Inquilino!");
+            lblAcessoBotoes.setText("Selecione um Condomínio para Editar/Apagar!");
         }
     }
-    
-    
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -83,23 +78,14 @@ public class TelaCadastroCondominio extends javax.swing.JFrame {
         btnApagarCondominio = new javax.swing.JButton();
         btnVoltarCadastroCondominio = new javax.swing.JButton();
         btnEditarCondominio = new javax.swing.JButton();
+        lblAcessoBotoes = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setMinimumSize(new java.awt.Dimension(500, 500));
 
         txtNomeCondominio.setBorder(javax.swing.BorderFactory.createTitledBorder("Nome do Condomínio:"));
-        txtNomeCondominio.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtNomeCondominioActionPerformed(evt);
-            }
-        });
 
         txtEnderecoCondominio.setBorder(javax.swing.BorderFactory.createTitledBorder("Endereço:"));
-        txtEnderecoCondominio.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtEnderecoCondominioActionPerformed(evt);
-            }
-        });
 
         btnCadastrarCondominio.setText("Cadastrar");
         btnCadastrarCondominio.addActionListener(new java.awt.event.ActionListener() {
@@ -109,6 +95,11 @@ public class TelaCadastroCondominio extends javax.swing.JFrame {
         });
 
         cboxCondominiosCadastrados.setBorder(javax.swing.BorderFactory.createTitledBorder("Condomínios cadastrados:"));
+        cboxCondominiosCadastrados.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                cboxCondominiosCadastradosItemStateChanged(evt);
+            }
+        });
         cboxCondominiosCadastrados.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cboxCondominiosCadastradosActionPerformed(evt);
@@ -137,24 +128,36 @@ public class TelaCadastroCondominio extends javax.swing.JFrame {
             }
         });
 
+        lblAcessoBotoes.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        lblAcessoBotoes.setForeground(new java.awt.Color(0, 51, 255));
+        lblAcessoBotoes.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGap(113, 113, 113)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                    .addComponent(txtNomeCondominio, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtEnderecoCondominio, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(cboxCondominiosCadastrados, javax.swing.GroupLayout.PREFERRED_SIZE, 274, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnVoltarCadastroCondominio, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.CENTER, layout.createSequentialGroup()
                         .addComponent(btnCadastrarCondominio)
-                        .addGap(15, 15, 15)
-                        .addComponent(btnEditarCondominio)
-                        .addGap(15, 15, 15)
-                        .addComponent(btnApagarCondominio)))
-                .addContainerGap(113, Short.MAX_VALUE))
+                        .addGap(17, 17, 17)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(btnEditarCondominio)
+                            .addComponent(btnVoltarCadastroCondominio, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnApagarCondominio))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(txtNomeCondominio, javax.swing.GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE)
+                            .addComponent(txtEnderecoCondominio, javax.swing.GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE)
+                            .addComponent(cboxCondominiosCadastrados, 0, 274, Short.MAX_VALUE))))
+                .addGap(113, 113, 113))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(lblAcessoBotoes, javax.swing.GroupLayout.PREFERRED_SIZE, 457, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(20, 20, 20))
         );
 
         layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {cboxCondominiosCadastrados, txtEnderecoCondominio, txtNomeCondominio});
@@ -170,14 +173,16 @@ public class TelaCadastroCondominio extends javax.swing.JFrame {
                 .addComponent(txtNomeCondominio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(40, 40, 40)
                 .addComponent(txtEnderecoCondominio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(50, 50, 50)
+                .addGap(40, 40, 40)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnApagarCondominio)
                     .addComponent(btnEditarCondominio)
-                    .addComponent(btnCadastrarCondominio))
-                .addGap(40, 40, 40)
-                .addComponent(btnVoltarCadastroCondominio)
-                .addContainerGap(78, Short.MAX_VALUE))
+                    .addComponent(btnCadastrarCondominio, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addComponent(btnVoltarCadastroCondominio, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(lblAcessoBotoes, javax.swing.GroupLayout.DEFAULT_SIZE, 28, Short.MAX_VALUE)
+                .addGap(14, 14, 14))
         );
 
         layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {cboxCondominiosCadastrados, txtEnderecoCondominio, txtNomeCondominio});
@@ -187,29 +192,25 @@ public class TelaCadastroCondominio extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void txtNomeCondominioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNomeCondominioActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtNomeCondominioActionPerformed
-
-    private void txtEnderecoCondominioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtEnderecoCondominioActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtEnderecoCondominioActionPerformed
-
     private void btnCadastrarCondominioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarCondominioActionPerformed
-        // TODO add your handling code here:
         CadastroCondominioRequestDto request = new CadastroCondominioRequestDto();
-        
-        request.setNome(txtNomeCondominio.getText());
-        request.setEndereco(txtEnderecoCondominio.getText());
-        
-        
-        JOptionPane.showMessageDialog(null, _condominioController.CadastrarCondominio(request));
+        if (this.camposPreenchidos()) {
+            request.setNome(txtNomeCondominio.getText());
+            request.setEndereco(txtEnderecoCondominio.getText());
+
+            JOptionPane.showMessageDialog(null, _condominioController.CadastrarCondominio(request));
+            if (!_condominioController.erroReq) {
+                atualizarLista();
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "Favor, preencher os campos adequadamente!");
+        }
     }//GEN-LAST:event_btnCadastrarCondominioActionPerformed
 
     private void btnEditarCondominioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarCondominioActionPerformed
-        CondominioModel condominio = (CondominioModel)cboxCondominiosCadastrados.getSelectedItem();
-        
-        if(this.camposPreenchidos()) {
+        CondominioModel condominio = (CondominioModel) cboxCondominiosCadastrados.getSelectedItem();
+
+        if (this.camposPreenchidos()) {
             condominio.setNome(txtNomeCondominio.getText());
             condominio.setEndereco(txtEnderecoCondominio.getText());
 
@@ -217,38 +218,47 @@ public class TelaCadastroCondominio extends javax.swing.JFrame {
 
             JOptionPane.showMessageDialog(null, _condominioController.atualizarCondominio());
 
-            if(!_condominioController.erroReq)
+            if (!_condominioController.erroReq) {
                 atualizarLista();
-        }else {
+            }
+        } else {
             JOptionPane.showMessageDialog(null, "Favor, preencher os campos adequadamente!");
         }
-                       
+
     }//GEN-LAST:event_btnEditarCondominioActionPerformed
 
     private void btnVoltarCadastroCondominioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVoltarCadastroCondominioActionPerformed
-        
         this.dispose();
     }//GEN-LAST:event_btnVoltarCadastroCondominioActionPerformed
 
     private void btnApagarCondominioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnApagarCondominioActionPerformed
-        CondominioModel condominio = (CondominioModel)cboxCondominiosCadastrados.getSelectedItem();
+        CondominioModel condominio = (CondominioModel) cboxCondominiosCadastrados.getSelectedItem();
         _condominioController.setCondominio(condominio);
-        
+
         JOptionPane.showMessageDialog(null, _condominioController.deletarInquilino());
-        if(!_condominioController.erroReq)
+        if (!_condominioController.erroReq)
             atualizarLista();
     }//GEN-LAST:event_btnApagarCondominioActionPerformed
 
     private void cboxCondominiosCadastradosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cboxCondominiosCadastradosActionPerformed
-        CondominioModel condominio = (CondominioModel)cboxCondominiosCadastrados.getSelectedItem();
-        
+        CondominioModel condominio = (CondominioModel) cboxCondominiosCadastrados.getSelectedItem();
+
         txtNomeCondominio.setText(condominio.getNome());
         txtEnderecoCondominio.setText(condominio.getEndereco());
-        
-        
+
         _condominioController.setCondominio(condominio);
         this.habilitarDesabilitarBotoes(true);
     }//GEN-LAST:event_cboxCondominiosCadastradosActionPerformed
+
+    private void cboxCondominiosCadastradosItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cboxCondominiosCadastradosItemStateChanged
+        CondominioModel condominio = (CondominioModel) cboxCondominiosCadastrados.getSelectedItem();
+
+        txtNomeCondominio.setText(condominio.getNome());
+        txtEnderecoCondominio.setText(condominio.getEndereco());
+
+        _condominioController.setCondominio(condominio);
+        this.habilitarDesabilitarBotoes(true);
+    }//GEN-LAST:event_cboxCondominiosCadastradosItemStateChanged
 
     /**
      * @param args the command line arguments
@@ -291,6 +301,7 @@ public class TelaCadastroCondominio extends javax.swing.JFrame {
     private javax.swing.JButton btnEditarCondominio;
     private javax.swing.JButton btnVoltarCadastroCondominio;
     private javax.swing.JComboBox<CondominioModel> cboxCondominiosCadastrados;
+    private javax.swing.JLabel lblAcessoBotoes;
     private javax.swing.JTextField txtEnderecoCondominio;
     private javax.swing.JTextField txtNomeCondominio;
     // End of variables declaration//GEN-END:variables

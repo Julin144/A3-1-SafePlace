@@ -5,6 +5,7 @@
  */
 package Database;
 
+import Models.AreaModel;
 import Models.InquilinoModel;
 import Models.UsuarioModel;
 /**
@@ -36,6 +37,40 @@ public class InquilinoDB {
                 = conn.prepareStatement(sql,
                         ResultSet.TYPE_SCROLL_INSENSITIVE,
                         ResultSet.CONCUR_READ_ONLY);  ResultSet rs = ps.executeQuery()) {
+
+            int totalInquilinos = rs.last() ? rs.getRow() : 0;
+            InquilinoModel[] inquilinos = new InquilinoModel[totalInquilinos];
+            rs.beforeFirst();
+            int contador = 0;
+
+            while (rs.next()) {
+                InquilinoModel inq = new InquilinoModel();
+
+                int id = rs.getInt("idInquilino");
+                String nome = rs.getString("nome");
+                String CPF = rs.getString("cpf");
+                int apartNumero = rs.getInt("aprtNumero");
+
+                inq.setIdInquilino(id);
+                inq.setNome(nome);
+                inq.setCpf(CPF);
+                inq.setAprtNumero(apartNumero);
+
+                inquilinos[contador++] = inq;
+            }
+            return inquilinos;
+        }
+    }
+    
+    public InquilinoModel[] buscarInquilinoVacinasReq(AreaModel area) throws Exception {
+        String sql = " SELECT I.* FROM INQUILINO I  WHERE EXISTS (SELECT * FROM  VACINA V WHERE V.idInquilino = I.idInquilino AND V.qtdDose >= ?);";
+        try ( Connection conn = Conexao.obterConexao();  PreparedStatement ps
+                = conn.prepareStatement(sql,
+                        ResultSet.TYPE_SCROLL_INSENSITIVE,
+                        ResultSet.CONCUR_READ_ONLY);) {
+            
+            ps.setInt(1, area.getDosesRequisitadas());
+            ResultSet rs = ps.executeQuery();
 
             int totalInquilinos = rs.last() ? rs.getRow() : 0;
             InquilinoModel[] inquilinos = new InquilinoModel[totalInquilinos];

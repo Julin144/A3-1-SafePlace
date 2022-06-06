@@ -29,30 +29,30 @@
           <Group type="102" alignment="1" attributes="0">
               <EmptySpace pref="45" max="32767" attributes="0"/>
               <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                  <Component id="jScrollPane2" linkSize="3" pref="410" max="32767" attributes="0"/>
-                  <Component id="jScrollPane1" linkSize="3" pref="410" max="32767" attributes="0"/>
-                  <Component id="jScrollPane3" linkSize="3" alignment="0" pref="410" max="32767" attributes="0"/>
-                  <Group type="102" alignment="0" attributes="0">
-                      <Group type="103" groupAlignment="1" attributes="0">
-                          <Group type="102" attributes="0">
-                              <Component id="btnCadastrarInquilino" linkSize="1" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace min="-2" pref="28" max="-2" attributes="0"/>
-                              <Component id="btnEditarInquilino" linkSize="1" max="32767" attributes="0"/>
+                  <Component id="lblAcessoBotoes" max="32767" attributes="0"/>
+                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                      <Component id="jScrollPane2" linkSize="3" pref="410" max="32767" attributes="0"/>
+                      <Component id="jScrollPane1" linkSize="3" pref="410" max="32767" attributes="0"/>
+                      <Component id="jScrollPane3" linkSize="3" alignment="0" pref="410" max="32767" attributes="0"/>
+                      <Group type="102" alignment="0" attributes="0">
+                          <Group type="103" groupAlignment="1" attributes="0">
+                              <Group type="102" attributes="0">
+                                  <Component id="btnCadastrarInquilino" linkSize="1" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace min="-2" pref="28" max="-2" attributes="0"/>
+                                  <Component id="btnEditarInquilino" linkSize="1" max="32767" attributes="0"/>
+                              </Group>
+                              <Group type="103" alignment="1" groupAlignment="0" max="-2" attributes="0">
+                                  <Component id="btnVoltarCadastroInquilino" alignment="1" max="32767" attributes="0"/>
+                                  <Component id="btnCadastrarVacinaInquilino" linkSize="1" alignment="1" max="32767" attributes="0"/>
+                              </Group>
                           </Group>
-                          <Group type="103" alignment="1" groupAlignment="0" max="-2" attributes="0">
-                              <Component id="btnVoltarCadastroInquilino" alignment="1" max="32767" attributes="0"/>
-                              <Component id="btnCadastrarVacinaInquilino" linkSize="1" alignment="1" max="32767" attributes="0"/>
-                          </Group>
-                      </Group>
-                      <EmptySpace type="separate" max="32767" attributes="0"/>
-                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                          <EmptySpace max="32767" attributes="0"/>
                           <Component id="btnDeletarInquilino" linkSize="1" max="32767" attributes="0"/>
-                          <Component id="lblAcessoBotoes" max="32767" attributes="0"/>
                       </Group>
+                      <Component id="cboxListaInquilinos" max="32767" attributes="0"/>
                   </Group>
-                  <Component id="cboxListaInquilinos" max="32767" attributes="0"/>
               </Group>
-              <EmptySpace pref="45" max="32767" attributes="0"/>
+              <EmptySpace min="-2" pref="45" max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -74,15 +74,12 @@
                   <Component id="btnDeletarInquilino" linkSize="2" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="1" attributes="0">
-                  <Group type="102" attributes="0">
-                      <Component id="btnCadastrarVacinaInquilino" min="-2" pref="40" max="-2" attributes="0"/>
-                      <EmptySpace type="separate" max="-2" attributes="0"/>
-                      <Component id="btnVoltarCadastroInquilino" linkSize="2" min="-2" max="-2" attributes="0"/>
-                  </Group>
-                  <Component id="lblAcessoBotoes" min="-2" pref="35" max="-2" attributes="0"/>
-              </Group>
-              <EmptySpace max="-2" attributes="0"/>
+              <Component id="btnCadastrarVacinaInquilino" min="-2" pref="40" max="-2" attributes="0"/>
+              <EmptySpace type="separate" max="-2" attributes="0"/>
+              <Component id="btnVoltarCadastroInquilino" linkSize="2" min="-2" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
+              <Component id="lblAcessoBotoes" min="-2" pref="35" max="-2" attributes="0"/>
+              <EmptySpace pref="18" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -210,6 +207,7 @@
         <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
           <Color blue="ff" green="33" red="0" type="rgb"/>
         </Property>
+        <Property name="horizontalAlignment" type="int" value="0"/>
       </Properties>
     </Component>
   </SubComponents>

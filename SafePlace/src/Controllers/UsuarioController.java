@@ -53,16 +53,19 @@ public class UsuarioController {
 
         UsuarioModel usuario = new UsuarioModel();
 
-        usuario.setTipo(request.getLogin());
+        usuario.setLogin(request.getLogin());
         usuario.setSenha(request.getSenha());
         usuario.setTipo(request.getTipo());
 
+        System.out.println(usuario.getLogin());
+        System.out.println(usuario.getSenha());
         try {
             db.inserirUsuario(usuario);
 
             result = "Usuário cadastrado com sucesso!";
 
-        } catch (Exception ex) {
+        } catch (Exception e) {
+            Logger.getLogger(TelaCadastroUsuario.class.getName()).log(Level.SEVERE, null, e);
             result = "Erro durante o cadastro do usuário";
         }
 
@@ -73,7 +76,6 @@ public class UsuarioController {
     {
         UsuarioModel[] users;
         users = db.buscarUsuario();
-        //this.inquilinoSelecionado = users != null ? users[0] : null;
         
         return users;
     }
@@ -106,7 +108,7 @@ public class UsuarioController {
         try
         {
             db.deleteUsuario(this.usuarioSelecionado);
-            result = "Inquilino Excluido com sucesso!";
+            result = "Usuário Excluido com sucesso!";
             erroReq = false;
         }catch(Exception e)
         {

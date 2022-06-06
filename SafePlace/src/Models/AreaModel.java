@@ -27,7 +27,11 @@ public class AreaModel
     {
         
     }
-
+    
+     @Override
+    public String toString() {
+        return "Descrição: " + this.descricao +" - Doses Req: "+this.dosesRequisitadas;
+    }
 
     public int getIdArea() 
     {
@@ -57,11 +61,6 @@ public class AreaModel
     public void setDosesRequisitadas(int dosesRequisitadas) 
     {
         this.dosesRequisitadas = dosesRequisitadas;
-    }
- 
-    @Override
-    public String toString() {
-        return this.descricao;
     }
 
     /**

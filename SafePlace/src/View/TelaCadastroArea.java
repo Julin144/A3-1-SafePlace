@@ -73,7 +73,7 @@ public class TelaCadastroArea extends javax.swing.JFrame {
         } else {
             btnEditarArea.setEnabled(false);
             btnApagarArea.setEnabled(false);
-            lblAcessoBotoes.setText("Selecione uma Área!");
+            lblAcessoBotoes.setText("Selecione uma Área para Editar/Apagar");
         }
     }
     
@@ -163,7 +163,7 @@ public class TelaCadastroArea extends javax.swing.JFrame {
         });
 
         lblAcessoBotoes.setForeground(new java.awt.Color(0, 51, 255));
-        lblAcessoBotoes.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        lblAcessoBotoes.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);

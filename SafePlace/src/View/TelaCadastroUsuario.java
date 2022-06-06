@@ -21,55 +21,49 @@ public class TelaCadastroUsuario extends javax.swing.JFrame {
     /**
      * Creates new form TelaFuncionario
      */
-    
-    private static UsuarioController _usuarioController;
-    
-    public TelaCadastroUsuario() 
-    {
-        super("SafePlace");
+    private static UsuarioController _usuarioController = new UsuarioController();
+
+    public TelaCadastroUsuario() {
+        super("Cadastro de Usuário");
         initComponents();
         setLocationRelativeTo(null);
-        
-        _usuarioController = new UsuarioController();
+
+        this.atualizarLista();
     }
-    
-       public void atualizarLista() {
-        try 
-        {            
+
+    public void atualizarLista() {
+        try {
             cboxUsuariosCadastrados.setModel(new DefaultComboBoxModel<>(_usuarioController.montarListaUsuario()));
-            passwordFieldCadastroSenhaUsuario.setText("");
+            passwordFieldSenha.setText("");
             txtCadastroNomeUsuario.setText("");
-            
-            
+
             _usuarioController.setUsuario(null);
             this.habilitarDesabilitarBotoes(false);
         } catch (Exception ex) {
             Logger.getLogger(Home.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-       public boolean camposPreenchidos() {
-        if(passwordFieldCadastroSenhaUsuario.getText().equals("") &&
-           txtCadastroNomeUsuario.getText().equals(""))
-           
-        {
+
+    public boolean camposPreenchidos() {
+        if (passwordFieldSenha.getText().equals("")
+                && txtCadastroNomeUsuario.getText().equals("")) {
             return false;
         }
         return true;
     }
-       
-        public void habilitarDesabilitarBotoes(boolean enabled) {
-        if(enabled) {
-            btnCadastroFuncionario.setEnabled(true);
+
+    public void habilitarDesabilitarBotoes(boolean enabled) {
+        if (enabled) {
             btnApagarFuncionario.setEnabled(true);
             btnEditarFuncionario.setEnabled(true);
-            //lblAcessoBotoes.setText("");
+            lblAcessoBotoes.setText("");
         } else {
-            btnCadastroFuncionario.setEnabled(false);
             btnApagarFuncionario.setEnabled(false);
-            btnEditarFuncionario.setEnabled(false);            //lblAcessoBotoes.setText("Selecione um Inquilino!");
+            btnEditarFuncionario.setEnabled(false);
+            lblAcessoBotoes.setText("Selecione um Usuário para Editar/Apagar");
         }
     }
-    
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -80,20 +74,20 @@ public class TelaCadastroUsuario extends javax.swing.JFrame {
     private void initComponents() {
 
         txtCadastroNomeUsuario = new javax.swing.JTextField();
-        passwordFieldCadastroSenhaUsuario = new javax.swing.JPasswordField();
+        passwordFieldSenha = new javax.swing.JPasswordField();
         cboxTipoUsuario = new javax.swing.JComboBox<>();
         cboxUsuariosCadastrados = new javax.swing.JComboBox<>();
         btnCadastroFuncionario = new javax.swing.JButton();
         btnApagarFuncionario = new javax.swing.JButton();
         btnVoltarCadastroFuncionario = new javax.swing.JButton();
         btnEditarFuncionario = new javax.swing.JButton();
+        lblAcessoBotoes = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         txtCadastroNomeUsuario.setBorder(javax.swing.BorderFactory.createTitledBorder("Nome do funcionário: "));
 
-        passwordFieldCadastroSenhaUsuario.setText("jPasswordField1");
-        passwordFieldCadastroSenhaUsuario.setBorder(javax.swing.BorderFactory.createTitledBorder("Senha:"));
+        passwordFieldSenha.setBorder(javax.swing.BorderFactory.createTitledBorder("Senha:"));
 
         cboxTipoUsuario.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "ADMIN", "USER" }));
         cboxTipoUsuario.setBorder(javax.swing.BorderFactory.createTitledBorder("Tipo de usuário:"));
@@ -104,6 +98,11 @@ public class TelaCadastroUsuario extends javax.swing.JFrame {
         });
 
         cboxUsuariosCadastrados.setBorder(javax.swing.BorderFactory.createTitledBorder("Usuários Cadastrados:"));
+        cboxUsuariosCadastrados.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                cboxUsuariosCadastradosItemStateChanged(evt);
+            }
+        });
         cboxUsuariosCadastrados.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cboxUsuariosCadastradosActionPerformed(evt);
@@ -138,117 +137,135 @@ public class TelaCadastroUsuario extends javax.swing.JFrame {
             }
         });
 
+        lblAcessoBotoes.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        lblAcessoBotoes.setForeground(new java.awt.Color(0, 51, 255));
+        lblAcessoBotoes.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(140, 140, 140)
+                .addContainerGap(100, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                    .addComponent(passwordFieldCadastroSenhaUsuario)
-                    .addComponent(cboxTipoUsuario, 0, 221, Short.MAX_VALUE)
-                    .addComponent(cboxUsuariosCadastrados, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                        .addGap(1, 1, 1)
-                        .addComponent(btnCadastroFuncionario, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnEditarFuncionario, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(3, 3, 3))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                            .addComponent(txtCadastroNomeUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnVoltarCadastroFuncionario, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnApagarFuncionario, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(0, 0, Short.MAX_VALUE)))
-                .addContainerGap(139, Short.MAX_VALUE))
+                    .addComponent(passwordFieldSenha)
+                    .addComponent(cboxTipoUsuario, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
+                        .addComponent(txtCadastroNomeUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 297, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnVoltarCadastroFuncionario, javax.swing.GroupLayout.PREFERRED_SIZE, 301, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(cboxUsuariosCadastrados, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(layout.createSequentialGroup()
+                            .addComponent(btnCadastroFuncionario, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnEditarFuncionario, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(btnApagarFuncionario, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(lblAcessoBotoes, javax.swing.GroupLayout.PREFERRED_SIZE, 301, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(99, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(41, 41, 41)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(53, Short.MAX_VALUE)
+                .addComponent(cboxUsuariosCadastrados, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(20, 20, 20)
                 .addComponent(txtCadastroNomeUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(35, 35, 35)
-                .addComponent(passwordFieldCadastroSenhaUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(35, 35, 35)
+                .addGap(20, 20, 20)
+                .addComponent(passwordFieldSenha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(20, 20, 20)
                 .addComponent(cboxTipoUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(30, 30, 30)
+                .addGap(40, 40, 40)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnCadastroFuncionario)
                     .addComponent(btnEditarFuncionario))
-                .addGap(30, 30, 30)
-                .addComponent(cboxUsuariosCadastrados, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(30, 30, 30)
+                .addGap(10, 10, 10)
                 .addComponent(btnApagarFuncionario)
-                .addGap(30, 30, 30)
+                .addGap(20, 20, 20)
                 .addComponent(btnVoltarCadastroFuncionario)
-                .addContainerGap(35, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addComponent(lblAcessoBotoes, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(22, 22, 22))
         );
 
-        layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {cboxTipoUsuario, cboxUsuariosCadastrados, passwordFieldCadastroSenhaUsuario, txtCadastroNomeUsuario});
+        layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {cboxTipoUsuario, cboxUsuariosCadastrados, passwordFieldSenha, txtCadastroNomeUsuario});
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnCadastroFuncionarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastroFuncionarioActionPerformed
-        // TODO add your handling code here:
         CadastroUsuarioRequestDto request = new CadastroUsuarioRequestDto();
-        
-        request.setLogin(txtCadastroNomeUsuario.getText());
-        request.setSenha(passwordFieldCadastroSenhaUsuario.getPassword().toString());
-        request.setTipo(cboxTipoUsuario.getSelectedItem().toString());
-        
-        
-        JOptionPane.showMessageDialog(null, _usuarioController.cadastrarUsuario(request));
+        if (this.camposPreenchidos()) {
+            request.setLogin(txtCadastroNomeUsuario.getText());
+            request.setSenha(passwordFieldSenha.getText());
+            request.setTipo(cboxTipoUsuario.getSelectedItem().toString());
+
+            JOptionPane.showMessageDialog(null, _usuarioController.cadastrarUsuario(request));
+            if (!_usuarioController.erroReq) {
+                atualizarLista();
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "Favor, preencher os campos adequadamente!");
+        }
     }//GEN-LAST:event_btnCadastroFuncionarioActionPerformed
 
     private void btnVoltarCadastroFuncionarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVoltarCadastroFuncionarioActionPerformed
-        // TODO add your handling code here:
         this.dispose();
     }//GEN-LAST:event_btnVoltarCadastroFuncionarioActionPerformed
 
     private void btnApagarFuncionarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnApagarFuncionarioActionPerformed
-        UsuarioModel user = (UsuarioModel)cboxUsuariosCadastrados.getSelectedItem();
+        UsuarioModel user = (UsuarioModel) cboxUsuariosCadastrados.getSelectedItem();
         _usuarioController.setUsuario(user);
-        
+
         JOptionPane.showMessageDialog(null, _usuarioController.deletarUsuario());
-        if(!_usuarioController.erroReq)
+        if (!_usuarioController.erroReq)
             atualizarLista();
     }//GEN-LAST:event_btnApagarFuncionarioActionPerformed
 
     private void btnEditarFuncionarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarFuncionarioActionPerformed
-        UsuarioModel user = (UsuarioModel)cboxUsuariosCadastrados.getSelectedItem();
-        
-        if(this.camposPreenchidos()) {
+        UsuarioModel user = (UsuarioModel) cboxUsuariosCadastrados.getSelectedItem();
+
+        if (this.camposPreenchidos()) {
             user.setLogin(txtCadastroNomeUsuario.getText());
-            user.setSenha(passwordFieldCadastroSenhaUsuario.getPassword().toString());
+            user.setSenha(passwordFieldSenha.getText());
             user.setTipo(cboxTipoUsuario.getSelectedItem().toString());
 
             _usuarioController.setUsuario(user);
 
             JOptionPane.showMessageDialog(null, _usuarioController.atualizarUsuario());
 
-            if(!_usuarioController.erroReq)
+            if (!_usuarioController.erroReq) {
                 atualizarLista();
-        }else {
+            }
+        } else {
             JOptionPane.showMessageDialog(null, "Favor, preencher os campos adequadamente!");
         }
     }//GEN-LAST:event_btnEditarFuncionarioActionPerformed
 
-    private void cboxUsuariosCadastradosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cboxUsuariosCadastradosActionPerformed
-        UsuarioModel user = (UsuarioModel)cboxUsuariosCadastrados.getSelectedItem();
-        
-        user.setLogin(txtCadastroNomeUsuario.getText());
-        user.setSenha(passwordFieldCadastroSenhaUsuario.getPassword().toString());
-        user.setTipo(cboxTipoUsuario.getSelectedItem().toString());
-        
-        _usuarioController.setUsuario(user);
-        this.habilitarDesabilitarBotoes(true);
-    }//GEN-LAST:event_cboxUsuariosCadastradosActionPerformed
-
     private void cboxTipoUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cboxTipoUsuarioActionPerformed
         // TODO add your handling code here:
-        
+
     }//GEN-LAST:event_cboxTipoUsuarioActionPerformed
+
+    private void cboxUsuariosCadastradosItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cboxUsuariosCadastradosItemStateChanged
+        UsuarioModel usuario = (UsuarioModel) cboxUsuariosCadastrados.getSelectedItem();
+
+        txtCadastroNomeUsuario.setText(usuario.getLogin());
+        passwordFieldSenha.setText(usuario.getSenha());
+        cboxTipoUsuario.setSelectedItem(usuario.getTipo());
+
+        _usuarioController.setUsuario(usuario);
+        this.habilitarDesabilitarBotoes(true);
+    }//GEN-LAST:event_cboxUsuariosCadastradosItemStateChanged
+
+    private void cboxUsuariosCadastradosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cboxUsuariosCadastradosActionPerformed
+        UsuarioModel usuario = (UsuarioModel) cboxUsuariosCadastrados.getSelectedItem();
+
+        txtCadastroNomeUsuario.setText(usuario.getLogin());
+        passwordFieldSenha.setText(usuario.getSenha());
+        cboxTipoUsuario.setSelectedItem(usuario.getTipo());
+
+        _usuarioController.setUsuario(usuario);
+        this.habilitarDesabilitarBotoes(true);
+    }//GEN-LAST:event_cboxUsuariosCadastradosActionPerformed
 
     /**
      * @param args the command line arguments
@@ -299,7 +316,8 @@ public class TelaCadastroUsuario extends javax.swing.JFrame {
     private javax.swing.JButton btnVoltarCadastroFuncionario;
     private javax.swing.JComboBox<String> cboxTipoUsuario;
     private javax.swing.JComboBox<UsuarioModel> cboxUsuariosCadastrados;
-    private javax.swing.JPasswordField passwordFieldCadastroSenhaUsuario;
+    private javax.swing.JLabel lblAcessoBotoes;
+    private javax.swing.JPasswordField passwordFieldSenha;
     private javax.swing.JTextField txtCadastroNomeUsuario;
     // End of variables declaration//GEN-END:variables
 }

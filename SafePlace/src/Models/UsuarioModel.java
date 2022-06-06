@@ -9,21 +9,25 @@ package Models;
  *
  * @author 822158274
  */
-
 public class UsuarioModel {
 
     private int idUsuario;
-    
+
     private String login;
-    
+
     private String senha;
-    
+
     private String tipo;
-    
+
     public UsuarioModel() {
-        
+
     }
-    
+
+    @Override
+    public String toString() {
+        return "Login: " + this.login + " - Tipo: " + this.tipo;
+    }
+
     public int getIdUsuario() {
         return idUsuario;
     }
@@ -47,7 +51,8 @@ public class UsuarioModel {
     public void setSenha(String senha) {
         this.senha = senha;
     }
-        public String getTipo() {
+
+    public String getTipo() {
         return tipo;
     }
 

@@ -6,6 +6,7 @@ package Controllers;
 
 import Database.InquilinoDB;
 import Dto.Request.*;
+import Models.AreaModel;
 import Models.InquilinoModel;
 import View.TelaCadastroInquilino;
 import View.TelaLogin;
@@ -33,6 +34,14 @@ public class InquilinoController
         InquilinoModel[] inquilinos;
         inquilinos = _inquilinoDb.buscarInquilino();
         //this.inquilinoSelecionado = inquilinos != null ? inquilinos[0] : null;
+        
+        return inquilinos;
+    }
+    
+    public InquilinoModel[] montarListaInquilinoReq(AreaModel area) throws Exception 
+    {
+        InquilinoModel[] inquilinos;
+        inquilinos = _inquilinoDb.buscarInquilinoVacinasReq(area);
         
         return inquilinos;
     }

@@ -45,7 +45,7 @@ public class TelaAcessoInquilinos extends javax.swing.JFrame {
     } 
     public void setArea(AreaModel area) {
         this.area = area;
-        labelArea.setText(this.area.getDescricao());
+        labelArea.setText(this.area.toString());
 
         this.atualizarLista();
     }

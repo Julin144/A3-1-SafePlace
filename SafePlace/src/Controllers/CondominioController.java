@@ -62,7 +62,7 @@ public class CondominioController
         try{
             if(this.condominioSelecionado != null){
                 _condominioDB.updateCondominio(this.condominioSelecionado);
-                result = "Condominio cadastrado com sucesso!";
+                result = "Condominio Atualizado com sucesso!";
                 erroReq = false;
             }
         }catch(Exception e){
