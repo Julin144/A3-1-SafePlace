@@ -2,22 +2,6 @@
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-        <group>
-            <file>file:/C:/Users/julio/Documents/GitHub/A3/SafePlace/src/Database/UsuarioDB.java</file>
-            <file>file:/C:/Users/julio/Documents/GitHub/A3/SafePlace/src/Controllers/UsuarioController.java</file>
-            <file>file:/C:/Users/julio/Documents/GitHub/A3/SafePlace/src/Database/CondominioDB.java</file>
-            <file>file:/C:/Users/julio/Documents/GitHub/A3/SafePlace/src/View/TelaCadastroVacina.java</file>
-            <file>file:/C:/Users/julio/Documents/GitHub/A3/SafePlace/src/Database/AreaDB.java</file>
-            <file>file:/C:/Users/julio/Documents/GitHub/A3/SafePlace/src/Models/VacinaModel.java</file>
-            <file>file:/C:/Users/julio/Documents/GitHub/A3/SafePlace/src/Models/CondominioModel.java</file>
-            <file>file:/C:/Users/julio/Documents/GitHub/A3/SafePlace/src/Database/VacinaDB.java</file>
-            <file>file:/C:/Users/julio/Documents/GitHub/A3/SafePlace/src/Controllers/VacinaController.java</file>
-            <file>file:/C:/Users/julio/Documents/GitHub/A3/SafePlace/src/Dto/Request/CadastroVacinaRequestDto.java</file>
-            <file>file:/C:/Users/julio/Documents/GitHub/A3/SafePlace/src/Controllers/AcessoInquilinosController.java</file>
-            <file>file:/C:/Users/julio/Documents/GitHub/A3/SafePlace/src/Database/InquilinoDB.java</file>
-            <file>file:/C:/Users/julio/Documents/GitHub/A3/SafePlace/src/Controllers/InquilinoController.java</file>
-            <file>file:/C:/Users/julio/Documents/GitHub/A3/SafePlace/src/Models/AreaModel.java</file>
-            <file>file:/C:/Users/julio/Documents/GitHub/A3/SafePlace/src/Dto/Request/CadastroAreaRequestDto.java</file>
-        </group>
+        <group/>
     </open-files>
 </project-private>

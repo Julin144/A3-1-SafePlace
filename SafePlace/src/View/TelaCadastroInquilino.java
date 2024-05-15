@@ -11,6 +11,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
+import Business.Validate;
 
 /**
  *
@@ -224,6 +225,25 @@ public class TelaCadastroInquilino extends javax.swing.JFrame {
         CadastroInquilinoRequestDto request = new CadastroInquilinoRequestDto();
        
         if(this.camposPreenchidos()) {
+            String nomeInquilino = txtCadastrarNomeInquilino.getText();
+            String cpfInquilino = txtCadastrarCPFInquilino.getText();
+            String numeroApInquilino = txtCadastrarAPInquilino.getText();
+        
+            if (!nomeInquilino.matches("[a-zA-Z]+")) {
+                JOptionPane.showMessageDialog(null, "O nome do inquilino deve conter apenas letras!");
+                return;
+            }
+        
+            if (!Validate.validateCPF(cpfInquilino)) {
+                JOptionPane.showMessageDialog(null, "O CPF do inquilino é inválido!");
+                return;
+            }
+        
+            if (!numeroApInquilino.matches("\\d{1,4}[a-zA-Z]{0,1}")) {
+                JOptionPane.showMessageDialog(null, "O número do apartamento do inquilino é inválido!");
+                return;
+            }
+            
             request.setNomeInquilino(txtCadastrarNomeInquilino.getText());
             request.setCpfInquilino(txtCadastrarCPFInquilino.getText());
             request.setNumeroApInquilino(txtCadastrarAPInquilino.getText());
