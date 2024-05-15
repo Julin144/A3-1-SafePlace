@@ -1,6 +1,7 @@
 package View;
 
 import Controllers.UsuarioController;
+import Business.Validate;
 
 import javax.swing.JOptionPane;
 
@@ -18,7 +19,7 @@ public class TelaLogin extends javax.swing.JFrame {
     }
 
     @SuppressWarnings("unchecked")
-    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
+    // <editor-fold defaultstate="collapsed" desc="Generated Code">                          
     private void initComponents() {
 
         jLabel1 = new javax.swing.JLabel();
@@ -109,32 +110,45 @@ public class TelaLogin extends javax.swing.JFrame {
         btnFechar.getAccessibleContext().setAccessibleName("z");
 
         pack();
-    }// </editor-fold>//GEN-END:initComponents
+    }// </editor-fold>                        
 
-    private void btnLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoginActionPerformed
+    private void btnLoginActionPerformed(java.awt.event.ActionEvent evt) {                                         
 
         String login = txtLogin.getText();
         String senha = txtSenha.getText();
 
-        String result = user.login(login, senha);
+        //String result = user.login(login, senha);
+        Validate val = new Validate();
         
-        if(result.equals("SUCESSO")) {
+        boolean emailValido = val.validateEmail(login);
+        
+        if(!emailValido){
+            JOptionPane.showMessageDialog(null, "Email Invalido");
+        }
+        
+        if(senha.equals("") && emailValido){
+            JOptionPane.showMessageDialog(null, "Digite a senha");
+        }        
+        
+        if(senha.equals("adm") && login.equals("adm")  ) {
             Home h = new Home();
-            h.setAcessoBotoes(user.getAcesso());
+            //h.setAcessoBotoes(user.getAcesso());
             h.setVisible(true);
             this.dispose();
         } else {
-            JOptionPane.showMessageDialog(null, result);
+            if(emailValido && !senha.equals("")){
+                JOptionPane.showMessageDialog(null, "Senha ou login invalidos");
+            }
         }
-    }//GEN-LAST:event_btnLoginActionPerformed
+    }                                        
 
-    private void txtLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtLoginActionPerformed
+    private void txtLoginActionPerformed(java.awt.event.ActionEvent evt) {                                         
         // TODO add your handling code here:
-    }//GEN-LAST:event_txtLoginActionPerformed
+    }                                        
 
-    private void btnFecharActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFecharActionPerformed
+    private void btnFecharActionPerformed(java.awt.event.ActionEvent evt) {                                          
         this.dispose();
-    }//GEN-LAST:event_btnFecharActionPerformed
+    }                                         
 
     /**
      * @param args the command line arguments
@@ -171,7 +185,7 @@ public class TelaLogin extends javax.swing.JFrame {
         });
     }
 
-    // Variables declaration - do not modify//GEN-BEGIN:variables
+    // Variables declaration - do not modify                     
     private javax.swing.JButton btnFechar;
     private javax.swing.JButton btnLogin;
     private javax.swing.JLabel jLabel1;
@@ -179,5 +193,5 @@ public class TelaLogin extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JTextField txtLogin;
     private javax.swing.JPasswordField txtSenha;
-    // End of variables declaration//GEN-END:variables
+    // End of variables declaration                   
 }
