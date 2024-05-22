@@ -194,7 +194,21 @@ public class TelaCadastroCondominio extends javax.swing.JFrame {
 
     private void btnCadastrarCondominioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarCondominioActionPerformed
         CadastroCondominioRequestDto request = new CadastroCondominioRequestDto();
+        
         if (this.camposPreenchidos()) {
+            String nomeCondominio = txtNomeCondominio.getText();
+            String endCondominio = txtEnderecoCondominio.getText();
+            
+            if (!nomeCondominio.matches(".{4,40}")) {
+                JOptionPane.showMessageDialog(null, "O nome do condomínio deve conter entre 4 e 40 caracteres!");
+                return;
+            }
+            
+            if (!endCondominio.matches("^(?=.*[!@#$%^&*(),.?\":{}|<>])(?=.*\\d).{10,}")) {
+                JOptionPane.showMessageDialog(null, "O endereço do condomínio deve conter mais de 10 caracteres, incluindo pelo menos um caractere especial e um número inteiro!");
+                return;
+            }
+            
             request.setNome(txtNomeCondominio.getText());
             request.setEndereco(txtEnderecoCondominio.getText());
 
@@ -211,6 +225,19 @@ public class TelaCadastroCondominio extends javax.swing.JFrame {
         CondominioModel condominio = (CondominioModel) cboxCondominiosCadastrados.getSelectedItem();
 
         if (this.camposPreenchidos()) {
+            String nomeCondominio = txtNomeCondominio.getText();
+            String endCondominio = txtEnderecoCondominio.getText();
+            
+            if (!nomeCondominio.matches(".{4,40}")) {
+                JOptionPane.showMessageDialog(null, "O nome do condomínio deve conter entre 4 e 40 caracteres!");
+                return;
+            }
+            
+            if (!endCondominio.matches("^(?=.*[!@#$%^&*(),.?\":{}|<>])(?=.*\\d).{10,}")) {
+                JOptionPane.showMessageDialog(null, "O endereço do condomínio deve conter mais de 10 caracteres, incluindo pelo menos um caractere especial e um número inteiro!");
+                return;
+            }
+            
             condominio.setNome(txtNomeCondominio.getText());
             condominio.setEndereco(txtEnderecoCondominio.getText());
 

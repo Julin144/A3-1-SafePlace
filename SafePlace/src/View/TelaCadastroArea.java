@@ -220,6 +220,19 @@ public class TelaCadastroArea extends javax.swing.JFrame {
         CadastroAreaRequestDto request = new CadastroAreaRequestDto();
 
         if(this.camposPreenchidos()) {
+            String nomeArea = txtNomeArea.getText();
+            String dosesReq = spnDosesRequisitas.getValue().toString();
+            
+            if (!nomeArea.matches("[a-zA-Z ]{4,}")) {
+                JOptionPane.showMessageDialog(null, "O nome da área deve conter apenas letras e espaços e ter mais de 3 caracteres!");
+                return;
+            }
+            
+            if (!dosesReq.matches("[0-4]")) {
+                JOptionPane.showMessageDialog(null, "O número de doses deve ser entre 0 e 4!");
+                return;
+            }
+            
             request.setDescricao(txtNomeArea.getText());
             request.setDosesRequisitadas((int) spnDosesRequisitas.getValue());
             JOptionPane.showMessageDialog(null, _areaController.cadastrarArea(request));
@@ -284,6 +297,19 @@ public class TelaCadastroArea extends javax.swing.JFrame {
         AreaModel area = (AreaModel)cboxAreas.getSelectedItem();
 
         if(this.camposPreenchidos()) {
+            String nomeArea = txtNomeArea.getText();
+            String dosesReq = spnDosesRequisitas.getValue().toString();
+            
+            if (!nomeArea.matches("[a-zA-Z ]{4,}")) {
+                JOptionPane.showMessageDialog(null, "O nome da área deve conter apenas letras e espaços e ter mais de 3 caracteres!");
+                return;
+            }
+            
+            if (!dosesReq.matches("[0-4]")) {
+                JOptionPane.showMessageDialog(null, "O número de doses deve ser entre 0 e 4!");
+                return;
+            }
+            
             area.setDescricao(txtNomeArea.getText());
             area.setDosesRequisitadas((int) spnDosesRequisitas.getValue());
             

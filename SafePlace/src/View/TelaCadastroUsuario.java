@@ -193,7 +193,20 @@ public class TelaCadastroUsuario extends javax.swing.JFrame {
 
     private void btnCadastroFuncionarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastroFuncionarioActionPerformed
         CadastroUsuarioRequestDto request = new CadastroUsuarioRequestDto();
+        
         if (this.camposPreenchidos()) {
+            String nomeUsuario = txtCadastroNomeUsuario.getText();
+            String senhaUsuario = passwordFieldSenha.getText();
+            
+            if (!nomeUsuario.matches("[a-zA-Z]{5,40}")) {
+                JOptionPane.showMessageDialog(null, "O nome do usuário deve conter apenas letras e ser entre 5 e 40 caracteres!!");
+                return;
+            }
+            if (!senhaUsuario.matches("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@#$%^&+=!]).{8,}$")) {
+                JOptionPane.showMessageDialog(null, "A senha deve conter no mínimo 8 caracteres, incluindo uma letra maiúscula, uma letra minúscula, um número e um caractere especial!");
+                return;
+            }
+            
             request.setLogin(txtCadastroNomeUsuario.getText());
             request.setSenha(passwordFieldSenha.getText());
             request.setTipo(cboxTipoUsuario.getSelectedItem().toString());
@@ -224,6 +237,18 @@ public class TelaCadastroUsuario extends javax.swing.JFrame {
         UsuarioModel user = (UsuarioModel) cboxUsuariosCadastrados.getSelectedItem();
 
         if (this.camposPreenchidos()) {
+            String nomeUsuario = txtCadastroNomeUsuario.getText();
+            String senhaUsuario = passwordFieldSenha.getText();
+            
+            if (!nomeUsuario.matches("[a-zA-Z]{5,40}")) {
+                JOptionPane.showMessageDialog(null, "O nome do usuário deve conter apenas letras e ser entre 5 e 40 caracteres!!");
+                return;
+            }
+            if (!senhaUsuario.matches("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@#$%^&+=!]).{8,}$")) {
+                JOptionPane.showMessageDialog(null, "A senha deve conter no mínimo 8 caracteres, incluindo uma letra maiúscula, uma letra minúscula, um número e um caractere especial!");
+                return;
+            }
+            
             user.setLogin(txtCadastroNomeUsuario.getText());
             user.setSenha(passwordFieldSenha.getText());
             user.setTipo(cboxTipoUsuario.getSelectedItem().toString());
